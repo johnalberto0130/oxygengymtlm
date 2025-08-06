@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
+
     <div class="video-background">
         <video autoplay muted loop>
             <source src="https://assets.mixkit.co/videos/preview/mixkit-gym-room-with-several-machines-1543-large.mp4" type="video/mp4">
@@ -16,17 +17,30 @@
         </video>
     </div>
     <div class="video-overlay"></div>
-    <header></header>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="#hero" class="nav-logo">
+                <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo">
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#hero" class="nav-link">ACCUEIL</a></li>
+                <li class="nav-item"><a href="#trainers" class="nav-link">COACHS</a></li>
+                <li class="nav-item"><a href="#tarifs" class="nav-link">TARIFS</a></li>
+                <li class="nav-item"><a href="gallery.html" class="nav-link">GALLÉRIE</a></li>
+                <li class="nav-item"><a href="giveaways.html" class="nav-link">GIVEAWAYS</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div class="hero-section" id="hero">
         <div class="hero-content">
             <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
-            <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+            <h1>LA DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
             <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
             <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
         </div>
     </div>
-
     <section id="trainers">
         <h2>NOS PROFESSIONNELS COACHS</h2>
         <div class="trainers-slider">
@@ -59,6 +73,30 @@
                     <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Alex Turner">
                     <h3>Alex Turner</h3>
                     <p>Spécialiste de la boxe et des sports de combat.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="#" alt="Coach Samir">
+                    <h3>Samir</h3>
+                    <p>Spécialiste des arts martiaux mixtes (MMA).</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="#" alt="Coach Nabil">
+                    <h3>Nabil</h3>
+                    <p>Spécialiste de la remise en forme pour enfants.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="#" alt="Coach Siham">
+                    <h3>Siham</h3>
+                    <p>Spécialiste en Zumba et Pilates.</p>
                     <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
                         <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
                     </a>
@@ -101,13 +139,9 @@
             </table>
         </div>
     </section>
-
     <section id="documents-section" class="documents-section">
         <div class="container">
-            <h2 class="documents-toggle">
-                Documents requis pour l’inscription
-                <i class="fas fa-chevron-down icon"></i>
-            </h2>
+            <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
             <ul class="documents-list">
                 <li><i class="fas fa-camera"></i>02 Photographies</li>
                 <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
@@ -115,7 +149,6 @@
             </ul>
         </div>
     </section>
-
     <section id="avis">
         <h2>AVIS DE NOS MEMBRES</h2>
         <div class="testimonials-slider">
@@ -147,7 +180,6 @@
             </div>
         </div>
     </section>
-
     <section id="why-us">
         <div class="accordion-header" onclick="toggleAccordion()">
             <h2>POURQUOI OXYGENE GYM ?</h2>
@@ -209,13 +241,11 @@
             </tbody>
         </table>
     </section>
-
     <section id="motivational-message">
         <p class="motivational-quote">
             "N’oubliez pas que votre santé passe avant tout، و OXYGENE GYM هو المكان المثالي للحفاظ عليها. نحن في انتظاركم، لا تتأخروا."
         </p>
     </section>
-
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
@@ -233,7 +263,6 @@
         </div>
         <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
     </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
