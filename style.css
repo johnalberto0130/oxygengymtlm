@@ -612,6 +612,9 @@ footer {
     text-align: center;
     position: relative;
     max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .popup-close-btn {
@@ -637,10 +640,36 @@ footer {
     line-height: 1.4;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.popup-fermer-btn {
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    background: var(--main-color);
+    color: var(--dark-bg);
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.popup-fermer-btn:hover {
+    background: #00e078;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 255, 136, 0.5);
 }
 
 @media (max-width: 768px) {
     .popup-text {
         font-size: 1.2em;
+    }
+    .popup-content {
+        padding: 20px 30px;
+    }
+    .popup-fermer-btn {
+        font-size: 0.9em;
+        padding: 8px 20px;
     }
 }
