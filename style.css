@@ -647,8 +647,8 @@ footer {
     padding: 10px 25px;
     font-size: 1em;
     border: none;
-    background: var(--main-color);
-    color: var(--dark-bg);
+    background: #ff4d4d; /* لون الزر أصبح أحمر */
+    color: white; /* لون النص أصبح أبيض */
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
@@ -656,9 +656,9 @@ footer {
 }
 
 .popup-fermer-btn:hover {
-    background: #00e078;
+    background: #e63946; /* لون أغمق عند المرور */
     transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0, 255, 136, 0.5);
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.5);
 }
 
 @media (max-width: 768px) {
