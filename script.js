@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Popup functionality
 const popupContainer = document.querySelector('.popup-container');
 const popupCloseBtn = document.querySelector('.popup-close-btn');
+const popupFermerBtn = document.querySelector('.popup-fermer-btn');
 
 gsap.from(popupContainer, {
     opacity: 0,
@@ -99,7 +100,7 @@ gsap.from(popupContainer, {
     ease: "power3.out"
 });
 
-popupCloseBtn.addEventListener('click', () => {
+const closePopup = () => {
     gsap.to(popupContainer, {
         opacity: 0,
         scale: 0.8,
@@ -109,4 +110,7 @@ popupCloseBtn.addEventListener('click', () => {
             popupContainer.style.display = 'none';
         }
     });
-});
+};
+
+popupCloseBtn.addEventListener('click', closePopup);
+popupFermerBtn.addEventListener('click', closePopup);
