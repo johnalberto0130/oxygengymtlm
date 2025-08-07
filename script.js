@@ -67,19 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
     documentsToggle.addEventListener('click', () => {
         documentsToggle.classList.toggle('active');
         if (documentsToggle.classList.contains('active')) {
-            gsap.to(documentsList, {
-                height: 'auto',
-                opacity: 1,
-                duration: 0.5,
-                ease: 'power2.inOut'
-            });
+            gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
         } else {
-            gsap.to(documentsList, {
-                height: 0,
-                opacity: 0,
-                duration: 0.5,
-                ease: 'power2.inOut'
-            });
+            gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
         }
     });
 });
@@ -96,4 +86,27 @@ window.addEventListener('resize', () => {
 document.addEventListener('DOMContentLoaded', () => {
     moveTrainerSlider(0);
     moveTestimonialSlider(0);
+});
+
+// Popup functionality
+const popupContainer = document.querySelector('.popup-container');
+const popupCloseBtn = document.querySelector('.popup-close-btn');
+
+gsap.from(popupContainer, {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.6,
+    ease: "power3.out"
+});
+
+popupCloseBtn.addEventListener('click', () => {
+    gsap.to(popupContainer, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+            popupContainer.style.display = 'none';
+        }
+    });
 });
