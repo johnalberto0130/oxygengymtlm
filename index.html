@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,270 +10,258 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <div class="video-background">
-        <video autoplay muted loop>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-gym-room-with-several-machines-1543-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+
+<div class="popup-container">
+    <div class="popup-content">
+        <span class="popup-close-btn">&times;</span>
+        <p class="popup-text">Marhbaa bikom 3nd La Salle OXYGENE GYM..<br>La salle N°1 dans La willaya de TLEMCEN</p>
     </div>
-    <div class="video-overlay"></div>
+</div>
 
-    <header></header>
+<header></header>
 
-    <div class="hero-section" id="hero">
-        <div class="hero-content">
-            <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
-            <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
-            <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
-            <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+<div class="hero-section" id="hero">
+    <div class="hero-content">
+        <img src="https://i.imgur.com/m807YCj.jpeg" alt="OXYGENE GYM Logo" class="logo-img">
+        <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+        <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+        <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+    </div>
+</div>
+
+<section id="trainers">
+    <h2>NOS PROFESSIONNELS COACHS</h2>
+    <div class="trainers-slider">
+        <div class="trainers-wrapper">
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
+                <h3>Coach Zakaria</h3>
+                <p>Spécialiste de la musculation et de la prise de masse.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
+                <h3>Coach Ahlem</h3>
+                <p>Expert en perte de poids et en nutrition pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
+                <h3>Coach Yasmine</h3>
+                <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
+                <h3>Coach Amine</h3>
+                <p>Spécialiste de la boxe et des sports de combat.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
+                <h3>Coach Samir</h3>
+                <p>Spécialiste des arts martiaux mixtes (MMA).</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
+                <h3>Coach Nabil</h3>
+                <p>Spécialiste de la remise en forme pour enfants.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
+                <h3>Coach Siham</h3>
+                <p>Spécialiste en Zumba et Pilates.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
+</section>
 
-    <section id="trainers">
-        <h2>NOS PROFESSIONNELS COACHS</h2>
-        <div class="trainers-slider">
-            <div class="trainers-wrapper">
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
-                    <h3>Coach Zakaria</h3>
-                    <p>Spécialiste de la musculation et de la prise de masse.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
-                    <h3>Coach Ahlem</h3>
-                    <p>Expert en perte de poids et en nutrition pour femmes.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
-                    <h3>Coach Yasmine</h3>
-                    <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
-                    <h3>Coach Amine</h3>
-                    <p>Spécialiste de la boxe et des sports de combat.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
-                    <h3>Coach Samir</h3>
-                    <p>Spécialiste des arts martiaux mixtes (MMA).</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
-                    <h3>Coach Nabil</h3>
-                    <p>Spécialiste de la remise en forme pour enfants.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-                <div class="trainer-card">
-                    <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
-                    <h3>Coach Siham</h3>
-                    <p>Spécialiste en Zumba et Pilates.</p>
-                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Contactez votre coach</span>
-                    </a>
-                </div>
-
-                </div>
-            <div class="slider-nav">
-                <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
-                <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </section>
-
-    <section id="tarifs">
-        <h2>NOS TARIFS</h2>
-        <div class="pricing-table-container">
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th>PACK</th>
-                        <th>PRIX</th>
-                        <th>AVANTAGES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>6 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
-                        <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
-                    </tr>
-                    <tr>
-                        <td>4 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
-                        <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
-                    </tr>
-                    <tr>
-                        <td>3 SÉANCES / SEMAINE</td>
-                        <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
-                        <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section id="documents-section" class="documents-section">
-        <div class="container">
-            <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
-            <ul class="documents-list">
-                <li><i class="fas fa-camera"></i>02 Photographies</li>
-                <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
-                <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="avis">
-        <h2>AVIS DE NOS MEMBRES</h2>
-        <div class="testimonials-slider">
-            <div class="testimonials-wrapper">
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
-                    <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
-                    <div class="author">- Issam, 27 ans</div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
-                    <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
-                    <div class="author">- Marwa, 25 ans</div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
-                    <p>"Avec le temps, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
-                    <div class="author">- Zohir, 62 ans</div>
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
-                    <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une vraie famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
-                    <div class="author">- Walid, 22 ans</div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
-                <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </section>
-
-    <section id="why-us">
-        <div class="accordion-header" onclick="toggleAccordion()">
-            <h2>POURQUOI OXYGENE GYM ?</h2>
-            <i class="fas fa-chevron-down icon"></i>
-        </div>
-        <div class="accordion-content">
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;">
-                Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen.
-Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse.
-Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités.
-            </p>
-            <div class="why-us-container">
-                <div class="why-us-item">
-                    <i class="fas fa-dumbbell icon"></i>
-                    <div>
-                        <h3>Équipements Modernes</h3>
-                        <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
-                    </div>
-                </div>
-                <div class="why-us-item">
-                    <i class="fas fa-users-line icon"></i>
-                    <div>
-                        <h3>Coaching Professionnel</h3>
-                        <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
-                    </div>
-                </div>
-                <div class="why-us-item">
-                    <i class="fas fa-hand-holding-heart icon"></i>
-                    <div>
-                        <h3>Ambiance Familiale</h3>
-                        <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="hours">
-        <h2>HEURES D'OUVERTURE</h2>
-        <table class="hours-table">
+<section id="tarifs">
+    <h2>NOS TARIFS</h2>
+    <div class="pricing-table-container">
+        <table class="pricing-table">
             <thead>
                 <tr>
-                    <th>Jour</th>
-                    <th>Heures</th>
+                    <th>PACK</th>
+                    <th>PRIX</th>
+                    <th>AVANTAGES</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="gender-row">
-                    <td>Hommes</td>
-                    <td></td>
+                <tr>
+                    <td>6 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                    <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
                 </tr>
                 <tr>
-                    <td>Samedi - Jeudi</td>
-                    <td>08:00 - 22:00</td>
-                </tr>
-                <tr class="gender-row">
-                    <td>Femmes</td>
-                    <td></td>
+                    <td>4 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
                 </tr>
                 <tr>
-                    <td>Samedi - Mercredi</td>
-                    <td>14:00 - 17:45</td>
+                    <td>3 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
                 </tr>
             </tbody>
         </table>
-    </section>
+    </div>
+</section>
 
-    <section id="motivational-message">
-        <p class="motivational-quote">
-            "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
-        </p>
-    </section>
+<section id="documents-section" class="documents-section">
+    <div class="container">
+        <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
+        <ul class="documents-list">
+            <li><i class="fas fa-camera"></i>02 Photographies</li>
+            <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
+            <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
+        </ul>
+    </div>
+</section>
 
-    <footer>
-        <div class="social-icons">
-            <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
-                <i class="fas fa-map-marker-alt"></i>
-            </a>
-            <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
-                <i class="fab fa-tiktok"></i>
-            </a>
-            <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
+<section id="avis">
+    <h2>AVIS DE NOS MEMBRES</h2>
+    <div class="testimonials-slider">
+        <div class="testimonials-wrapper">
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
+                <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
+                <div class="author">- Issam, 27 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
+                <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
+                <div class="author">- Marwa, 25 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
+                <p>"Avec le temps, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
+                <div class="author">- Zohir, 62 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
+                <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une vraie famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
+                <div class="author">- Walid, 22 ans</div>
+            </div>
         </div>
-        <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
-    </footer>
+        <div class="slider-nav">
+            <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+<section id="why-us">
+    <div class="accordion-header" onclick="toggleAccordion()">
+        <h2>POURQUOI OXYGENE GYM ?</h2>
+        <i class="fas fa-chevron-down icon"></i>
+    </div>
+    <div class="accordion-content">
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
+        <div class="why-us-container">
+            <div class="why-us-item">
+                <i class="fas fa-dumbbell icon"></i>
+                <div>
+                    <h3>Équipements Modernes</h3>
+                    <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-users-line icon"></i>
+                <div>
+                    <h3>Coaching Professionnel</h3>
+                    <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-hand-holding-heart icon"></i>
+                <div>
+                    <h3>Ambiance Familiale</h3>
+                    <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="hours">
+    <h2>HEURES D'OUVERTURE</h2>
+    <table class="hours-table">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>Heures</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gender-row">
+                <td>Hommes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Jeudi</td>
+                <td>08:00 - 22:00</td>
+            </tr>
+            <tr class="gender-row">
+                <td>Femmes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Mercredi</td>
+                <td>14:00 - 17:45</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="motivational-message">
+    <p class="motivational-quote">
+        "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
+    </p>
+</section>
+
+<footer>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+        <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
