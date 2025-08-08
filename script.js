@@ -1,3 +1,4 @@
+// Initialisation مكتبة الرسوم المتحركة GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 // Hero section animation
@@ -59,48 +60,30 @@ function toggleAccordion() {
     accordionContent.classList.toggle('open');
 }
 
-// Accordion for "Documents" section
-document.addEventListener('DOMContentLoaded', () => {
-    const documentsToggle = document.querySelector('.documents-toggle');
-    const documentsList = document.querySelector('.documents-list');
-
-    documentsToggle.addEventListener('click', () => {
-        documentsToggle.classList.toggle('active');
-        if (documentsToggle.classList.contains('active')) {
-            gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
-        } else {
-            gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-        }
-    });
-});
-
-// Reset sliders on window resize
-window.addEventListener('resize', () => {
-    currentTrainerIndex = 0;
-    moveTrainerSlider(0);
-    currentTestimonialIndex = 0;
-    moveTestimonialSlider(0);
-});
-
-// Initial slider setup
-document.addEventListener('DOMContentLoaded', () => {
-    moveTrainerSlider(0);
-    moveTestimonialSlider(0);
-});
-
 // Popup functionality
 const popupContainer = document.querySelector('.popup-container');
 const popupCloseBtn = document.querySelector('.popup-close-btn');
 const popupFermerBtn = document.querySelector('.popup-fermer-btn');
 
-gsap.from(popupContainer, {
-    opacity: 0,
-    scale: 0.8,
-    duration: 0.6,
-    ease: "power3.out"
-});
+// متغير لـ مقطع الصوت
+let backgroundAudio;
 
+const showPopup = () => {
+    // إظهار الرسالة بعد 1.5 ثانية
+    setTimeout(() => {
+        gsap.fromTo(popupContainer, 
+            { opacity: 0, scale: 0.8, display: 'flex' },
+            { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }
+        );
+    }, 1500);
+};
+
+// وظيفة لإغلاق الرسالة المنبثقة وتشغيل الصوت
 const closePopup = () => {
+    // تشغيل الموسيقى بعد إغلاق النافذة المنبثقة
+    // تم تعديل هذا السطر لتشغيل الصوت مرة واحدة فقط
+    playBackgroundMusicOnce('https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3'); 
+    // استخدام GSAP لإغلاق النافذة المنبثقة
     gsap.to(popupContainer, {
         opacity: 0,
         scale: 0.8,
@@ -112,5 +95,49 @@ const closePopup = () => {
     });
 };
 
-popupCloseBtn.addEventListener('click', closePopup);
-popupFermerBtn.addEventListener('click', closePopup);
+// وظيفة لإنشاء وتشغيل مقطع صوتي مرة واحدة في الخلفية
+const playBackgroundMusicOnce = (audioUrl) => {
+    if (!backgroundAudio) {
+        backgroundAudio = new Audio(audioUrl);
+        backgroundAudio.volume = 0.5; // تعديل مستوى الصوت (0.0 إلى 1.0)
+    }
+    backgroundAudio.play();
+};
+
+
+if (popupCloseBtn) {
+    popupCloseBtn.addEventListener('click', closePopup);
+}
+if (popupFermerBtn) {
+    popupFermerBtn.addEventListener('click', closePopup);
+}
+
+// Accordion for "Documents" section
+document.addEventListener('DOMContentLoaded', () => {
+    const documentsToggle = document.querySelector('.documents-toggle');
+    const documentsList = document.querySelector('.documents-list');
+
+    if (documentsToggle && documentsList) {
+        documentsToggle.addEventListener('click', () => {
+            documentsToggle.classList.toggle('active');
+            if (documentsToggle.classList.contains('active')) {
+                // استخدام GSAP لفتح القائمة بسلاسة
+                gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
+            } else {
+                // استخدام GSAP لإغلاق القائمة بسلاسة
+                gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+            }
+        });
+    }
+
+    // إظهار رسالة الترحيب المنبثقة عند تحميل الصفحة
+    showPopup();
+});
+
+// Reset sliders on window resize
+window.addEventListener('resize', () => {
+    currentTrainerIndex = 0;
+    moveTrainerSlider(0);
+    currentTestimonialIndex = 0;
+    moveTestimonialSlider(0);
+});
