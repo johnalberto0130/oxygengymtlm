@@ -1,226 +1,266 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXYGENE GYM</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
-<!-- رسالة ترحيبية منبثقة -->
 <div class="popup-container">
     <div class="popup-content">
         <span class="popup-close-btn">&times;</span>
-        <p class="popup-text">أهلاً بك في عالم OXYGENE GYM الجديد 🚀</p>
-        <button class="popup-fermer-btn">إغلاق</button>
+        <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>La Salle N°1 dans La wilaya de Tlemcen 🏆 </p>
+        <button class="popup-fermer-btn">Fermer</button>
     </div>
 </div>
 
-<header class="main-header">
-    <div class="container">
-        <a href="#" class="logo-link">
-            <img src="https://i.ibb.co/L95x35K/New-Project-2-removebg-preview-1.png" alt="شعار OXYGENE GYM" class="header-logo">
-        </a>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#trainers">المدربين</a></li>
-                <li><a href="#tarifs">الأسعار</a></li>
-                <li><a href="#avis">الآراء</a></li>
-                <li><a href="#why-us">لماذا نحن؟</a></li>
-            </ul>
-        </nav>
-        <button class="nav-toggle-btn"><i class="fas fa-bars"></i></button>
-    </div>
-</header>
+<header></header>
 
-<!-- قسم البطل (Hero Section) -->
-<div class="hero-section">
+<div class="hero-section" id="hero">
     <div class="hero-content">
-        <h1 class="hero-title" data-aos="fade-up">قوة اليوم هي عضلات الغد</h1>
-        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">ابدأ رحلتك نحو حياة أفضل</p>
-        <a href="#tarifs" class="btn" data-aos="fade-up" data-aos-delay="400">اكتشف باقاتنا <i class="fas fa-arrow-down"></i></a>
+        <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="logo-img">
+        <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+        <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+        <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
     </div>
 </div>
 
-<!-- قسم المدربين -->
 <section id="trainers">
-    <h2 data-aos="fade-right">مدربونا المحترفون</h2>
-    <div class="trainers-grid" data-aos="fade-up">
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="المدرب زكريا">
-            <h3>المدرب زكريا</h3>
-            <p>متخصص في كمال الأجسام وبناء الكتلة العضلية.</p>
+    <h2>NOS PROFESSIONNELS COACHS</h2>
+    <div class="trainers-slider">
+        <div class="trainers-wrapper">
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
+                <h3>Coach Zakaria</h3>
+                <p>Spécialiste de la musculation et de la prise de masse.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
+                <h3>Coach Ahlem</h3>
+                <p>Expert en perte de poids et en nutrition pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
+                <h3>Coach Yasmine</h3>
+                <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
+                <h3>Coach Amine</h3>
+                <p>Spécialiste de la boxe et des sports de combat.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
+                <h3>Coach Samir</h3>
+                <p>Spécialiste des arts martiaux mixtes (MMA).</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
+                <h3>Coach Nabil</h3>
+                <p>Spécialiste de la remise en forme pour enfants.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
+                <h3>Coach Siham</h3>
+                <p>Spécialiste en Zumba et Pilates.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
         </div>
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="المدربة أحلام">
-            <h3>المدربة أحلام</h3>
-            <p>خبيرة في برامج فقدان الوزن والتغذية للنساء.</p>
-        </div>
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="المدربة ياسمين">
-            <h3>المدربة ياسمين</h3>
-            <p>متخصصة في اللياقة البدنية والتدريب الوظيفي.</p>
-        </div>
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="المدرب أمين">
-            <h3>المدرب أمين</h3>
-            <p>متخصص في فنون الدفاع عن النفس والملاكمة.</p>
-        </div>
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="المدرب سمير">
-            <h3>المدرب سمير</h3>
-            <p>متخصص في فنون القتال المختلط (MMA).</p>
-        </div>
-        <div class="trainer-card">
-            <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="المدرب نبيل">
-            <h3>المدرب نبيل</h3>
-            <p>متخصص في اللياقة البدنية وإعادة التأهيل.</p>
+        <div class="slider-nav">
+            <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </section>
 
-<!-- قسم الأسعار -->
-<section id="tarifs" class="dark-section">
-    <h2 data-aos="fade-left">باقاتنا الشهرية</h2>
-    <div class="pricing-container" data-aos="fade-up">
-        <div class="pricing-card">
-            <div class="card-header">
-                <span class="plan-name">3 حصص / أسبوع</span>
-            </div>
-            <div class="card-body">
-                <span class="price">2999 <span class="currency">د.ج / شهر</span></span>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> وصول 3 مرات أسبوعياً</li>
-                    <li><i class="fas fa-check-circle"></i> تقييم اللياقة البدنية</li>
-                    <li><i class="fas fa-check-circle"></i> منطقة تمارين الكارديو والقوة</li>
-                </ul>
-                <a href="#" class="btn-subscribe">اشترك الآن</a>
-            </div>
-        </div>
-        <div class="pricing-card main-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="card-header">
-                <span class="plan-name">4 حصص / أسبوع</span>
-            </div>
-            <div class="card-body">
-                <span class="price">3499 <span class="currency">د.ج / شهر</span></span>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> وصول 4 مرات أسبوعياً</li>
-                    <li><i class="fas fa-check-circle"></i> خطة تدريب أساسية</li>
-                    <li><i class="fas fa-check-circle"></i> دعم وتوجيه من المدربين</li>
-                </ul>
-                <a href="#" class="btn-subscribe">الأكثر شيوعاً</a>
-            </div>
-        </div>
-        <div class="pricing-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="card-header">
-                <span class="plan-name">6 حصص / أسبوع</span>
-            </div>
-            <div class="card-body">
-                <span class="price">3999 <span class="currency">د.ج / شهر</span></span>
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> وصول غير محدود</li>
-                    <li><i class="fas fa-check-circle"></i> برنامج تدريب شخصي</li>
-                    <li><i class="fas fa-check-circle"></i> متابعة التغذية</li>
-                </ul>
-                <a href="#" class="btn-subscribe">اشترك الآن</a>
-            </div>
-        </div>
+<section id="tarifs">
+    <h2>NOS TARIFS</h2>
+    <div class="pricing-table-container">
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>PACK</th>
+                    <th>PRIX</th>
+                    <th>AVANTAGES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>6 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                    <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                </tr>
+                <tr>
+                    <td>4 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                </tr>
+                <tr>
+                    <td>3 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 
-<!-- قسم الوثائق -->
-<section id="documents-section">
-    <div class="container" data-aos="zoom-in">
-        <h2 class="documents-toggle"> الوثائق المطلوبة للتسجيل <i class="fas fa-chevron-down icon"></i> </h2>
+<section id="documents-section" class="documents-section">
+    <div class="container">
+        <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
         <ul class="documents-list">
-            <li><i class="fas fa-camera"></i> 02 صور شخصية</li>
-            <li><i class="fas fa-id-card"></i> نسخة من بطاقة الهوية</li>
-            <li><i class="fas fa-notes-medical"></i> شهادة صحية</li>
+            <li><i class="fas fa-camera"></i>02 Photographies</li>
+            <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
+            <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
         </ul>
     </div>
 </section>
 
-<!-- قسم لماذا نحن؟ -->
-<section id="why-us" class="dark-section">
-    <h2 data-aos="fade-right">لماذا OXYGENE GYM؟</h2>
-    <div class="features-grid">
-        <div class="feature-item" data-aos="fade-up">
-            <i class="fas fa-dumbbell icon"></i>
-            <h3>أحدث المعدات</h3>
-            <p>نقدم أحدث الأجهزة لضمان تمارين فعّالة وآمنة.</p>
-        </div>
-        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
-            <i class="fas fa-users-line icon"></i>
-            <h3>تدريب احترافي</h3>
-            <p>مدربون معتمدون يرافقونك خطوة بخطوة لتحقيق أهدافك.</p>
-        </div>
-        <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-            <i class="fas fa-hand-holding-heart icon"></i>
-            <h3>جو عائلي</h3>
-            <p>أجواء داعمة ومشجعة تجعلك تشعر وكأنك في بيتك الثاني.</p>
-        </div>
-        <div class="feature-item" data-aos="fade-up" data-aos-delay="600">
-            <i class="fas fa-heartbeat icon"></i>
-            <h3>صحتك أولاً</h3>
-            <p>نضع صحتك وسلامتك على رأس أولوياتنا في كل حصة تدريبية.</p>
-        </div>
-    </div>
-</section>
-
-<!-- قسم ساعات العمل -->
-<section id="hours">
-    <h2 data-aos="fade-left">ساعات العمل</h2>
-    <div class="hours-container" data-aos="fade-up">
-        <div class="hours-card">
-            <h3>للرجال</h3>
-            <p>السبت - الخميس</p>
-            <span>08:00 - 22:00</span>
-        </div>
-        <div class="hours-card">
-            <h3>للنساء</h3>
-            <p>السبت - الأربعاء</p>
-            <span>14:00 - 17:45</span>
-        </div>
-    </div>
-</section>
-
-<!-- قسم التواصل -->
-<section id="contact-us">
-    <h2 data-aos="zoom-in">تواصل معنا</h2>
-    <div class="contact-grid">
-        <div class="contact-info" data-aos="fade-right">
-            <h3>معلومات الاتصال</h3>
-            <p><i class="fas fa-envelope"></i> البريد الإلكتروني: contact@oxygene.dz</p>
-            <p><i class="fas fa-phone"></i> الهاتف: +213 555 555 555</p>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
-                <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank"><i class="fab fa-instagram"></i></a>
+<section id="avis">
+    <h2>AVIS DE NOS MEMBRES</h2>
+    <div class="testimonials-slider">
+        <div class="testimonials-wrapper">
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
+                <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
+                <div class="author">- Issam, 27 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
+                <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
+                <div class="author">- Marwa, 25 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
+                <p>"Avec l'âge, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
+                <div class="author">- Zohir, 62 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
+                <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une seule famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
+                <div class="author">- Walid, 22 ans</div>
             </div>
         </div>
-        <div class="contact-form" data-aos="fade-left">
-            <h3>أرسل لنا رسالة</h3>
-            <form action="#">
-                <input type="text" placeholder="اسمك الكامل" required>
-                <input type="email" placeholder="بريدك الإلكتروني" required>
-                <textarea placeholder="رسالتك" required></textarea>
-                <button type="submit" class="btn">إرسال الرسالة</button>
-            </form>
+        <div class="slider-nav">
+            <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </section>
 
-<!-- تذييل الصفحة -->
+<section id="why-us">
+    <div class="accordion-header" onclick="toggleAccordion()">
+        <h2>POURQUOI OXYGENE GYM ?</h2>
+        <i class="fas fa-chevron-down icon"></i>
+    </div>
+    <div class="accordion-content">
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
+        <div class="why-us-container">
+            <div class="why-us-item">
+                <i class="fas fa-dumbbell icon"></i>
+                <div>
+                    <h3>Équipements Modernes</h3>
+                    <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-users-line icon"></i>
+                <div>
+                    <h3>Coaching Professionnel</h3>
+                    <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-hand-holding-heart icon"></i>
+                <div>
+                    <h3>Ambiance Familiale</h3>
+                    <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="hours">
+    <h2>HEURES D'OUVERTURE</h2>
+    <table class="hours-table">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>Heures</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gender-row">
+                <td>Hommes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Jeudi</td>
+                <td>08:00 - 22:00</td>
+            </tr>
+            <tr class="gender-row">
+                <td>Femmes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Mercredi</td>
+                <td>14:00 - 17:45</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section id="motivational-message">
+    <p class="motivational-quote">
+        "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
+    </p>
+</section>
+
 <footer>
-    <p>© 2025 OXYGENE GYM. جميع الحقوق محفوظة.</p>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+        <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="script.js"></script>
 
 </body>
