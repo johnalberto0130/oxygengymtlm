@@ -682,10 +682,8 @@
 </head>
 <body>
 
-    <!-- إضافة المقطع الصوتي هنا -->
     <audio id="bg-audio" loop>
-        <!-- قم بتغيير مسار "src" إلى مسار ملف الـ mp3 الخاص بك -->
-        <source src="path/to/your/audio.mp3" type="audio/mpeg">
+        <source src="https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3" type="audio/mpeg">
         متصفحك لا يدعم عنصر الصوت.
     </audio>
 
@@ -967,10 +965,7 @@
         const popupContainer = document.querySelector('.popup-container');
         const popupCloseBtn = document.querySelector('.popup-close-btn');
         const popupFermerBtn = document.querySelector('.popup-fermer-btn');
-        
-        if (popupContainer) {
-            popupContainer.style.display = 'none';
-        }
+        const audio = document.getElementById('bg-audio');
 
         function closePopup() {
             if (popupContainer) {
@@ -986,14 +981,12 @@
         }
         
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                if (popupContainer) {
-                    popupContainer.style.display = 'flex';
-                }
-            }, 1000); 
+            // عرض النافذة المنبثقة مباشرة عند تحميل الصفحة
+            if (popupContainer) {
+                popupContainer.style.display = 'flex';
+            }
 
-            // محاولة تشغيل الصوت تلقائيًا
-            const audio = document.getElementById('bg-audio');
+            // تشغيل الصوت تلقائيًا
             if (audio) {
                 audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
             }
