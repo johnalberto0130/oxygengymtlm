@@ -596,7 +596,6 @@
             color: var(--orange-light);
         }
 
-        /* تنسيقات النافذة المنبثقة */
         .popup-container {
             position: fixed;
             top: 0;
@@ -682,6 +681,13 @@
     </style>
 </head>
 <body>
+
+    <!-- إضافة المقطع الصوتي هنا -->
+    <audio id="bg-audio" loop>
+        <!-- قم بتغيير مسار "src" إلى مسار ملف الـ mp3 الخاص بك -->
+        <source src="path/to/your/audio.mp3" type="audio/mpeg">
+        متصفحك لا يدعم عنصر الصوت.
+    </audio>
 
     <div class="popup-container">
         <div class="popup-content">
@@ -935,16 +941,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
-        // Initialisation مكتبة الرسوم المتحركة GSAP
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero section animation
         gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
         gsap.from(".hero-content h1", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5 });
         gsap.from(".hero-content p", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1 });
         gsap.from(".hero-content .btn", { duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1.5 });
 
-        // Fade-in animation for sections on scroll
         const sections = ["#trainers", "#tarifs", "#documents-section", "#avis", "#why-us", "#hours", "#motivational-message"];
         
         sections.forEach(section => {
@@ -961,24 +964,20 @@
             });
         });
 
-        // كود التحكم بالنافذة المنبثقة
         const popupContainer = document.querySelector('.popup-container');
         const popupCloseBtn = document.querySelector('.popup-close-btn');
         const popupFermerBtn = document.querySelector('.popup-fermer-btn');
         
-        // إخفاء النافذة المنبثقة بشكل افتراضي عند تحميل الصفحة
         if (popupContainer) {
             popupContainer.style.display = 'none';
         }
 
-        // دالة لإغلاق النافذة المنبثقة بشكل دائم
         function closePopup() {
             if (popupContainer) {
                 popupContainer.style.display = 'none';
             }
         }
 
-        // ربط أزرار الإغلاق بالدالة
         if (popupCloseBtn) {
             popupCloseBtn.addEventListener('click', closePopup);
         }
@@ -986,16 +985,20 @@
             popupFermerBtn.addEventListener('click', closePopup);
         }
         
-        // عرض النافذة المنبثقة بعد ثانية واحدة من تحميل الصفحة
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 if (popupContainer) {
                     popupContainer.style.display = 'flex';
                 }
-            }, 1000); // 1000 ملي ثانية = 1 ثانية
+            }, 1000); 
+
+            // محاولة تشغيل الصوت تلقائيًا
+            const audio = document.getElementById('bg-audio');
+            if (audio) {
+                audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
+            }
         });
 
-        // Slider functionality
         let currentTrainer = 0;
         const trainersWrapper = document.querySelector('.trainers-wrapper');
         const trainerCards = document.querySelectorAll('.trainer-card');
@@ -1012,13 +1015,12 @@
         }
 
         function updateTrainerSlider() {
-            const cardWidth = trainerCards[0].offsetWidth + 20; // 20px is the gap
+            const cardWidth = trainerCards[0].offsetWidth + 20; 
             trainersWrapper.style.transform = `translateX(-${currentTrainer * cardWidth}px)`;
         }
 
         window.addEventListener('resize', updateTrainerSlider);
 
-        // Testimonials slider
         let currentTestimonial = 0;
         const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
         const testimonialCards = document.querySelectorAll('.testimonial-card');
@@ -1035,13 +1037,12 @@
         }
 
         function updateTestimonialSlider() {
-            const cardWidth = testimonialCards[0].offsetWidth + 20; // 20px is the gap
+            const cardWidth = testimonialCards[0].offsetWidth + 20; 
             testimonialsWrapper.style.transform = `translateX(-${currentTestimonial * cardWidth}px)`;
         }
 
         window.addEventListener('resize', updateTestimonialSlider);
 
-        // Accordion functionality for "POURQUOI OXYGENE GYM ?"
         function toggleAccordion() {
             const accordionHeader = document.querySelector('.accordion-header');
             const accordionContent = document.querySelector('.accordion-content');
@@ -1049,7 +1050,6 @@
             accordionContent.classList.toggle('open');
         }
 
-        // Accordion functionality for "Documents requis pour l’inscription"
         const documentsToggle = document.querySelector('.documents-toggle');
         const documentsList = document.querySelector('.documents-list');
         
