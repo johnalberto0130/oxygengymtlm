@@ -1,111 +1,116 @@
-// Initialisation مكتبة الرسوم المتحركة GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-// Initialisation مكتبة AOS للرسوم المتحركة عند التمرير
-document.addEventListener('DOMContentLoaded', () => {
-    // Note: The original code had AOS.init() here. Since the HTML was not provided in this conversation, I'm commenting it out to avoid errors.
-    // AOS.init({
-    //     duration: 800, // مدة الرسوم المتحركة
-    //     once: true,    // تفعيل الرسوم المتحركة مرة واحدة
-    //     offset: 50,    // إزاحة لتفعيل الرسوم المتحركة قبل الوصول للعنصر
-    //     easing: 'ease-in-out', // نوع التباطؤ
-    // });
+// Hero section animation
+gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
+gsap.from(".hero-content h1", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5 });
+gsap.from(".hero-content p", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1 });
+gsap.from(".hero-content .btn", { duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1.5 });
 
-    // إظهار رسالة الترحيب المنبثقة
-    showPopup();
+// Fade-in animation for sections on scroll
+const sections = ["#trainers", "#tarifs", "#documents-section", "#avis", "#why-us", "#hours", "#motivational-message"];
+sections.forEach(section => {
+    gsap.from(section, {
+        scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none none"
+        },
+        y: 100,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out"
+    });
 });
 
-// متغير لـ مقطع الصوت
-let backgroundAudio;
+// Trainer slider functionality
+const trainersWrapper = document.querySelector('.trainers-wrapper');
+const totalTrainers = document.querySelectorAll('.trainer-card').length;
+let currentTrainerIndex = 0;
 
-// وظيفة لإظهار الرسالة المنبثقة
-const showPopup = () => {
-    const popupContainer = document.querySelector('.popup-container');
-    // إظهار الرسالة بعد 1.5 ثانية
-    setTimeout(() => {
-        popupContainer.classList.add('active');
-    }, 1500);
-};
-
-// وظيفة لإغلاق الرسالة المنبثقة وتشغيل الصوت
-const closePopup = () => {
-    const popupContainer = document.querySelector('.popup-container');
-    popupContainer.classList.remove('active');
-    // تشغيل الموسيقى بعد إغلاق النافذة المنبثقة
-    playBackgroundMusic('https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3'); // تم تحديث هذا الرابط
-};
-
-// وظيفة لإنشاء وتشغيل مقطع صوتي في الخلفية
-const playBackgroundMusic = (audioUrl) => {
-    if (!backgroundAudio) {
-        backgroundAudio = new Audio(audioUrl);
-        backgroundAudio.loop = true; // تكرار المقطع الصوتي
-        backgroundAudio.volume = 0.5; // تعديل مستوى الصوت (0.0 إلى 1.0)
-    }
-    backgroundAudio.play();
-};
-
-const popupCloseBtn = document.querySelector('.popup-close-btn');
-const popupFermerBtn = document.querySelector('.popup-fermer-btn');
-
-if (popupCloseBtn) {
-    popupCloseBtn.addEventListener('click', closePopup);
-}
-if (popupFermerBtn) {
-    popupFermerBtn.addEventListener('click', closePopup);
+function moveTrainerSlider(direction) {
+    const gap = 20;
+    const cardWidth = document.querySelector('.trainer-card').offsetWidth;
+    const cardsToShow = window.innerWidth <= 768 ? 1 : 4;
+    currentTrainerIndex = (currentTrainerIndex + direction + totalTrainers) % totalTrainers;
+    let translateX = -currentTrainerIndex * (cardWidth + gap);
+    trainersWrapper.style.transform = `translateX(${translateX}px)`;
 }
 
-// التحكم في قائمة التنقل الجانبية للأجهزة الصغيرة
-const navToggleBtn = document.querySelector('.nav-toggle-btn');
-const mainNav = document.querySelector('.main-nav');
-const navLinks = document.querySelectorAll('.main-nav a');
+// Testimonial slider functionality
+const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+const totalTestimonials = document.querySelectorAll('.testimonial-card').length;
+let currentTestimonialIndex = 0;
 
-if (navToggleBtn && mainNav) {
-    navToggleBtn.addEventListener('click', () => {
-        mainNav.classList.toggle('active');
-    });
+function moveTestimonialSlider(direction) {
+    const gap = 20;
+    const cardWidth = document.querySelector('.testimonial-card').offsetWidth;
+    const cardsToShow = window.innerWidth <= 768 ? 1 : 3;
+    currentTestimonialIndex = (currentTestimonialIndex + direction + totalTestimonials) % totalTestimonials;
+    let translateX = -currentTestimonialIndex * (cardWidth + gap);
+    testimonialsWrapper.style.transform = `translateX(${translateX}px)`;
 }
 
-// إغلاق القائمة عند النقر على رابط
-if (navLinks) {
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (mainNav) {
-                mainNav.classList.remove('active');
-            }
-        });
-    });
+// Accordion for "Why us" section
+function toggleAccordion() {
+    const accordionHeader = document.querySelector('.accordion-header');
+    const accordionContent = document.querySelector('.accordion-content');
+    accordionHeader.classList.toggle('active');
+    accordionContent.classList.toggle('open');
 }
 
-
-// تغيير لون خلفية الهيدر عند التمرير
-const mainHeader = document.querySelector('.main-header');
-
-window.addEventListener('scroll', () => {
-    if (mainHeader) {
-        if (window.scrollY > 50) {
-            mainHeader.classList.add('scrolled');
-        } else {
-            mainHeader.classList.remove('scrolled');
-        }
-    }
-});
-
-// التحكم في قسم الوثائق (accordion)
+// Accordion for "Documents" section
 document.addEventListener('DOMContentLoaded', () => {
     const documentsToggle = document.querySelector('.documents-toggle');
     const documentsList = document.querySelector('.documents-list');
 
-    if (documentsToggle && documentsList) {
-        documentsToggle.addEventListener('click', () => {
-            documentsToggle.classList.toggle('active');
-            if (documentsToggle.classList.contains('active')) {
-                // استخدام GSAP لفتح القائمة بسلاسة
-                gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
-            } else {
-                // استخدام GSAP لإغلاق القائمة بسلاسة
-                gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-            }
-        });
-    }
+    documentsToggle.addEventListener('click', () => {
+        documentsToggle.classList.toggle('active');
+        if (documentsToggle.classList.contains('active')) {
+            gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
+        } else {
+            gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+        }
+    });
 });
+
+// Reset sliders on window resize
+window.addEventListener('resize', () => {
+    currentTrainerIndex = 0;
+    moveTrainerSlider(0);
+    currentTestimonialIndex = 0;
+    moveTestimonialSlider(0);
+});
+
+// Initial slider setup
+document.addEventListener('DOMContentLoaded', () => {
+    moveTrainerSlider(0);
+    moveTestimonialSlider(0);
+});
+
+// Popup functionality
+const popupContainer = document.querySelector('.popup-container');
+const popupCloseBtn = document.querySelector('.popup-close-btn');
+const popupFermerBtn = document.querySelector('.popup-fermer-btn');
+
+gsap.from(popupContainer, {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.6,
+    ease: "power3.out"
+});
+
+const closePopup = () => {
+    gsap.to(popupContainer, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+            popupContainer.style.display = 'none';
+        }
+    });
+};
+
+popupCloseBtn.addEventListener('click', closePopup);
+popupFermerBtn.addEventListener('click', closePopup);
