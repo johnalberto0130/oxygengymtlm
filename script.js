@@ -1,77 +1,68 @@
-// Initialisation de GSAP
+// Initialisation مكتبة الرسوم المتحركة GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-// Initialisation de AOS
+// Initialisation مكتبة AOS للرسوم المتحركة عند التمرير
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init({
-        duration: 800,
-        once: true,
-        offset: 50,
-        easing: 'ease-in-out',
+        duration: 800, // مدة الرسوم المتحركة
+        once: true,    // تفعيل الرسوم المتحركة مرة واحدة
+        offset: 50,    // إزاحة لتفعيل الرسوم المتحركة قبل الوصول للعنصر
+        easing: 'ease-in-out', // نوع التباطؤ
     });
+
+    // إظهار رسالة الترحيب المنبثقة
+    showPopup();
 });
 
-// Animations de l'en-tête (Header)
-const mainHeader = document.querySelector('.main-header');
+// وظيفة لإظهار الرسالة المنبثقة
+const showPopup = () => {
+    const popupContainer = document.querySelector('.popup-container');
+    // إظهار الرسالة بعد 1.5 ثانية
+    setTimeout(() => {
+        popupContainer.classList.add('active');
+    }, 1500);
+};
+
+// وظيفة لإغلاق الرسالة المنبثقة
+const closePopup = () => {
+    const popupContainer = document.querySelector('.popup-container');
+    popupContainer.classList.remove('active');
+};
+
+const popupCloseBtn = document.querySelector('.popup-close-btn');
+const popupFermerBtn = document.querySelector('.popup-fermer-btn');
+
+popupCloseBtn.addEventListener('click', closePopup);
+popupFermerBtn.addEventListener('click', closePopup);
+
+// التحكم في قائمة التنقل الجانبية للأجهزة الصغيرة
+const navToggleBtn = document.querySelector('.nav-toggle-btn');
+const mainNav = document.querySelector('.main-nav');
 const navLinks = document.querySelectorAll('.main-nav a');
 
-// Animation de la section Hero
-gsap.from(".hero-content h1", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
-gsap.from(".hero-content p", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 0.5 });
-gsap.from(".hero-content .btn", { duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1 });
-
-// Fonctionnalité du slider des coachs
-const trainersWrapper = document.querySelector('.trainers-wrapper');
-const trainerCards = document.querySelectorAll('.trainer-card');
-const totalTrainers = trainerCards.length;
-let currentTrainerIndex = 0;
-
-function moveTrainerSlider(direction) {
-    const gap = 30;
-    const cardsToShow = window.innerWidth <= 1024 ? 1 : 3;
-    const cardWidth = trainerCards[0].offsetWidth;
-
-    currentTrainerIndex = (currentTrainerIndex + direction + totalTrainers) % totalTrainers;
-    
-    // Déplace le slider pour afficher la carte sélectionnée
-    gsap.to(trainersWrapper, {
-        x: -(currentTrainerIndex * (cardWidth + gap)),
-        duration: 0.8,
-        ease: "power2.inOut"
-    });
-}
-
-// Fonctionnalité du slider des avis
-const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-const totalTestimonials = testimonialCards.length;
-let currentTestimonialIndex = 0;
-
-function moveTestimonialSlider(direction) {
-    const gap = 30;
-    const cardsToShow = window.innerWidth <= 1024 ? 1 : 3;
-    const cardWidth = testimonialCards[0].offsetWidth;
-
-    currentTestimonialIndex = (currentTestimonialIndex + direction + totalTestimonials) % totalTestimonials;
-
-    // Déplace le slider pour afficher la carte sélectionnée
-    gsap.to(testimonialsWrapper, {
-        x: -(currentTestimonialIndex * (cardWidth + gap)),
-        duration: 0.8,
-        ease: "power2.inOut"
-    });
-}
-
-// Gestion du redimensionnement de la fenêtre
-window.addEventListener('resize', () => {
-    // Réinitialise les sliders pour s'adapter à la nouvelle taille
-    currentTrainerIndex = 0;
-    gsap.to(trainersWrapper, { x: 0, duration: 0.1 });
-    currentTestimonialIndex = 0;
-    gsap.to(testimonialsWrapper, { x: 0, duration: 0.1 });
+navToggleBtn.addEventListener('click', () => {
+    mainNav.classList.toggle('active');
 });
 
-// Accordéon pour la section "Documents"
+// إغلاق القائمة عند النقر على رابط
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+    });
+});
+
+// تغيير لون خلفية الهيدر عند التمرير
+const mainHeader = document.querySelector('.main-header');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        mainHeader.classList.add('scrolled');
+    } else {
+        mainHeader.classList.remove('scrolled');
+    }
+});
+
+// التحكم في قسم الوثائق (accordion)
 document.addEventListener('DOMContentLoaded', () => {
     const documentsToggle = document.querySelector('.documents-toggle');
     const documentsList = document.querySelector('.documents-list');
@@ -79,37 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     documentsToggle.addEventListener('click', () => {
         documentsToggle.classList.toggle('active');
         if (documentsToggle.classList.contains('active')) {
+            // استخدام GSAP لفتح القائمة بسلاسة
             gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
         } else {
+            // استخدام GSAP لإغلاق القائمة بسلاسة
             gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
         }
     });
 });
-
-// Fonctionnalité de la popup
-const popupContainer = document.querySelector('.popup-container');
-const popupCloseBtn = document.querySelector('.popup-close-btn');
-const popupFermerBtn = document.querySelector('.popup-fermer-btn');
-
-// Animation d'ouverture de la popup
-gsap.from(popupContainer, {
-    opacity: 0,
-    scale: 0.8,
-    duration: 0.6,
-    ease: "power3.out"
-});
-
-const closePopup = () => {
-    gsap.to(popupContainer, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.4,
-        ease: "power2.in",
-        onComplete: () => {
-            popupContainer.style.display = 'none';
-        }
-    });
-};
-
-popupCloseBtn.addEventListener('click', closePopup);
-popupFermerBtn.addEventListener('click', closePopup);
