@@ -1,675 +1,680 @@
 :root {
-    --main-color: #00ff88;
-    --dark-bg: #111;
-    --text-color: #f0f0f0;
-    --shadow-light: rgba(0, 255, 136, 0.5);
-    --shadow-dark: rgba(0, 0, 0, 0.8);
-    --orange-light: #FF8C00;
+    --main-color: #00ff88;
+    --dark-bg: #111;
+    --text-color: #f0f0f0;
+    --shadow-light: rgba(0, 255, 136, 0.5);
+    --shadow-dark: rgba(0, 0, 0, 0.8);
+    --orange-light: #FF8C00;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
 
 /* تم حذف الكود الخاص بالفيديو */
 /* .video-background, .video-overlay */
 
 header {
-    display: none;
+    display: none;
 }
 
 .hero-section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    padding: 0 20px;
-    color: var(--text-color);
-    z-index: 1;
-    background-color: var(--dark-bg); /* إضافة خلفية سوداء */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 0 20px;
+    color: var(--text-color);
+    z-index: 1;
+    background-color: var(--dark-bg); /* إضافة خلفية سوداء */
 }
 
 .hero-content {
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-content .logo-img {
-    max-width: 250px;
-    margin-bottom: 20px;
+    max-width: 250px;
+    margin-bottom: 20px;
 }
 
 .hero-content h1 {
-    font-family: 'Anton', sans-serif;
-    font-size: 4.5em;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 10px var(--shadow-dark);
-    letter-spacing: 3px;
-    margin-bottom: 0.1em;
+    font-family: 'Anton', sans-serif;
+    font-size: 4.5em;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 10px var(--shadow-dark);
+    letter-spacing: 3px;
+    margin-bottom: 0.1em;
 }
 
 .hero-content p {
-    font-size: 1.5em;
-    font-weight: 300;
-    text-shadow: 1px 1px 5px var(--shadow-dark);
+    font-size: 1.5em;
+    font-weight: 300;
+    text-shadow: 1px 1px 5px var(--shadow-dark);
 }
 
 section {
-    padding: 80px 20px;
-    max-width: 1200px;
-    margin: auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 h2 {
-    font-family: 'Anton', sans-serif;
-    font-size: 3em;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-    color: #FF8C00;
-    text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+    font-family: 'Anton', sans-serif;
+    font-size: 3em;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    color: #FF8C00;
+    text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
 }
 
 .btn {
-    padding: 15px 30px;
-    font-size: 1em;
-    border: none;
-    background: var(--main-color);
-    color: var(--dark-bg);
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 15px var(--shadow-light);
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    padding: 15px 30px;
+    font-size: 1em;
+    border: none;
+    background: var(--main-color);
+    color: var(--dark-bg);
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 15px var(--shadow-light);
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
 }
 
 .btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px var(--shadow-light);
-    background: #00e078;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px var(--shadow-light);
+    background: #00e078;
 }
 
 .trainers-slider,
 .testimonials-slider {
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .trainers-wrapper,
 .testimonials-wrapper {
-    display: flex;
-    gap: 20px;
-    padding: 0 50px;
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(0);
+    display: flex;
+    gap: 20px;
+    padding: 0 50px;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
 }
 
 .trainer-card,
 .testimonial-card {
-    flex-shrink: 0;
-    width: calc(25% - 15px);
-    padding: 15px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-shrink: 0;
+    width: calc(25% - 15px);
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .trainer-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--main-color);
-    box-shadow: 0 0 15px var(--shadow-light);
-    margin-bottom: 15px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--main-color);
+    box-shadow: 0 0 15px var(--shadow-light);
+    margin-bottom: 15px;
 }
 
 .trainer-card h3 {
-    font-family: 'Anton', sans-serif;
-    font-size: 1.3em;
-    margin-bottom: 5px;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3em;
+    margin-bottom: 5px;
 }
 
 .trainer-card p {
-    font-size: 0.9em;
-    font-weight: 300;
+    font-size: 0.9em;
+    font-weight: 300;
 }
 
 .testimonials-wrapper .testimonial-card {
-    width: calc(33.333% - 14px);
-    background: #222;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    position: relative;
-    border-left: 5px solid var(--main-color);
-    transition: transform 0.3s, box-shadow 0.3s;
+    width: calc(33.333% - 14px);
+    background: #222;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    border-left: 5px solid var(--main-color);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .testimonials-wrapper .testimonial-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .testimonials-wrapper .testimonial-card p {
-    font-style: italic;
-    margin-bottom: 15px;
+    font-style: italic;
+    margin-bottom: 15px;
 }
 
 .testimonials-wrapper .testimonial-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--main-color);
-    box-shadow: 0 0 15px var(--shadow-light);
-    margin: 0 auto 15px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--main-color);
+    box-shadow: 0 0 15px var(--shadow-light);
+    margin: 0 auto 15px;
 }
 
 .testimonials-wrapper .testimonial-card .author {
-    font-weight: bold;
-    margin-top: 15px;
-    color: var(--main-color);
+    font-weight: bold;
+    margin-top: 15px;
+    color: var(--main-color);
 }
 
 .slider-nav {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
 .slider-nav button {
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    color: var(--main-color);
-    font-size: 2em;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background 0.3s;
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: var(--main-color);
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s;
 }
 
 .slider-nav button:hover {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .trainer-card .btn {
-    margin-top: 15px;
-    font-size: 0.9em;
-    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 0.9em;
+    padding: 10px 20px;
 }
 
 .btn-whatsapp {
-    background-color: #25D366;
-    color: white;
-    box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+    background-color: #25D366;
+    color: white;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
 }
 
 .btn-whatsapp:hover {
-    background-color: #128C7E;
+    background-color: #128C7E;
 }
 
 .pricing-table-container {
-    max-width: 800px;
-    margin: auto;
-    border: 2px solid var(--main-color);
-    border-radius: 15px;
-    overflow: hidden;
+    max-width: 800px;
+    margin: auto;
+    border: 2px solid var(--main-color);
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .pricing-table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 .pricing-table th,
 .pricing-table td {
-    padding: 20px;
-    border: 1px solid #333;
-    text-align: center;
+    padding: 20px;
+    border: 1px solid #333;
+    text-align: center;
 }
 
 .pricing-table thead th {
-    background: #222;
-    color: var(--main-color);
-    font-family: 'Anton', sans-serif;
-    font-size: 1.5em;
-    text-transform: uppercase;
+    background: #222;
+    color: var(--main-color);
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
 }
 
 .pricing-table tbody td {
-    background: #1a1a1a;
-    font-size: 1.1em;
+    background: #1a1a1a;
+    font-size: 1.1em;
 }
 
 .pricing-table .price-cell {
-    font-weight: bold;
-    font-size: 1.8em;
-    color: var(--main-color);
+    font-weight: bold;
+    font-size: 1.8em;
+    color: var(--main-color);
 }
 
 .pricing-table .price-cell span {
-    font-size: 0.6em;
-    font-weight: normal;
+    font-size: 0.6em;
+    font-weight: normal;
 }
 
 .pricing-table tbody tr:hover {
-    background: #222;
+    background: #222;
 }
 
 .why-us-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: left;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+    margin-top: 20px;
 }
 
 .why-us-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    background: #222;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 4px solid var(--main-color);
-    transition: transform 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--main-color);
+    transition: transform 0.3s ease;
 }
 
 .why-us-item:hover {
-    transform: translateX(10px);
+    transform: translateX(10px);
 }
 
 .why-us-item .icon {
-    font-size: 2.5em;
-    color: var(--main-color);
+    font-size: 2.5em;
+    color: var(--main-color);
 }
 
 .why-us-item h3 {
-    font-family: 'Anton', sans-serif;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    font-family: 'Anton', sans-serif;
+    margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .why-us-item p {
-    font-size: 0.9em;
-    line-height: 1.5;
-    white-space: normal;
-    height: auto;
-    overflow: visible;
+    font-size: 0.9em;
+    line-height: 1.5;
+    white-space: normal;
+    height: auto;
+    overflow: visible;
 }
 
 .accordion-header {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    color: var(--main-color);
-    text-shadow: 1px 1px 5px var(--shadow-light);
-    margin-bottom: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: var(--main-color);
+    text-shadow: 1px 1px 5px var(--shadow-light);
+    margin-bottom: 30px;
 }
 
 .accordion-header h2 {
-    font-family: 'Anton', sans-serif;
-    font-size: 2em;
-    text-transform: uppercase;
-    margin: 0;
+    font-family: 'Anton', sans-serif;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin: 0;
 }
 
 .accordion-header .icon {
-    font-size: 0.8em;
-    transition: transform 0.3s;
+    font-size: 0.8em;
+    transition: transform 0.3s;
 }
 
 .accordion-header.active .icon {
-    transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
-    text-align: center;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    text-align: center;
 }
 
 .accordion-content.open {
-    max-height: none;
+    max-height: none;
 }
 
 #hours {
-    padding-top: 40px;
+    padding-top: 40px;
 }
 
 .hours-table {
-    width: 100%;
-    max-width: 600px;
-    margin: auto;
-    border: 2px solid var(--main-color);
-    border-radius: 15px;
-    overflow: hidden;
-    background: #1a1a1a;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    border: 2px solid var(--main-color);
+    border-radius: 15px;
+    overflow: hidden;
+    background: #1a1a1a;
 }
 
 .hours-table th,
 .hours-table td {
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #333;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #333;
 }
 
 .hours-table th {
-    background: #222;
-    color: var(--main-color);
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.2em;
+    background: #222;
+    color: var(--main-color);
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.2em;
 }
 
 .hours-table td {
-    font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 .hours-table .gender-row td:first-child {
-    color: var(--main-color);
-    font-weight: bold;
+    color: var(--main-color);
+    font-weight: bold;
 }
 
 #motivational-message {
-    padding: 40px 20px;
-    text-align: center;
+    padding: 40px 20px;
+    text-align: center;
 }
 
 .motivational-quote {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--main-color);
-    text-shadow: 1px 1px 2px var(--shadow-dark);
-    letter-spacing: 0.5px;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    line-height: 1.4;
-    font-style: italic;
-    animation: pulse 2s infinite;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--main-color);
+    text-shadow: 1px 1px 2px var(--shadow-dark);
+    letter-spacing: 0.5px;
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.4;
+    font-style: italic;
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 footer {
-    text-align: center;
-    padding: 30px;
-    background: #000;
-    color: #666;
-    font-size: 0.9em;
-    border-top: 1px solid #333;
+    text-align: center;
+    padding: 30px;
+    background: #000;
+    color: #666;
+    font-size: 0.9em;
+    border-top: 1px solid #333;
 }
 
 .social-icons {
-    margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .social-icons a {
-    color: var(--text-color);
-    font-size: 2em;
-    margin: 0 15px;
-    transition: color 0.3s, transform 0.3s;
+    color: var(--text-color);
+    font-size: 2em;
+    margin: 0 15px;
+    transition: color 0.3s, transform 0.3s;
 }
 
 .social-icons a:hover {
-    color: var(--main-color);
-    transform: scale(1.2);
+    color: var(--main-color);
+    transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
-    .hero-content .logo-img {
-        max-width: 200px;
-        margin-bottom: 15px;
-    }
-    .hero-content h1 {
-        font-size: 3em;
-    }
-    h2 {
-        font-size: 2em;
-    }
-    .accordion-header h2 {
-        font-size: 1.5em;
-    }
-    .trainers-wrapper {
-        padding: 0 20px;
-    }
-    .trainer-card {
-        width: 100%;
-    }
-    .trainer-card .btn {
-        padding: 10px 15px;
-        font-size: 0.8em;
-    }
-    .testimonials-wrapper {
-        padding: 0 20px;
-        gap: 10px;
-    }
-    .testimonials-wrapper .testimonial-card {
-        width: 100%;
-    }
-    .pricing-table-container {
-        max-width: 100%;
-        overflow-x: auto;
-    }
-    .pricing-table {
-        display: block;
-        width: 100%;
-    }
-    .pricing-table thead,
-    .pricing-table tbody {
-        display: table;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .pricing-table th,
-    .pricing-table td {
-        padding: 10px;
-        display: table-cell;
-        border: 1px solid #333;
-        text-align: center;
-        vertical-align: top;
-    }
-    .pricing-table tbody td:nth-child(3) {
-        font-size: 0.85em;
-    }
-    .why-us-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .hours-table {
-        font-size: 0.9em;
-    }
-    .motivational-quote {
-        font-size: 1.2em;
-    }
+    .hero-content .logo-img {
+        max-width: 200px;
+        margin-bottom: 15px;
+    }
+    .hero-content h1 {
+        font-size: 3em;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    .accordion-header h2 {
+        font-size: 1.5em;
+    }
+    .trainers-wrapper {
+        padding: 0 20px;
+    }
+    .trainer-card {
+        width: 100%;
+    }
+    .trainer-card .btn {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+    .testimonials-wrapper {
+        padding: 0 20px;
+        gap: 10px;
+    }
+    .testimonials-wrapper .testimonial-card {
+        width: 100%;
+    }
+    .pricing-table-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .pricing-table {
+        display: block;
+        width: 100%;
+    }
+    .pricing-table thead,
+    .pricing-table tbody {
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .pricing-table th,
+    .pricing-table td {
+        padding: 10px;
+        display: table-cell;
+        border: 1px solid #333;
+        text-align: center;
+        vertical-align: top;
+    }
+    .pricing-table tbody td:nth-child(3) {
+        font-size: 0.85em;
+    }
+    .why-us-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .hours-table {
+        font-size: 0.9em;
+    }
+    .motivational-quote {
+        font-size: 1.2em;
+    }
 }
 
 .documents-section {
-    padding: 60px 0;
-    text-align: center;
-    background-color: transparent;
-    color: #f1f1f1;
+    padding: 60px 0;
+    text-align: center;
+    background-color: transparent;
+    color: #f1f1f1;
 }
 
 .documents-toggle {
-    font-family: 'Anton', sans-serif;
-    font-size: 2em;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-    color: var(--orange-light);
-    text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    font-family: 'Anton', sans-serif;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    color: var(--orange-light);
+    text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .documents-toggle .icon {
-    font-size: 0.8em;
-    color: var(--main-color);
-    transition: transform 0.3s;
+    font-size: 0.8em;
+    color: var(--main-color);
+    transition: transform 0.3s;
 }
 
 .documents-toggle.active .icon {
-    transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .documents-list {
-    list-style: none;
-    padding: 0;
-    margin-top: -20px;
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
+    list-style: none;
+    padding: 0;
+    margin-top: -20px;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
 }
 
 .documents-list li {
-    font-size: 1.1rem;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
 }
 
 .documents-list li i {
-    font-size: 1.5rem;
-    color: var(--orange-light);
+    font-size: 1.5rem;
+    color: var(--orange-light);
 }
 
 /* تنسيقات النافذة المنبثقة */
 .popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .popup-content {
-    background-color: #222;
-    padding: 30px 50px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
-    text-align: center;
-    position: relative;
-    max-width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #222;
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+    text-align: center;
+    position: relative;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .popup-close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #ff4d4d;
-    font-size: 2em;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #ff4d4d;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 }
 
 .popup-close-btn:hover {
-    opacity: 1;
+    opacity: 1;
 }
 
 .popup-text {
-    color: var(--text-color);
-    font-size: 1.5em;
-    font-weight: bold;
-    line-height: 1.4;
-    font-family: 'Poppins', sans-serif;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: bold;
+    line-height: 1.4;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
 }
 
 .popup-fermer-btn {
-    padding: 10px 25px;
-    font-size: 1em;
-    border: none;
-    background: #ff4d4d; /* لون الزر أصبح أحمر */
-    color: white; /* لون النص أصبح أبيض */
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    padding: 10px 25px;
+    font-size: 1em;
+    border: none;
+    background: #ff4d4d; /* لون الزر أصبح أحمر */
+    color: white; /* لون النص أصبح أبيض */
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 .popup-fermer-btn:hover {
-    background: #e63946; /* لون أغمق عند المرور */
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.5);
+    background: #e63946; /* لون أغمق عند المرور */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.5);
 }
 
 @media (max-width: 768px) {
-    .popup-text {
-        font-size: 1.2em;
-    }
-    .popup-content {
-        padding: 20px 30px;
-    }
-    .popup-fermer-btn {
-        font-size: 0.9em;
-        padding: 8px 20px;
-    }
+    .popup-text {
+        font-size: 1.2em;
+    }
+    .popup-content {
+        padding: 20px 30px;
+    }
+    .popup-fermer-btn {
+        font-size: 0.9em;
+        padding: 8px 20px;
+    }
+}
+
+
+.popup-container.active {
+    display: flex;
 }
