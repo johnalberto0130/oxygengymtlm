@@ -4,264 +4,1083 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXYGENE GYM</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --main-color: #00ff88;
+            --dark-bg: #111;
+            --text-color: #f0f0f0;
+            --shadow-light: rgba(0, 255, 136, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+            --orange-light: #FF8C00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* تم حذف الكود الخاص بالفيديو */
+        /* .video-background, .video-overlay */
+
+        header {
+            display: none;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+            color: var(--text-color);
+            z-index: 1;
+            background-color: var(--dark-bg); /* إضافة خلفية سوداء */
+        }
+
+        .hero-content {
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-content .logo-img {
+            max-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 4.5em;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px var(--shadow-dark);
+            letter-spacing: 3px;
+            margin-bottom: 0.1em;
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            font-weight: 300;
+            text-shadow: 1px 1px 5px var(--shadow-dark);
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 3em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: #FF8C00;
+            text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            background: var(--main-color);
+            color: var(--dark-bg);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 15px var(--shadow-light);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--shadow-light);
+            background: #00e078;
+        }
+
+        .trainers-slider,
+        .testimonials-slider {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .trainers-wrapper,
+        .testimonials-wrapper {
+            display: flex;
+            gap: 20px;
+            padding: 0 50px;
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(0);
+        }
+
+        .trainer-card,
+        .testimonial-card {
+            flex-shrink: 0;
+            width: calc(25% - 15px);
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .trainer-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--main-color);
+            box-shadow: 0 0 15px var(--shadow-light);
+            margin-bottom: 15px;
+        }
+
+        .trainer-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .trainer-card p {
+            font-size: 0.9em;
+            font-weight: 300;
+        }
+
+        .testimonials-wrapper .testimonial-card {
+            width: calc(33.333% - 14px);
+            background: #222;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            border-left: 5px solid var(--main-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .testimonials-wrapper .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonials-wrapper .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonials-wrapper .testimonial-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--main-color);
+            box-shadow: 0 0 15px var(--shadow-light);
+            margin: 0 auto 15px;
+        }
+
+        .testimonials-wrapper .testimonial-card .author {
+            font-weight: bold;
+            margin-top: 15px;
+            color: var(--main-color);
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slider-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: var(--main-color);
+            font-size: 2em;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .slider-nav button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .trainer-card .btn {
+            margin-top: 15px;
+            font-size: 0.9em;
+            padding: 10px 20px;
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+
+        .pricing-table-container {
+            max-width: 800px;
+            margin: auto;
+            border: 2px solid var(--main-color);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 20px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        .pricing-table thead th {
+            background: #222;
+            color: var(--main-color);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5em;
+            text-transform: uppercase;
+        }
+
+        .pricing-table tbody td {
+            background: #1a1a1a;
+            font-size: 1.1em;
+        }
+
+        .pricing-table .price-cell {
+            font-weight: bold;
+            font-size: 1.8em;
+            color: var(--main-color);
+        }
+
+        .pricing-table .price-cell span {
+            font-size: 0.6em;
+            font-weight: normal;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: #222;
+        }
+
+        .why-us-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .why-us-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--main-color);
+            transition: transform 0.3s ease;
+        }
+
+        .why-us-item:hover {
+            transform: translateX(10px);
+        }
+
+        .why-us-item .icon {
+            font-size: 2.5em;
+            color: var(--main-color);
+        }
+
+        .why-us-item h3 {
+            font-family: 'Anton', sans-serif;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .why-us-item p {
+            font-size: 0.9em;
+            line-height: 1.5;
+            white-space: normal;
+            height: auto;
+            overflow: visible;
+        }
+
+        .accordion-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: var(--main-color);
+            text-shadow: 1px 1px 5px var(--shadow-light);
+            margin-bottom: 30px;
+        }
+
+        .accordion-header h2 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .accordion-header .icon {
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            text-align: center;
+        }
+
+        .accordion-content.open {
+            max-height: none;
+        }
+
+        #hours {
+            padding-top: 40px;
+        }
+
+        .hours-table {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            border: 2px solid var(--main-color);
+            border-radius: 15px;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+
+        .hours-table th,
+        .hours-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .hours-table th {
+            background: #222;
+            color: var(--main-color);
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2em;
+        }
+
+        .hours-table td {
+            font-size: 1.1em;
+        }
+
+        .hours-table .gender-row td:first-child {
+            color: var(--main-color);
+            font-weight: bold;
+        }
+
+        #motivational-message {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .motivational-quote {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--main-color);
+            text-shadow: 1px 1px 2px var(--shadow-dark);
+            letter-spacing: 0.5px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.4;
+            font-style: italic;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            font-size: 2em;
+            margin: 0 15px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--main-color);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content .logo-img {
+                max-width: 200px;
+                margin-bottom: 15px;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            .accordion-header h2 {
+                font-size: 1.5em;
+            }
+            .trainers-wrapper {
+                padding: 0 20px;
+            }
+            .trainer-card {
+                width: 100%;
+            }
+            .trainer-card .btn {
+                padding: 10px 15px;
+                font-size: 0.8em;
+            }
+            .testimonials-wrapper {
+                padding: 0 20px;
+                gap: 10px;
+            }
+            .testimonials-wrapper .testimonial-card {
+                width: 100%;
+            }
+            .pricing-table-container {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+            .pricing-table {
+                display: block;
+                width: 100%;
+            }
+            .pricing-table thead,
+            .pricing-table tbody {
+                display: table;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .pricing-table th,
+            .pricing-table td {
+                padding: 10px;
+                display: table-cell;
+                border: 1px solid #333;
+                text-align: center;
+                vertical-align: top;
+            }
+            .pricing-table tbody td:nth-child(3) {
+                font-size: 0.85em;
+            }
+            .why-us-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .hours-table {
+                font-size: 0.9em;
+            }
+            .motivational-quote {
+                font-size: 1.2em;
+            }
+        }
+
+        .documents-section {
+            padding: 60px 0;
+            text-align: center;
+            background-color: transparent;
+            color: #f1f1f1;
+        }
+
+        .documents-toggle {
+            font-family: 'Anton', sans-serif;
+            font-size: 2em;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            color: var(--orange-light);
+            text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .documents-toggle .icon {
+            font-size: 0.8em;
+            color: var(--main-color);
+            transition: transform 0.3s;
+        }
+
+        .documents-toggle.active .icon {
+            transform: rotate(180deg);
+        }
+
+        .documents-list {
+            list-style: none;
+            padding: 0;
+            margin-top: -20px;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .documents-list li {
+            font-size: 1.1rem;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .documents-list li i {
+            font-size: 1.5rem;
+            color: var(--orange-light);
+        }
+
+        /* تنسيقات النافذة المنبثقة */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: #222;
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+            text-align: center;
+            position: relative;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .popup-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #ff4d4d;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-close-btn:hover {
+            opacity: 1;
+        }
+
+        .popup-text {
+            color: var(--text-color);
+            font-size: 1.5em;
+            font-weight: bold;
+            line-height: 1.4;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .popup-fermer-btn {
+            padding: 10px 25px;
+            font-size: 1em;
+            border: none;
+            background: #ff4d4d; /* لون الزر أصبح أحمر */
+            color: white; /* لون النص أصبح أبيض */
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .popup-fermer-btn:hover {
+            background: #e63946; /* لون أغمق عند المرور */
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(255, 77, 77, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .popup-text {
+                font-size: 1.2em;
+            }
+            .popup-content {
+                padding: 20px 30px;
+            }
+            .popup-fermer-btn {
+                font-size: 0.9em;
+                padding: 8px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="popup-container">
-    <div class="popup-content">
-        <span class="popup-close-btn">&times;</span>
-        <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>La Salle N°1 dans La wilaya de Tlemcen 🏆 </p>
-        <button class="popup-fermer-btn">Fermer</button>
-    </div>
-</div>
-
-<header></header>
-
-<div class="hero-section" id="hero">
-    <div class="hero-content">
-        <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="logo-img">
-        <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
-        <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
-        <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
-    </div>
-</div>
-
-<section id="trainers">
-    <h2>NOS PROFESSIONNELS COACHS</h2>
-    <div class="trainers-slider">
-        <div class="trainers-wrapper">
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
-                <h3>Coach Zakaria</h3>
-                <p>Spécialiste de la musculation et de la prise de masse.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
-                <h3>Coach Ahlem</h3>
-                <p>Expert en perte de poids et en nutrition pour femmes.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
-                <h3>Coach Yasmine</h3>
-                <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
-                <h3>Coach Amine</h3>
-                <p>Spécialiste de la boxe et des sports de combat.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
-                <h3>Coach Samir</h3>
-                <p>Spécialiste des arts martiaux mixtes (MMA).</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
-                <h3>Coach Nabil</h3>
-                <p>Spécialiste de la remise en forme pour enfants.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-            <div class="trainer-card">
-                <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
-                <h3>Coach Siham</h3>
-                <p>Spécialiste en Zumba et Pilates.</p>
-                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
-                </a>
-            </div>
-        </div>
-        <div class="slider-nav">
-            <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
-            <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
+    <div class="popup-container">
+        <div class="popup-content">
+            <span class="popup-close-btn">&times;</span>
+            <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>La Salle N°1 dans La wilaya de Tlemcen 🏆 </p>
+            <button class="popup-fermer-btn">Fermer</button>
         </div>
     </div>
-</section>
 
-<section id="tarifs">
-    <h2>NOS TARIFS</h2>
-    <div class="pricing-table-container">
-        <table class="pricing-table">
+    <header></header>
+
+    <div class="hero-section" id="hero">
+        <div class="hero-content">
+            <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="logo-img">
+            <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+            <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+            <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+        </div>
+    </div>
+
+    <section id="trainers">
+        <h2>NOS PROFESSIONNELS COACHS</h2>
+        <div class="trainers-slider">
+            <div class="trainers-wrapper">
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
+                    <h3>Coach Zakaria</h3>
+                    <p>Spécialiste de la musculation et de la prise de masse.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
+                    <h3>Coach Ahlem</h3>
+                    <p>Expert en perte de poids et en nutrition pour femmes.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
+                    <h3>Coach Yasmine</h3>
+                    <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
+                    <h3>Coach Amine</h3>
+                    <p>Spécialiste de la boxe et des sports de combat.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
+                    <h3>Coach Samir</h3>
+                    <p>Spécialiste des arts martiaux mixtes (MMA).</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
+                    <h3>Coach Nabil</h3>
+                    <p>Spécialiste de la remise en forme pour enfants.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+                <div class="trainer-card">
+                    <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
+                    <h3>Coach Siham</h3>
+                    <p>Spécialiste en Zumba et Pilates.</p>
+                    <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                    </a>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarifs">
+        <h2>NOS TARIFS</h2>
+        <div class="pricing-table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>PACK</th>
+                        <th>PRIX</th>
+                        <th>AVANTAGES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                        <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                    </tr>
+                    <tr>
+                        <td>4 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                        <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                    </tr>
+                    <tr>
+                        <td>3 SÉANCES / SEMAINE</td>
+                        <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                        <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="documents-section" class="documents-section">
+        <div class="container">
+            <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
+            <ul class="documents-list">
+                <li><i class="fas fa-camera"></i>02 Photographies</li>
+                <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
+                <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="avis">
+        <h2>AVIS DE NOS MEMBRES</h2>
+        <div class="testimonials-slider">
+            <div class="testimonials-wrapper">
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
+                    <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
+                    <div class="author">- Issam, 27 ans</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
+                    <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
+                    <div class="author">- Marwa, 25 ans</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
+                    <p>"Avec l'âge, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
+                    <div class="author">- Zohir, 62 ans</div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
+                    <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une seule famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
+                    <div class="author">- Walid, 22 ans</div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us">
+        <div class="accordion-header" onclick="toggleAccordion()">
+            <h2>POURQUOI OXYGENE GYM ?</h2>
+            <i class="fas fa-chevron-down icon"></i>
+        </div>
+        <div class="accordion-content">
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
+            <div class="why-us-container">
+                <div class="why-us-item">
+                    <i class="fas fa-dumbbell icon"></i>
+                    <div>
+                        <h3>Équipements Modernes</h3>
+                        <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                    </div>
+                </div>
+                <div class="why-us-item">
+                    <i class="fas fa-users-line icon"></i>
+                    <div>
+                        <h3>Coaching Professionnel</h3>
+                        <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                    </div>
+                </div>
+                <div class="why-us-item">
+                    <i class="fas fa-hand-holding-heart icon"></i>
+                    <div>
+                        <h3>Ambiance Familiale</h3>
+                        <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hours">
+        <h2>HEURES D'OUVERTURE</h2>
+        <table class="hours-table">
             <thead>
                 <tr>
-                    <th>PACK</th>
-                    <th>PRIX</th>
-                    <th>AVANTAGES</th>
+                    <th>Jour</th>
+                    <th>Heures</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>6 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
-                    <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                <tr class="gender-row">
+                    <td>Hommes</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td>4 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
-                    <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                    <td>Samedi - Jeudi</td>
+                    <td>08:00 - 22:00</td>
+                </tr>
+                <tr class="gender-row">
+                    <td>Femmes</td>
+                    <td></td>
                 </tr>
                 <tr>
-                    <td>3 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
-                    <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                    <td>Samedi - Mercredi</td>
+                    <td>14:00 - 17:45</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-</section>
+    </section>
 
-<section id="documents-section" class="documents-section">
-    <div class="container">
-        <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
-        <ul class="documents-list">
-            <li><i class="fas fa-camera"></i>02 Photographies</li>
-            <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
-            <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
-        </ul>
-    </div>
-</section>
+    <section id="motivational-message">
+        <p class="motivational-quote">
+            "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
+        </p>
+    </section>
 
-<section id="avis">
-    <h2>AVIS DE NOS MEMBRES</h2>
-    <div class="testimonials-slider">
-        <div class="testimonials-wrapper">
-            <div class="testimonial-card">
-                <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
-                <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
-                <div class="author">- Issam, 27 ans</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
-                <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
-                <div class="author">- Marwa, 25 ans</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
-                <p>"Avec l'âge, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
-                <div class="author">- Zohir, 62 ans</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
-                <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une seule famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
-                <div class="author">- Walid, 22 ans</div>
-            </div>
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+            <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
         </div>
-        <div class="slider-nav">
-            <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
-            <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </div>
-</section>
+        <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
+    </footer>
 
-<section id="why-us">
-    <div class="accordion-header" onclick="toggleAccordion()">
-        <h2>POURQUOI OXYGENE GYM ?</h2>
-        <i class="fas fa-chevron-down icon"></i>
-    </div>
-    <div class="accordion-content">
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
-        <div class="why-us-container">
-            <div class="why-us-item">
-                <i class="fas fa-dumbbell icon"></i>
-                <div>
-                    <h3>Équipements Modernes</h3>
-                    <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
-                </div>
-            </div>
-            <div class="why-us-item">
-                <i class="fas fa-users-line icon"></i>
-                <div>
-                    <h3>Coaching Professionnel</h3>
-                    <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
-                </div>
-            </div>
-            <div class="why-us-item">
-                <i class="fas fa-hand-holding-heart icon"></i>
-                <div>
-                    <h3>Ambiance Familiale</h3>
-                    <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        // Initialisation مكتبة الرسوم المتحركة GSAP
+        gsap.registerPlugin(ScrollTrigger);
 
-<section id="hours">
-    <h2>HEURES D'OUVERTURE</h2>
-    <table class="hours-table">
-        <thead>
-            <tr>
-                <th>Jour</th>
-                <th>Heures</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="gender-row">
-                <td>Hommes</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Samedi - Jeudi</td>
-                <td>08:00 - 22:00</td>
-            </tr>
-            <tr class="gender-row">
-                <td>Femmes</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Samedi - Mercredi</td>
-                <td>14:00 - 17:45</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
+        // Hero section animation
+        gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
+        gsap.from(".hero-content h1", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5 });
+        gsap.from(".hero-content p", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1 });
+        gsap.from(".hero-content .btn", { duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1.5 });
 
-<section id="motivational-message">
-    <p class="motivational-quote">
-        "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
-    </p>
-</section>
+        // Fade-in animation for sections on scroll
+        const sections = ["#trainers", "#tarifs", "#documents-section", "#avis", "#why-us", "#hours", "#motivational-message"];
+        sections.forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none none"
+                },
+                y: 100,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
 
-<footer>
-    <div class="social-icons">
-        <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
-            <i class="fas fa-map-marker-alt"></i>
-        </a>
-        <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
-            <i class="fab fa-tiktok"></i>
-        </a>
-        <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
-    </div>
-    <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
-</footer>
+        // Trainer slider functionality
+        const trainersWrapper = document.querySelector('.trainers-wrapper');
+        const totalTrainers = document.querySelectorAll('.trainer-card').length;
+        let currentTrainerIndex = 0;
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="script.js"></script>
+        function moveTrainerSlider(direction) {
+            const gap = 20;
+            const cardWidth = document.querySelector('.trainer-card').offsetWidth;
+            const cardsToShow = window.innerWidth <= 768 ? 1 : 4;
+            currentTrainerIndex = (currentTrainerIndex + direction + totalTrainers) % totalTrainers;
+            let translateX = -currentTrainerIndex * (cardWidth + gap);
+            trainersWrapper.style.transform = `translateX(${translateX}px)`;
+        }
 
+        // Testimonial slider functionality
+        const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+        const totalTestimonials = document.querySelectorAll('.testimonial-card').length;
+        let currentTestimonialIndex = 0;
+
+        function moveTestimonialSlider(direction) {
+            const gap = 20;
+            const cardWidth = document.querySelector('.testimonial-card').offsetWidth;
+            const cardsToShow = window.innerWidth <= 768 ? 1 : 3;
+            currentTestimonialIndex = (currentTestimonialIndex + direction + totalTestimonials) % totalTestimonials;
+            let translateX = -currentTestimonialIndex * (cardWidth + gap);
+            testimonialsWrapper.style.transform = `translateX(${translateX}px)`;
+        }
+
+        // Accordion for "Why us" section
+        function toggleAccordion() {
+            const accordionHeader = document.querySelector('.accordion-header');
+            const accordionContent = document.querySelector('.accordion-content');
+            accordionHeader.classList.toggle('active');
+            accordionContent.classList.toggle('open');
+        }
+
+        // Popup functionality
+        const popupContainer = document.querySelector('.popup-container');
+        const popupCloseBtn = document.querySelector('.popup-close-btn');
+        const popupFermerBtn = document.querySelector('.popup-fermer-btn');
+
+        // متغير لـ مقطع الصوت
+        let backgroundAudio;
+
+        const showPopup = () => {
+            // إظهار الرسالة بعد 1.5 ثانية
+            setTimeout(() => {
+                gsap.fromTo(popupContainer, 
+                    { opacity: 0, scale: 0.8, display: 'flex' },
+                    { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }
+                );
+            }, 1500);
+        };
+
+        // وظيفة لإغلاق الرسالة المنبثقة وتشغيل الصوت
+        const closePopup = () => {
+            // تشغيل الموسيقى بعد إغلاق النافذة المنبثقة
+            // تم تعديل هذا السطر لتشغيل الصوت مرة واحدة فقط
+            playBackgroundMusicOnce('https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3'); 
+            // استخدام GSAP لإغلاق النافذة المنبثقة
+            gsap.to(popupContainer, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.4,
+                ease: "power2.in",
+                onComplete: () => {
+                    popupContainer.style.display = 'none';
+                }
+            });
+        };
+
+        // وظيفة لإنشاء وتشغيل مقطع صوتي مرة واحدة في الخلفية
+        const playBackgroundMusicOnce = (audioUrl) => {
+            if (!backgroundAudio) {
+                backgroundAudio = new Audio(audioUrl);
+                backgroundAudio.volume = 0.5; // تعديل مستوى الصوت (0.0 إلى 1.0)
+            }
+            backgroundAudio.play();
+        };
+
+
+        if (popupCloseBtn) {
+            popupCloseBtn.addEventListener('click', closePopup);
+        }
+        if (popupFermerBtn) {
+            popupFermerBtn.addEventListener('click', closePopup);
+        }
+
+        // Accordion for "Documents" section
+        document.addEventListener('DOMContentLoaded', () => {
+            const documentsToggle = document.querySelector('.documents-toggle');
+            const documentsList = document.querySelector('.documents-list');
+
+            if (documentsToggle && documentsList) {
+                documentsToggle.addEventListener('click', () => {
+                    documentsToggle.classList.toggle('active');
+                    if (documentsToggle.classList.contains('active')) {
+                        // استخدام GSAP لفتح القائمة بسلاسة
+                        gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
+                    } else {
+                        // استخدام GSAP لإغلاق القائمة بسلاسة
+                        gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+                    }
+                });
+            }
+
+            // إظهار رسالة الترحيب المنبثقة عند تحميل الصفحة
+            showPopup();
+        });
+
+        // Reset sliders on window resize
+        window.addEventListener('resize', () => {
+            currentTrainerIndex = 0;
+            moveTrainerSlider(0);
+            currentTestimonialIndex = 0;
+            moveTestimonialSlider(0);
+        });
+    </script>
 </body>
 </html>
