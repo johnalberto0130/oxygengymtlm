@@ -682,7 +682,8 @@
 </head>
 <body>
 
-    <audio id="bg-audio" loop>
+    <!-- تم إزالة السمة "loop" من هنا لتشغيل الصوت مرة واحدة فقط -->
+    <audio id="bg-audio">
         <source src="https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3" type="audio/mpeg">
         متصفحك لا يدعم عنصر الصوت.
     </audio>
@@ -971,6 +972,9 @@
             if (popupContainer) {
                 popupContainer.style.display = 'none';
             }
+            if (audio) {
+                audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
+            }
         }
 
         if (popupCloseBtn) {
@@ -981,14 +985,8 @@
         }
         
         window.addEventListener('DOMContentLoaded', () => {
-            // عرض النافذة المنبثقة مباشرة عند تحميل الصفحة
             if (popupContainer) {
                 popupContainer.style.display = 'flex';
-            }
-
-            // تشغيل الصوت تلقائيًا
-            if (audio) {
-                audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
             }
         });
 
