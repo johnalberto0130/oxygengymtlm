@@ -1,116 +1,267 @@
-gsap.registerPlugin(ScrollTrigger);
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OXYGENE GYM</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
 
-// Hero section animation
-gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
-gsap.from(".hero-content h1", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out", delay: 0.5 });
-gsap.from(".hero-content p", { duration: 1.5, y: 50, opacity: 0, ease: "power4.out", delay: 1 });
-gsap.from(".hero-content .btn", { duration: 1.5, scale: 0, opacity: 0, ease: "bounce.out", delay: 1.5 });
+<div class="popup-container">
+    <div class="popup-content">
+        <span class="popup-close-btn">&times;</span>
+        <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>La Salle N°1 dans La wilaya de Tlemcen 🏆 </p>
+        <button class="popup-fermer-btn">Fermer</button>
+    </div>
+</div>
 
-// Fade-in animation for sections on scroll
-const sections = ["#trainers", "#tarifs", "#documents-section", "#avis", "#why-us", "#hours", "#motivational-message"];
-sections.forEach(section => {
-    gsap.from(section, {
-        scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none none"
-        },
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power2.out"
-    });
-});
+<header></header>
 
-// Trainer slider functionality
-const trainersWrapper = document.querySelector('.trainers-wrapper');
-const totalTrainers = document.querySelectorAll('.trainer-card').length;
-let currentTrainerIndex = 0;
+<div class="hero-section" id="hero">
+    <div class="hero-content">
+        <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="logo-img">
+        <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+        <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+        <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+    </div>
+</div>
 
-function moveTrainerSlider(direction) {
-    const gap = 20;
-    const cardWidth = document.querySelector('.trainer-card').offsetWidth;
-    const cardsToShow = window.innerWidth <= 768 ? 1 : 4;
-    currentTrainerIndex = (currentTrainerIndex + direction + totalTrainers) % totalTrainers;
-    let translateX = -currentTrainerIndex * (cardWidth + gap);
-    trainersWrapper.style.transform = `translateX(${translateX}px)`;
-}
+<section id="trainers">
+    <h2>NOS PROFESSIONNELS COACHS</h2>
+    <div class="trainers-slider">
+        <div class="trainers-wrapper">
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
+                <h3>Coach Zakaria</h3>
+                <p>Spécialiste de la musculation et de la prise de masse.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/wrb98YBs/Sinda.jpg" alt="Coach Ahlem">
+                <h3>Coach Ahlem</h3>
+                <p>Expert en perte de poids et en nutrition pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/yBK4VY4p/Yossra-3.png" alt="Coach Yasmine Connor">
+                <h3>Coach Yasmine</h3>
+                <p>Spécialiste du fitness et de l'entraînement fonctionnel pour femmes.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/zhtc4VLm/Amine-1.png" alt="Coach Amine">
+                <h3>Coach Amine</h3>
+                <p>Spécialiste de la boxe et des sports de combat.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/sXWqNxy/Samir.jpg" alt="Coach Samir">
+                <h3>Coach Samir</h3>
+                <p>Spécialiste des arts martiaux mixtes (MMA).</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
+                <h3>Coach Nabil</h3>
+                <p>Spécialiste de la remise en forme pour enfants.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+            <div class="trainer-card">
+                <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
+                <h3>Coach Siham</h3>
+                <p>Spécialiste en Zumba et Pilates.</p>
+                <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> <span>Contactez votre coach</span>
+                </a>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button onclick="moveTrainerSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTrainerSlider(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
 
-// Testimonial slider functionality
-const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
-const totalTestimonials = document.querySelectorAll('.testimonial-card').length;
-let currentTestimonialIndex = 0;
+<section id="tarifs">
+    <h2>NOS TARIFS</h2>
+    <div class="pricing-table-container">
+        <table class="pricing-table">
+            <thead>
+                <tr>
+                    <th>PACK</th>
+                    <th>PRIX</th>
+                    <th>AVANTAGES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>6 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
+                    <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
+                </tr>
+                <tr>
+                    <td>4 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
+                </tr>
+                <tr>
+                    <td>3 SÉANCES / SEMAINE</td>
+                    <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
+                    <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
 
-function moveTestimonialSlider(direction) {
-    const gap = 20;
-    const cardWidth = document.querySelector('.testimonial-card').offsetWidth;
-    const cardsToShow = window.innerWidth <= 768 ? 1 : 3;
-    currentTestimonialIndex = (currentTestimonialIndex + direction + totalTestimonials) % totalTestimonials;
-    let translateX = -currentTestimonialIndex * (cardWidth + gap);
-    testimonialsWrapper.style.transform = `translateX(${translateX}px)`;
-}
+<section id="documents-section" class="documents-section">
+    <div class="container">
+        <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
+        <ul class="documents-list">
+            <li><i class="fas fa-camera"></i>02 Photographies</li>
+            <li><i class="fas fa-id-card"></i>Copie de la carte d’identité</li>
+            <li><i class="fas fa-notes-medical"></i>Certificat de bonne santé</li>
+        </ul>
+    </div>
+</section>
 
-// Accordion for "Why us" section
-function toggleAccordion() {
-    const accordionHeader = document.querySelector('.accordion-header');
-    const accordionContent = document.querySelector('.accordion-content');
-    accordionHeader.classList.toggle('active');
-    accordionContent.classList.toggle('open');
-}
+<section id="avis">
+    <h2>AVIS DE NOS MEMBRES</h2>
+    <div class="testimonials-slider">
+        <div class="testimonials-wrapper">
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
+                <p>"Grâce à mes efforts et à l'aide du coach Zakaria, j'ai pu perdre beaucoup de poids et obtenir le corps de mes rêves. C'est incroyable wlh.. mrc Zaki ❤️"</p>
+                <div class="author">- Issam, 27 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/C5sdJVQx/Yassmin-avis.jpg" alt="Client 2">
+                <p>"J'ai fait une grave dépression, mais après m'être inscrit ici, mon état psychologique s'est beaucoup amélioré, grâce à la coach Yasmine 🖤 mrc khtii."</p>
+                <div class="author">- Marwa, 25 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/sdRJHyNZ/rachid.jpg" alt="Client 3">
+                <p>"Avec l'âge, ma condition physique s’était dégradée, mais alhamdulillah, En rejoignant OXYGENE GYM, j’ai pu me remettre en forme. 💪"</p>
+                <div class="author">- Zohir, 62 ans</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://i.ibb.co/27k7k5nX/Walid.jpg" alt="Client 4">
+                <p>"L’ambiance ici est tout simplement incroyable, on se sent comme une seule famille. Le matériel est neuf, moderne, et régulièrement renouvelé. Bravo et merci à toute l’équipe OXYGENE, ya3tikom saha 😍"</p>
+                <div class="author">- Walid, 22 ans</div>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <button onclick="moveTestimonialSlider(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="moveTestimonialSlider(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</section>
 
-// Accordion for "Documents" section
-document.addEventListener('DOMContentLoaded', () => {
-    const documentsToggle = document.querySelector('.documents-toggle');
-    const documentsList = document.querySelector('.documents-list');
+<section id="why-us">
+    <div class="accordion-header" onclick="toggleAccordion()">
+        <h2>POURQUOI OXYGENE GYM ?</h2>
+        <i class="fas fa-chevron-down icon"></i>
+    </div>
+    <div class="accordion-content">
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
+        <div class="why-us-container">
+            <div class="why-us-item">
+                <i class="fas fa-dumbbell icon"></i>
+                <div>
+                    <h3>Équipements Modernes</h3>
+                    <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-users-line icon"></i>
+                <div>
+                    <h3>Coaching Professionnel</h3>
+                    <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <i class="fas fa-hand-holding-heart icon"></i>
+                <div>
+                    <h3>Ambiance Familiale</h3>
+                    <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    documentsToggle.addEventListener('click', () => {
-        documentsToggle.classList.toggle('active');
-        if (documentsToggle.classList.contains('active')) {
-            gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
-        } else {
-            gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-        }
-    });
-});
+<section id="hours">
+    <h2>HEURES D'OUVERTURE</h2>
+    <table class="hours-table">
+        <thead>
+            <tr>
+                <th>Jour</th>
+                <th>Heures</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gender-row">
+                <td>Hommes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Jeudi</td>
+                <td>08:00 - 22:00</td>
+            </tr>
+            <tr class="gender-row">
+                <td>Femmes</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Samedi - Mercredi</td>
+                <td>14:00 - 17:45</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
-// Reset sliders on window resize
-window.addEventListener('resize', () => {
-    currentTrainerIndex = 0;
-    moveTrainerSlider(0);
-    currentTestimonialIndex = 0;
-    moveTestimonialSlider(0);
-});
+<section id="motivational-message">
+    <p class="motivational-quote">
+        "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
+    </p>
+</section>
 
-// Initial slider setup
-document.addEventListener('DOMContentLoaded', () => {
-    moveTrainerSlider(0);
-    moveTestimonialSlider(0);
-});
+<footer>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا على Google Maps">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+        <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا على TikTok">
+            <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    <p>© 2025 OXYGENE GYM. Tous droits réservés.</p>
+</footer>
 
-// Popup functionality
-const popupContainer = document.querySelector('.popup-container');
-const popupCloseBtn = document.querySelector('.popup-close-btn');
-const popupFermerBtn = document.querySelector('.popup-fermer-btn');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
 
-gsap.from(popupContainer, {
-    opacity: 0,
-    scale: 0.8,
-    duration: 0.6,
-    ease: "power3.out"
-});
-
-const closePopup = () => {
-    gsap.to(popupContainer, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.4,
-        ease: "power2.in",
-        onComplete: () => {
-            popupContainer.style.display = 'none';
-        }
-    });
-};
-
-popupCloseBtn.addEventListener('click', closePopup);
-popupFermerBtn.addEventListener('click', closePopup);
+</body>
+</html>
