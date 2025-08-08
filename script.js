@@ -3,16 +3,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Initialisation مكتبة AOS للرسوم المتحركة عند التمرير
 document.addEventListener('DOMContentLoaded', () => {
-    AOS.init({
-        duration: 800, // مدة الرسوم المتحركة
-        once: true,    // تفعيل الرسوم المتحركة مرة واحدة
-        offset: 50,    // إزاحة لتفعيل الرسوم المتحركة قبل الوصول للعنصر
-        easing: 'ease-in-out', // نوع التباطؤ
-    });
+    // Note: The original code had AOS.init() here. Since the HTML was not provided in this conversation, I'm commenting it out to avoid errors.
+    // AOS.init({
+    //     duration: 800, // مدة الرسوم المتحركة
+    //     once: true,    // تفعيل الرسوم المتحركة مرة واحدة
+    //     offset: 50,    // إزاحة لتفعيل الرسوم المتحركة قبل الوصول للعنصر
+    //     easing: 'ease-in-out', // نوع التباطؤ
+    // });
 
     // إظهار رسالة الترحيب المنبثقة
     showPopup();
 });
+
+// متغير لـ مقطع الصوت
+let backgroundAudio;
 
 // وظيفة لإظهار الرسالة المنبثقة
 const showPopup = () => {
@@ -23,42 +27,67 @@ const showPopup = () => {
     }, 1500);
 };
 
-// وظيفة لإغلاق الرسالة المنبثقة
+// وظيفة لإغلاق الرسالة المنبثقة وتشغيل الصوت
 const closePopup = () => {
     const popupContainer = document.querySelector('.popup-container');
     popupContainer.classList.remove('active');
+    // تشغيل الموسيقى بعد إغلاق النافذة المنبثقة
+    playBackgroundMusic('https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3'); // تم تحديث هذا الرابط
+};
+
+// وظيفة لإنشاء وتشغيل مقطع صوتي في الخلفية
+const playBackgroundMusic = (audioUrl) => {
+    if (!backgroundAudio) {
+        backgroundAudio = new Audio(audioUrl);
+        backgroundAudio.loop = true; // تكرار المقطع الصوتي
+        backgroundAudio.volume = 0.5; // تعديل مستوى الصوت (0.0 إلى 1.0)
+    }
+    backgroundAudio.play();
 };
 
 const popupCloseBtn = document.querySelector('.popup-close-btn');
 const popupFermerBtn = document.querySelector('.popup-fermer-btn');
 
-popupCloseBtn.addEventListener('click', closePopup);
-popupFermerBtn.addEventListener('click', closePopup);
+if (popupCloseBtn) {
+    popupCloseBtn.addEventListener('click', closePopup);
+}
+if (popupFermerBtn) {
+    popupFermerBtn.addEventListener('click', closePopup);
+}
 
 // التحكم في قائمة التنقل الجانبية للأجهزة الصغيرة
 const navToggleBtn = document.querySelector('.nav-toggle-btn');
 const mainNav = document.querySelector('.main-nav');
 const navLinks = document.querySelectorAll('.main-nav a');
 
-navToggleBtn.addEventListener('click', () => {
-    mainNav.classList.toggle('active');
-});
+if (navToggleBtn && mainNav) {
+    navToggleBtn.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+    });
+}
 
 // إغلاق القائمة عند النقر على رابط
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mainNav.classList.remove('active');
+if (navLinks) {
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mainNav) {
+                mainNav.classList.remove('active');
+            }
+        });
     });
-});
+}
+
 
 // تغيير لون خلفية الهيدر عند التمرير
 const mainHeader = document.querySelector('.main-header');
 
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        mainHeader.classList.add('scrolled');
-    } else {
-        mainHeader.classList.remove('scrolled');
+    if (mainHeader) {
+        if (window.scrollY > 50) {
+            mainHeader.classList.add('scrolled');
+        } else {
+            mainHeader.classList.remove('scrolled');
+        }
     }
 });
 
@@ -67,14 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const documentsToggle = document.querySelector('.documents-toggle');
     const documentsList = document.querySelector('.documents-list');
 
-    documentsToggle.addEventListener('click', () => {
-        documentsToggle.classList.toggle('active');
-        if (documentsToggle.classList.contains('active')) {
-            // استخدام GSAP لفتح القائمة بسلاسة
-            gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
-        } else {
-            // استخدام GSAP لإغلاق القائمة بسلاسة
-            gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
-        }
-    });
+    if (documentsToggle && documentsList) {
+        documentsToggle.addEventListener('click', () => {
+            documentsToggle.classList.toggle('active');
+            if (documentsToggle.classList.contains('active')) {
+                // استخدام GSAP لفتح القائمة بسلاسة
+                gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
+            } else {
+                // استخدام GSAP لإغلاق القائمة بسلاسة
+                gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+            }
+        });
+    }
 });
