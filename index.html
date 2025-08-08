@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OXYGENE GYM</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
 
+<!-- Popup -->
 <div class="popup-container">
     <div class="popup-content">
         <span class="popup-close-btn">&times;</span>
@@ -18,20 +20,35 @@
     </div>
 </div>
 
-<header></header>
+<header class="main-header">
+    <div class="container">
+        <a href="#" class="logo-link">
+            <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="header-logo">
+        </a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#trainers">Coachs</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#avis">Avis</a></li>
+                <li><a href="#why-us">Pourquoi nous</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
+<!-- Hero Section -->
 <div class="hero-section" id="hero">
     <div class="hero-content">
-        <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" class="logo-img">
-        <h1>LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
-        <p>BIENVENUE DANS VOTRE NOUVELLE VIE</p>
-        <a href="#tarifs" class="btn">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
+        <h1 data-aos="fade-up" data-aos-delay="200">LES DOULEUR D'AUJOURD'HUI EST LA FORCE DE DEMAIN</h1>
+        <p data-aos="fade-up" data-aos-delay="400">BIENVENUE DANS VOTRE NOUVELLE VIE</p>
+        <a href="#tarifs" class="btn" data-aos="fade-up" data-aos-delay="600">Découvrez nos tarifs <i class="fas fa-arrow-down"></i></a>
     </div>
 </div>
 
+<!-- Trainers Section -->
 <section id="trainers">
-    <h2>NOS PROFESSIONNELS COACHS</h2>
-    <div class="trainers-slider">
+    <h2 data-aos="fade-right">NOS PROFESSIONNELS COACHS</h2>
+    <div class="trainers-slider" data-aos="fade-up">
         <div class="trainers-wrapper">
             <div class="trainer-card">
                 <img src="https://i.ibb.co/Ndh0cMTT/Amine-1-1.png" alt="Coach Zakaria">
@@ -97,40 +114,58 @@
     </div>
 </section>
 
+<!-- Tarifs Section -->
 <section id="tarifs">
-    <h2>NOS TARIFS</h2>
-    <div class="pricing-table-container">
-        <table class="pricing-table">
-            <thead>
-                <tr>
-                    <th>PACK</th>
-                    <th>PRIX</th>
-                    <th>AVANTAGES</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>6 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">3999 DZD <span>/ mois</span></p></td>
-                    <td>Accès illimité à la salle, Programme d'entraînement personnalisé, Suivi nutritionnel.</td>
-                </tr>
-                <tr>
-                    <td>4 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">3499 DZD <span>/ mois</span></p></td>
-                    <td>Accès à la salle 4x/semaine, Plan d'entraînement de base, Assistance des coachs.</td>
-                </tr>
-                <tr>
-                    <td>3 SÉANCES / SEMAINE</td>
-                    <td><p class="price-cell">2999 DZD <span>/ mois</span></p></td>
-                    <td>Accès à la salle 3x/semaine, Évaluation de la condition physique, Espace cardio & musculation.</td>
-                </tr>
-            </tbody>
-        </table>
+    <h2 data-aos="fade-left">NOS TARIFS</h2>
+    <div class="pricing-table-container" data-aos="fade-up">
+        <div class="pricing-card">
+            <div class="card-header">
+                <h3>6 SÉANCES / SEMAINE</h3>
+            </div>
+            <div class="card-body">
+                <p class="price-cell">3999 DZD <span>/ mois</span></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i>Accès illimité à la salle</li>
+                    <li><i class="fas fa-check-circle"></i>Programme d'entraînement personnalisé</li>
+                    <li><i class="fas fa-check-circle"></i>Suivi nutritionnel</li>
+                </ul>
+                <a href="#" class="btn-purchase">S'inscrire</a>
+            </div>
+        </div>
+        <div class="pricing-card main-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-header">
+                <h3>4 SÉANCES / SEMAINE</h3>
+            </div>
+            <div class="card-body">
+                <p class="price-cell">3499 DZD <span>/ mois</span></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i>Accès à la salle 4x/semaine</li>
+                    <li><i class="fas fa-check-circle"></i>Plan d'entraînement de base</li>
+                    <li><i class="fas fa-check-circle"></i>Assistance des coachs</li>
+                </ul>
+                <a href="#" class="btn-purchase">S'inscrire</a>
+            </div>
+        </div>
+        <div class="pricing-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="card-header">
+                <h3>3 SÉANCES / SEMAINE</h3>
+            </div>
+            <div class="card-body">
+                <p class="price-cell">2999 DZD <span>/ mois</span></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i>Accès à la salle 3x/semaine</li>
+                    <li><i class="fas fa-check-circle"></i>Évaluation de la condition physique</li>
+                    <li><i class="fas fa-check-circle"></i>Espace cardio & musculation</li>
+                </ul>
+                <a href="#" class="btn-purchase">S'inscrire</a>
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- Documents Section -->
 <section id="documents-section" class="documents-section">
-    <div class="container">
+    <div class="container" data-aos="zoom-in">
         <h2 class="documents-toggle"> Documents requis pour l’inscription <i class="fas fa-chevron-down icon"></i> </h2>
         <ul class="documents-list">
             <li><i class="fas fa-camera"></i>02 Photographies</li>
@@ -140,9 +175,10 @@
     </div>
 </section>
 
+<!-- Avis Section -->
 <section id="avis">
-    <h2>AVIS DE NOS MEMBRES</h2>
-    <div class="testimonials-slider">
+    <h2 data-aos="fade-right">AVIS DE NOS MEMBRES</h2>
+    <div class="testimonials-slider" data-aos="fade-up">
         <div class="testimonials-wrapper">
             <div class="testimonial-card">
                 <img src="https://i.ibb.co/SDgG5JxW/Issam.jpg" alt="Client 1">
@@ -172,77 +208,61 @@
     </div>
 </section>
 
+<!-- Why Us Section -->
 <section id="why-us">
-    <div class="accordion-header" onclick="toggleAccordion()">
-        <h2>POURQUOI OXYGENE GYM ?</h2>
-        <i class="fas fa-chevron-down icon"></i>
-    </div>
-    <div class="accordion-content">
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Notre salle est bien plus qu’un simple centre de musculation — c’est un univers sportif unique à Tlemcen. Nous vous proposons une expérience complète et enrichissante, alliant équipements de dernière génération, diversité des disciplines (Fitness, Kickboxing, Zumba pour femmes), et même des espaces dédiés aux enfants pour une ambiance familiale chaleureuse. Grâce à l’engagement sans faille de notre équipe, nous sommes aujourd’hui fièrement reconnus comme la référence N°1 à Tlemcen. Votre confort, votre motivation et vos résultats sont au cœur de nos priorités. </p>
-        <div class="why-us-container">
-            <div class="why-us-item">
-                <i class="fas fa-dumbbell icon"></i>
-                <div>
-                    <h3>Équipements Modernes</h3>
-                    <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
-                </div>
+    <h2 data-aos="fade-right">POURQUOI OXYGENE GYM ?</h2>
+    <div class="why-us-container" data-aos="fade-up">
+        <div class="why-us-item">
+            <i class="fas fa-dumbbell icon"></i>
+            <div>
+                <h3>Équipements Modernes</h3>
+                <p>Des machines de dernière génération pour des entraînements optimaux et sécurisés.</p>
             </div>
-            <div class="why-us-item">
-                <i class="fas fa-users-line icon"></i>
-                <div>
-                    <h3>Coaching Professionnel</h3>
-                    <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
-                </div>
+        </div>
+        <div class="why-us-item">
+            <i class="fas fa-users-line icon"></i>
+            <div>
+                <h3>Coaching Professionnel</h3>
+                <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
             </div>
-            <div class="why-us-item">
-                <i class="fas fa-hand-holding-heart icon"></i>
-                <div>
-                    <h3>Ambiance Familiale</h3>
-                    <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
-                </div>
+        </div>
+        <div class="why-us-item">
+            <i class="fas fa-hand-holding-heart icon"></i>
+            <div>
+                <h3>Ambiance Familiale</h3>
+                <p>Une atmosphère de soutien et d'encouragement où chacun se sent chez soi.</p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Hours Section -->
 <section id="hours">
-    <h2>HEURES D'OUVERTURE</h2>
-    <table class="hours-table">
-        <thead>
-            <tr>
-                <th>Jour</th>
-                <th>Heures</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="gender-row">
-                <td>Hommes</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Samedi - Jeudi</td>
-                <td>08:00 - 22:00</td>
-            </tr>
-            <tr class="gender-row">
-                <td>Femmes</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Samedi - Mercredi</td>
-                <td>14:00 - 17:45</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2 data-aos="fade-left">HEURES D'OUVERTURE</h2>
+    <div class="hours-container" data-aos="fade-up">
+        <div class="hours-card">
+            <h3>Hommes</h3>
+            <p>Samedi - Jeudi</p>
+            <span>08:00 - 22:00</span>
+        </div>
+        <div class="hours-card">
+            <h3>Femmes</h3>
+            <p>Samedi - Mercredi</p>
+            <span>14:00 - 17:45</span>
+        </div>
+    </div>
 </section>
 
+<!-- Motivational Message -->
 <section id="motivational-message">
-    <p class="motivational-quote">
+    <p class="motivational-quote" data-aos="zoom-in">
         "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
     </p>
 </section>
 
+<!-- Footer -->
 <footer>
-    <div class="social-icons">
+    <div class="social-icons" data-aos="fade-up">
         <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
             <i class="fab fa-facebook-f"></i>
         </a>
@@ -261,6 +281,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="script.js"></script>
 
 </body>
