@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -46,13 +45,10 @@
             width: 90%;
             max-width: 800px;
             height: 80vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* Fond flou pour le conteneur du jeu */
-        .game-background-blur {
+        /* Conteneur de l'interface utilisateur du jeu, visible en arrière-plan */
+        .game-ui {
             position: absolute;
             top: 0;
             left: 0;
@@ -61,38 +57,22 @@
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             box-shadow: 0 10px 30px var(--shadow-dark);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             filter: blur(5px);
             opacity: 0.5;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         /* État lorsque le jeu est actif */
-        .game-wrapper.playing .game-background-blur {
+        .game-wrapper.playing .game-ui {
             filter: blur(0);
             opacity: 1;
         }
 
-        /* Conteneur de l'interface utilisateur du jeu */
-        .game-ui {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            padding: 40px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-        }
-
-        .game-wrapper.playing .game-ui {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Écran de démarrage */
+        /* Écran de démarrage comme une superposition */
         .start-screen {
             position: absolute;
             top: 0;
@@ -104,6 +84,14 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+        }
+
+        .game-wrapper.playing .start-screen {
+            opacity: 0;
+            visibility: hidden;
         }
 
         .start-button {
@@ -325,19 +313,7 @@
 <body>
 
     <div class="game-wrapper" id="game-wrapper">
-        <div class="game-background-blur"></div>
-        
-        <!-- Écran de démarrage -->
-        <div class="start-screen" id="start-screen">
-            <button class="start-button" id="start-button">Démarrer le jeu</button>
-        </div>
-
-        <!-- Superposition du compte à rebours -->
-        <div class="countdown-overlay" id="countdown-overlay">
-            <div class="countdown-text" id="countdown-text"></div>
-        </div>
-        
-        <!-- UI du jeu -->
+        <!-- UI du jeu, visible en arrière-plan au démarrage -->
         <div class="game-ui" id="game-ui">
             <div class="game-header">
                 <div class="medals" id="medals-display">
@@ -356,7 +332,17 @@
             <div class="word-field" id="word-field"></div>
             <input type="text" class="input-field" id="input-field" placeholder="Écrivez le mot ici...">
         </div>
+        
+        <!-- Écran de démarrage qui est une superposition -->
+        <div class="start-screen" id="start-screen">
+            <button class="start-button" id="start-button">Démarrer le jeu</button>
+        </div>
 
+        <!-- Superposition du compte à rebours -->
+        <div class="countdown-overlay" id="countdown-overlay">
+            <div class="countdown-text" id="countdown-text"></div>
+        </div>
+        
         <!-- Modal de victoire de médaille -->
         <div class="modal" id="medal-modal">
             <div class="modal-content">
@@ -430,12 +416,10 @@
 
         // Function to start the game
         function startGame() {
-            // Hide the start screen and show the game UI
-            gsap.to(startScreen, { opacity: 0, duration: 0.5, onComplete: () => {
-                startScreen.style.display = 'none';
-                gameWrapper.classList.add('playing');
-                showCountdown();
-            }});
+            // Add the 'playing' class to transition the game UI
+            gameWrapper.classList.add('playing');
+            // Show the countdown
+            showCountdown();
         }
 
         // Countdown function
@@ -486,7 +470,6 @@
         // Function to start the timer
         function startTimer() {
             let startTime = performance.now();
-            const duration = levels[currentLevelIndex].time * 1000;
             
             intervalId = setInterval(() => {
                 const elapsedTime = performance.now() - startTime;
@@ -589,15 +572,17 @@
         
         // Function to create confetti animation
         function createConfetti() {
-            const confettiEmojis = ['🎉', '🎊', '✨', '🏆'];
+            const confettiEmojis = ['�', '🎊', '✨', '🏆'];
+            const containerRect = confettiContainer.getBoundingClientRect();
+            
             for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti-piece');
                 confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
                 confettiContainer.appendChild(confetti);
 
-                const startX = Math.random() * window.innerWidth - window.innerWidth / 2;
-                const startY = Math.random() * window.innerHeight - window.innerHeight / 2;
+                const startX = Math.random() * containerRect.width - containerRect.width / 2;
+                const startY = Math.random() * containerRect.height - containerRect.height / 2;
                 const endX = startX + (Math.random() - 0.5) * 500;
                 const endY = startY + (Math.random() * 500);
                 const rotation = Math.random() * 720;
@@ -620,8 +605,8 @@
             }
         }
 
-        // Function to reset the game
-        function restartGame() {
+        // Function to reset the game and return to the start screen
+        function resetGame() {
             gsap.to([medalModal, lossModal], { opacity: 0, visibility: 'hidden', duration: 0.5 });
             
             currentLevelIndex = 0;
@@ -635,19 +620,14 @@
             
             progressBar.style.width = '0%';
             
-            // Re-show the start screen to allow for a proper restart
-            startScreen.style.display = 'flex';
+            // Remove the 'playing' class to reset the UI
             gameWrapper.classList.remove('playing');
-            startButton.textContent = "Démarrer le jeu";
-            // Ensure UI is hidden
-            gameUI.style.opacity = 0;
-            gameUI.style.visibility = 'hidden';
         }
 
         // Event listeners
         startButton.addEventListener('click', startGame);
         inputField.addEventListener('input', checkWord);
-        restartButton.addEventListener('click', restartGame);
+        restartButton.addEventListener('click', resetGame);
         
         continueButton.addEventListener('click', () => {
             gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5 });
@@ -657,22 +637,12 @@
             if (currentLevelIndex < levels.length) {
                 showCountdown();
             } else {
-                gameUI.style.opacity = 0;
-                gameUI.style.visibility = 'hidden';
-                startScreen.style.display = 'flex';
-                gameWrapper.classList.remove('playing');
-                startButton.textContent = "Rejouer";
+                resetGame();
             }
         });
         
-        stopButton.addEventListener('click', () => {
-            gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5 });
-            gameUI.style.opacity = 0;
-            gameUI.style.visibility = 'hidden';
-            startScreen.style.display = 'flex';
-            gameWrapper.classList.remove('playing');
-            startButton.textContent = "Rejouer";
-        });
+        stopButton.addEventListener('click', resetGame);
     </script>
 </body>
 </html>
+�
