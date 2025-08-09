@@ -169,13 +169,11 @@
 
         .slider-item {
             min-width: 100%;
-            position: relative; /* Added for absolute positioning of text */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             flex-shrink: 0;
-            padding: 0; /* Removed padding */
+            padding: 0;
         }
 
         .slider-item img {
@@ -191,25 +189,23 @@
         }
 
         .slider-text {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
+            /* Position text below the image */
+            position: relative;
+            margin-top: 10px; /* Add margin to separate from the image */
             font-family: 'Poppins', sans-serif;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1em;
             color: var(--text-color);
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 8px;
+            background-color: transparent; /* Removed background color */
+            padding: 0; /* Removed padding */
+            border-radius: 0; /* Removed border-radius */
             opacity: 0; /* Initially hidden */
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            transition: opacity 0.5s ease-out; /* Only animate opacity */
         }
 
         .slider-text.active {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0); /* Fades in and slides up */
+            opacity: 1; /* Fade in */
         }
         
         .slider-nav {
@@ -253,7 +249,8 @@
                 max-height: 300px;
             }
             .slider-text {
-                font-size: 1em;
+                font-size: 0.9em;
+                padding: 5px 10px;
             }
         }
     </style>
