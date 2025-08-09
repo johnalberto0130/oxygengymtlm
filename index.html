@@ -34,10 +34,6 @@
             overflow-x: hidden;
         }
 
-        header {
-            display: none;
-        }
-
         .hero-section {
             height: 100vh;
             display: flex;
@@ -678,11 +674,118 @@
                 padding: 8px 20px;
             }
         }
+
+        /* --- New Sidebar Styles --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 50px 30px;
+            transform: translateX(-100%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5em;
+            color: var(--main-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-close-btn:hover {
+            transform: rotate(90deg);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-menu li {
+            opacity: 0;
+            transform: translateY(20px);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu a {
+            font-family: 'Anton', sans-serif;
+            font-size: 2em;
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s, letter-spacing 0.3s;
+            display: block;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 5px;
+        }
+
+        .sidebar-menu a:hover {
+            color: var(--main-color);
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--main-color);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+            background-color: var(--dark-bg);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+            transition: box-shadow 0.3s;
+        }
+        
+        .menu-toggle:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 4px;
+            background-color: var(--main-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* End of new styles */
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- تم إزالة السمة "loop" من هنا لتشغيل الصوت مرة واحدة فقط -->
     <audio id="bg-audio">
         <source src="https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3" type="audio/mpeg">
         متصفحك لا يدعم عنصر الصوت.
@@ -694,6 +797,23 @@
             <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>La Salle N°1 dans La wilaya de Tlemcen 🏆 </p>
             <button class="popup-fermer-btn">Fermer</button>
         </div>
+    </div>
+
+    <!-- New Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="facilities.html">Nos Facilities</a></li>
+        </ul>
+    </div>
+    
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
     <header></header>
@@ -752,7 +872,7 @@
                     </a>
                 </div>
                 <div class="trainer-card">
-                    <img src="https://i.ibb.co/vxQjv10D/NABIL2.jpg" alt="Coach Nabil">
+                    <img src="https://i.ibb.co/m5bvPMp0/nabiil.png" alt="Coach Nabil">
                     <h3>Coach Nabil</h3>
                     <p>Spécialiste de la remise en forme pour enfants.</p>
                     <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
@@ -760,7 +880,7 @@
                     </a>
                 </div>
                 <div class="trainer-card">
-                    <img src="https://i.ibb.co/d03P59RV/Siham2.jpg" alt="Coach Siham">
+                    <img src="https://i.ibb.co/B2Yzvt58/siham.jpg" alt="Coach Siham">
                     <h3>Coach Siham</h3>
                     <p>Spécialiste en Zumba et Pilates.</p>
                     <a href="https://wa.me/213000000000" target="_blank" class="btn btn-whatsapp">
@@ -1058,6 +1178,33 @@
                 }
             });
         }
+
+        // --- New Sidebar JS ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarCloseBtn = document.getElementById('sidebar-close');
+        const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
+
+        const tl = gsap.timeline({ paused: true });
+        tl.to(sidebar, {
+            x: '0%',
+            duration: 0.6,
+            ease: 'power3.inOut'
+        });
+        tl.from(sidebarMenuItems, {
+            y: 20,
+            opacity: 0,
+            stagger: 0.1,
+            ease: 'power2.out'
+        }, "-=0.3");
+
+        menuToggle.addEventListener('click', () => {
+            tl.play();
+        });
+
+        sidebarCloseBtn.addEventListener('click', () => {
+            tl.reverse();
+        });
     </script>
 </body>
 </html>
