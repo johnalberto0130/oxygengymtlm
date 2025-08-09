@@ -195,21 +195,13 @@
             margin-bottom: 20px;
         }
 
-        .rewards-image-placeholder {
+        /* Updated style for the rewards image */
+        .rewards-image {
             max-width: 100%;
-            height: 400px; /* Placeholder height */
-            background-color: #333;
+            height: auto;
             border-radius: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: #999;
-            margin: auto;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            object-fit: contain; /* Ensure the image fits within its container */
         }
 
         .accordion {
@@ -380,15 +372,15 @@
             <!-- Countdown Timer -->
             <div class="countdown-container">
                 <div class="countdown-item">
-                    <span class="countdown-number" id="days">120</span>
+                    <span class="countdown-number" id="days">00</span>
                     <span class="countdown-label">Jour</span>
                 </div>
                 <div class="countdown-item">
-                    <span class="countdown-number" id="hours">23</span>
+                    <span class="countdown-number" id="hours">00</span>
                     <span class="countdown-label">Heure</span>
                 </div>
                 <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">59</span>
+                    <span class="countdown-number" id="minutes">00</span>
                     <span class="countdown-label">Minutes</span>
                 </div>
             </div>
@@ -398,8 +390,8 @@
                 <p class="rewards-text">
                     Des gros cadeaux vous attendent.<br>Soyez prêts, héros.
                 </p>
-                <div class="rewards-image-placeholder" style="background-image: url('https://placehold.co/800x400/FF8C00/fff?text=Image+des+cadeaux');">
-                </div>
+                <!-- Image without the placeholder div -->
+                <img src="https://placehold.co/800x400/FF8C00/fff?text=Image+des+cadeaux" alt="Image des récompenses" class="rewards-image">
             </div>
             
             <!-- Accordion for Conditions -->
@@ -501,7 +493,7 @@
             }
         });
 
-        gsap.from(".rewards-text, .rewards-image-placeholder", {
+        gsap.from(".rewards-text, .rewards-image", {
             duration: 1.5,
             y: 50,
             opacity: 0,
@@ -569,10 +561,24 @@
 
 
         // Countdown timer logic
-        const countdownDate = new Date().getTime() + (120 * 24 * 60 * 60 * 1000) + (23 * 60 * 60 * 1000) + (59 * 60 * 1000);
+        const countdownDate = new Date().getTime() + (120 * 24 * 60 * 60 * 1000) + (23 * 60 * 60 * 1000) + (59 * 60 * 1000) + (59 * 1000); // 120 days, 23 hours, 59 minutes, 59 seconds
         const daysEl = document.getElementById("days");
         const hoursEl = document.getElementById("hours");
         const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.createElement('span');
+        const secondsLabelEl = document.createElement('span');
+        const countdownContainer = document.querySelector('.countdown-container');
+
+        // Add seconds to the DOM
+        const secondsItem = document.createElement('div');
+        secondsItem.classList.add('countdown-item');
+        secondsEl.classList.add('countdown-number');
+        secondsEl.id = 'seconds';
+        secondsLabelEl.classList.add('countdown-label');
+        secondsLabelEl.textContent = 'Secondes';
+        secondsItem.appendChild(secondsEl);
+        secondsItem.appendChild(secondsLabelEl);
+        countdownContainer.appendChild(secondsItem);
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -581,13 +587,15 @@
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             daysEl.textContent = days.toString().padStart(2, '0');
             hoursEl.textContent = hours.toString().padStart(2, '0');
             minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
 
-        setInterval(updateCountdown, 60000); // Update every minute
+        setInterval(updateCountdown, 1000); // Update every second
         updateCountdown();
 
         // Accordion functionality
