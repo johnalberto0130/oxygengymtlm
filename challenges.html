@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* CSS variables and global styles from index.html for consistency */
+        /* CSS variables and global styles for consistency */
         :root {
             --main-color: #00ff88;
             --dark-bg: #111;
@@ -383,6 +383,10 @@
                     <span class="countdown-number" id="minutes">00</span>
                     <span class="countdown-label">Minutes</span>
                 </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Secondes</span>
+                </div>
             </div>
 
             <!-- Rewards Section -->
@@ -439,7 +443,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Sidebar logic from index.html
+        // Sidebar logic
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
@@ -560,29 +564,29 @@
         });
 
 
-        // Countdown timer logic
-        const countdownDate = new Date().getTime() + (120 * 24 * 60 * 60 * 1000) + (23 * 60 * 60 * 1000) + (59 * 60 * 1000) + (59 * 1000); // 120 days, 23 hours, 59 minutes, 59 seconds
+        // Countdown timer logic with a fixed end date
+        // Use a fixed end date that all users will see.
+        // Format: YYYY, MM, DD, HH, MM, SS (Month is 0-indexed, so 5 is June)
+        const countdownDate = new Date(2025, 11, 25, 12, 0, 0).getTime(); // Example: December 25, 2025 at 12:00:00
+
         const daysEl = document.getElementById("days");
         const hoursEl = document.getElementById("hours");
         const minutesEl = document.getElementById("minutes");
-        const secondsEl = document.createElement('span');
-        const secondsLabelEl = document.createElement('span');
-        const countdownContainer = document.querySelector('.countdown-container');
-
-        // Add seconds to the DOM
-        const secondsItem = document.createElement('div');
-        secondsItem.classList.add('countdown-item');
-        secondsEl.classList.add('countdown-number');
-        secondsEl.id = 'seconds';
-        secondsLabelEl.classList.add('countdown-label');
-        secondsLabelEl.textContent = 'Secondes';
-        secondsItem.appendChild(secondsEl);
-        secondsItem.appendChild(secondsLabelEl);
-        countdownContainer.appendChild(secondsItem);
+        const secondsEl = document.getElementById("seconds");
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = countdownDate - now;
+
+            if (distance < 0) {
+                // If the countdown is finished
+                clearInterval(countdownInterval);
+                daysEl.textContent = "00";
+                hoursEl.textContent = "00";
+                minutesEl.textContent = "00";
+                secondsEl.textContent = "00";
+                return;
+            }
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -595,7 +599,7 @@
             secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
 
-        setInterval(updateCountdown, 1000); // Update every second
+        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
         updateCountdown();
 
         // Accordion functionality
