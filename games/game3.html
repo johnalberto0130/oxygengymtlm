@@ -265,7 +265,6 @@
   }
 
   // مؤثرات GSAP
-
   function playConfetti() {
     for(let i=0; i<30; i++) {
       let confetti = document.createElement('div');
@@ -285,10 +284,46 @@
       });
     }
   }
+
   function playEmojiRain(emojiChar) {
     for(let i=0; i<30; i++) {
       let rain = document.createElement('div');
       rain.textContent = emojiChar;
       rain.style.position = 'fixed';
       rain.style.fontSize = `${randomInt(20,40)}px`;
-      rain.style.left = `${randomInt(0,
+      rain.style.left = `${randomInt(0, window.innerWidth)}px`;
+      rain.style.top = `-${randomInt(10,100)}px`;
+      rain.style.pointerEvents = 'none';
+      document.body.appendChild(rain);
+      gsap.to(rain, {
+        y: window.innerHeight + 100,
+        rotation: randomInt(0,360),
+        duration: randomInt(2,4),
+        ease: "power1.in",
+        onComplete: () => rain.remove()
+      });
+    }
+  }
+
+  // الدوال الفارغة المفقودة، تم إنشاؤها لتجنب الأخطاء
+  function playApplause() {
+    console.log("Play Applause sound");
+  }
+
+  function playSadSound() {
+    console.log("Play Sad sound");
+  }
+
+
+  startBtn.addEventListener('click', () => {
+    emojiElements.forEach(e => e.remove());
+    emojiElements = [];
+    startGame();
+  });
+
+  gameContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+</script>
+</body>
+</html>
