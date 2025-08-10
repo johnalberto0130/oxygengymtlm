@@ -18,6 +18,8 @@
             --shadow-dark: rgba(0, 0, 0, 0.8);
             --green-btn: #00e676;
             --green-glow: rgba(0, 255, 136, 0.7);
+            --red-btn: #f44336;
+            --orange-loading: #FF9800;
         }
 
         * {
@@ -113,7 +115,7 @@
         }
 
         /* Superposition du compte à rebours */
-        .countdown-overlay {
+        .countdown-overlay, .loading-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -133,6 +135,21 @@
             text-shadow: 0 0 20px var(--main-color);
         }
 
+        /* Loading spinner */
+        .loader {
+            border: 16px solid rgba(255, 255, 255, 0.2);
+            border-top: 16px solid var(--orange-loading);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Zone de la minuterie et des médailles */
         .game-header {
             display: flex;
@@ -142,7 +159,7 @@
 
         .medals {
             font-size: 2.5em;
-            display: flex;
+            display: flex; /* Show medals in the main UI */
             gap: 10px;
         }
 
@@ -155,12 +172,12 @@
             opacity: 1;
         }
         
-        .timer-display {
+        .score-display, .timer-display {
             font-family: 'Anton', sans-serif;
             font-size: 2.5em;
             color: var(--main-color);
         }
-
+        
         /* Barre de progression */
         .progress-bar-container {
             width: 100%;
@@ -230,6 +247,8 @@
             box-shadow: 0 10px 40px var(--shadow-dark);
             transform: translateY(-50px);
             overflow: hidden;
+            max-width: 90%;
+            min-width: 300px;
         }
 
         .modal-content h3 {
@@ -286,6 +305,63 @@
             font-size: 1.5em;
             opacity: 0;
         }
+
+        /* Promo code modal specific styles */
+        .promo-modal .modal-content {
+            padding: 50px;
+        }
+        .promo-modal h3 {
+            color: var(--orange-loading);
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
+        }
+        .promo-code-container {
+            position: relative;
+            background-color: #333;
+            border: 2px dashed var(--main-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .promo-code-container:hover {
+            background-color: #444;
+        }
+        .promo-code-text {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            color: var(--main-color);
+        }
+        .copy-message {
+            position: absolute;
+            bottom: -30px;
+            font-size: 0.9em;
+            color: #ddd;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .close-button-x {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5em;
+            color: var(--red-btn);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .close-button-x:hover {
+            transform: scale(1.2) rotate(90deg);
+        }
+        .promo-modal button {
+            background-color: var(--red-btn);
+            color: white;
+            margin-top: 20px;
+        }
         
         /* Responsive design */
         @media (max-width: 768px) {
@@ -305,6 +381,9 @@
             .game-header {
                 flex-direction: column;
                 gap: 15px;
+            }
+            .promo-code-text {
+                font-size: 1.2em;
             }
         }
 
@@ -343,6 +422,11 @@
             <div class="countdown-text" id="countdown-text"></div>
         </div>
         
+        <!-- Superposition de chargement -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="loader"></div>
+        </div>
+
         <!-- Modal de victoire de médaille -->
         <div class="modal" id="medal-modal">
             <div class="modal-content">
@@ -352,7 +436,7 @@
                 <p id="medal-message"></p>
                 <div class="button-group">
                     <button id="continue-button">Continuer</button>
-                    <button id="stop-button" style="background-color: #f44336; color: white; margin-left: 10px;">Arrêter</button>
+                    <button id="stop-button" style="background-color: var(--red-btn); color: white; margin-left: 10px;">Arrêter</button>
                 </div>
             </div>
         </div>
@@ -363,6 +447,21 @@
                 <h3>Oh, non, vous avez perdu!</h3>
                 <p>Pas de problème, réessayez. C'est en forgeant qu'on devient forgeron !</p>
                 <button id="restart-button">Recommencer</button>
+            </div>
+        </div>
+
+        <!-- Nouveau Modal de promotion pour la médaille d'or -->
+        <div class="modal promo-modal" id="promo-modal">
+            <div class="modal-content">
+                <span class="close-button-x" id="close-promo-x-button">X</span>
+                <h3>Félicitations, vous avez gagné une réduction sur l’abonnement de salle.</h3>
+                <p>Copiez Le code promo ici</p>
+                <div class="promo-code-container" id="promo-code-container">
+                    <span class="promo-code-text" id="promo-code-text">OXYGENE2022GYM25</span>
+                    <span class="copy-message" id="copy-message">Copié!</span>
+                </div>
+                <p>cette "Promo code " c'est pour vous quand vous venez à la salle pour vous inscrire ou pour renouveler l’abonnement vous obtiendrez une réduction entre 5% et 30% Vous et votre chance 🔥</p>
+                <button id="close-promo-button">Fermer</button>
             </div>
         </div>
     </div>
@@ -377,6 +476,7 @@
         const gameUI = document.getElementById('game-ui');
         const countdownOverlay = document.getElementById('countdown-overlay');
         const countdownText = document.getElementById('countdown-text');
+        const loadingOverlay = document.getElementById('loading-overlay');
         const wordField = document.getElementById('word-field');
         const inputField = document.getElementById('input-field');
         const timerDisplay = document.getElementById('timer-display');
@@ -387,18 +487,25 @@
         const medalGold = document.getElementById('medal-gold');
         const medalModal = document.getElementById('medal-modal');
         const lossModal = document.getElementById('loss-modal');
+        const promoModal = document.getElementById('promo-modal');
         const continueButton = document.getElementById('continue-button');
         const stopButton = document.getElementById('stop-button');
         const restartButton = document.getElementById('restart-button');
+        const closePromoXButton = document.getElementById('close-promo-x-button');
+        const closePromoButton = document.getElementById('close-promo-button');
         const medalIconInModal = document.getElementById('medal-icon-in-modal');
         const medalTitleInModal = document.getElementById('medal-title');
         const medalMessageInModal = document.getElementById('medal-message');
         const confettiContainer = document.querySelector('.confetti-container');
+        const promoCodeContainer = document.getElementById('promo-code-container');
+        const promoCodeText = document.getElementById('promo-code-text');
+        const copyMessage = document.getElementById('copy-message');
 
         // JS variables to match CSS colors
         const mainColor = '#00ff88';
         const darkBg = '#111';
         const greenGlow = 'rgba(0, 255, 136, 0.7)';
+        const orangeLoading = '#FF9800';
 
         // Game data in French
         const levels = [
@@ -523,29 +630,36 @@
         // Function to show the medal modal with confetti
         function showMedalModal() {
             const currentLevel = levels[currentLevelIndex];
-            medalIconInModal.textContent = currentLevel.medal;
-            medalTitleInModal.textContent = currentLevel.title;
-            medalMessageInModal.textContent = currentLevel.message;
             
+            // Unlock medals in the main UI
             if (currentLevel.id === 1) medalBronze.classList.add('unlocked');
             if (currentLevel.id === 2) medalSilver.classList.add('unlocked');
             if (currentLevel.id === 3) medalGold.classList.add('unlocked');
 
+            medalIconInModal.textContent = currentLevel.medal;
+            medalTitleInModal.textContent = currentLevel.title;
+            medalMessageInModal.textContent = currentLevel.message;
+            
+            // Check if it's the final level (gold medal)
+            if (currentLevelIndex === levels.length - 1) {
+                continueButton.textContent = 'Obtenez votre cadeau';
+                stopButton.style.display = 'none';
+                medalIconInModal.textContent = '🥇'; // Set gold medal icon explicitly
+            } else {
+                continueButton.textContent = 'Continuer';
+                stopButton.style.display = 'inline-block';
+                // Set medal icon based on the current level
+                if (currentLevel.id === 1) medalIconInModal.textContent = '🥉';
+                if (currentLevel.id === 2) medalIconInModal.textContent = '🥈';
+            }
+            
             gsap.to(medalModal, {
                 opacity: 1,
                 visibility: 'visible',
                 duration: 0.5,
                 ease: 'power2.inOut'
             });
-            gsap.fromTo('.modal-content', { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
-            
-            if (currentLevelIndex === levels.length - 1) {
-                continueButton.textContent = 'Terminer';
-                stopButton.style.display = 'none';
-            } else {
-                continueButton.textContent = 'Continuer';
-                stopButton.style.display = 'inline-block';
-            }
+            gsap.fromTo(medalModal.querySelector('.modal-content'), { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
             
             // Confetti animation
             createConfetti();
@@ -570,9 +684,20 @@
             });
         }
         
+        // Function to show the promo modal
+        function showPromoModal() {
+            gsap.to(promoModal, {
+                opacity: 1,
+                visibility: 'visible',
+                duration: 0.5,
+                ease: 'power2.inOut'
+            });
+            gsap.fromTo(promoModal.querySelector('.modal-content'), { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
+        }
+
         // Function to create confetti animation
         function createConfetti() {
-            const confettiEmojis = ['�', '🎊', '✨', '🏆'];
+            const confettiEmojis = ['🎉', '🎊', '✨', '🏆'];
             const containerRect = confettiContainer.getBoundingClientRect();
             
             for (let i = 0; i < 50; i++) {
@@ -604,16 +729,17 @@
                 });
             }
         }
-
+        
         // Function to reset the game and return to the start screen
         function resetGame() {
-            gsap.to([medalModal, lossModal], { opacity: 0, visibility: 'hidden', duration: 0.5 });
+            gsap.to([medalModal, lossModal, promoModal], { opacity: 0, visibility: 'hidden', duration: 0.5 });
             
             currentLevelIndex = 0;
             wordIndex = 0;
             score = 0;
             scoreValue.textContent = 0;
             
+            // Reset medal states
             medalBronze.classList.remove('unlocked');
             medalSilver.classList.remove('unlocked');
             medalGold.classList.remove('unlocked');
@@ -624,25 +750,64 @@
             gameWrapper.classList.remove('playing');
         }
 
+        // Function to copy the promo code
+        function copyPromoCode() {
+            const codeText = promoCodeText.textContent;
+            
+            const tempInput = document.createElement('textarea');
+            tempInput.value = codeText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                const msg = successful ? 'Copié!' : 'Échec de la copie';
+                
+                gsap.killTweensOf(copyMessage); // Stop any ongoing animations
+                gsap.fromTo(copyMessage, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, onComplete: () => {
+                    gsap.to(copyMessage, { opacity: 0, y: -10, duration: 0.3, delay: 1 });
+                }});
+                
+            } catch (err) {
+                console.error('Erreur lors de la copie du code promo:', err);
+            } finally {
+                document.body.removeChild(tempInput);
+            }
+        }
+
         // Event listeners
         startButton.addEventListener('click', startGame);
         inputField.addEventListener('input', checkWord);
         restartButton.addEventListener('click', resetGame);
         
         continueButton.addEventListener('click', () => {
-            gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5 });
-            currentLevelIndex++;
-            wordIndex = 0;
-            
-            if (currentLevelIndex < levels.length) {
-                showCountdown();
+            if (currentLevelIndex === levels.length - 1) {
+                // Gold medal win - show loading spinner, then promo modal
+                gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5, onComplete: () => {
+                    loadingOverlay.style.display = 'flex';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        showPromoModal();
+                    }, 3000);
+                }});
             } else {
-                resetGame();
+                // Not the final level - continue to the next
+                gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5 });
+                currentLevelIndex++;
+                wordIndex = 0;
+                
+                if (currentLevelIndex < levels.length) {
+                    showCountdown();
+                } else {
+                    resetGame();
+                }
             }
         });
         
         stopButton.addEventListener('click', resetGame);
+        closePromoXButton.addEventListener('click', resetGame);
+        closePromoButton.addEventListener('click', resetGame);
+        promoCodeContainer.addEventListener('click', copyPromoCode);
     </script>
 </body>
 </html>
-�
