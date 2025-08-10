@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYGENE GAME - Jeu de frappe</title>
-    <!-- Google Fonts: Anton pour les titres et Poppins pour le texte -->
+    <title>OXYGENE GAMES</title>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Icônes Font Awesome pour les médailles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <style>
-        /* Variables générales et couleurs */
+        /*
+        هذا الجزء من الـ CSS مأخوذ مباشرة من ملفك 'index.html' لضمان التناسق.
+        */
         :root {
             --main-color: #00ff88;
             --dark-bg: #111;
             --text-color: #f0f0f0;
             --shadow-light: rgba(0, 255, 136, 0.5);
             --shadow-dark: rgba(0, 0, 0, 0.8);
-            --green-btn: #00e676;
-            --green-glow: rgba(0, 255, 136, 0.7);
-            --red-btn: #f44336;
-            --orange-loading: #FF9800;
+            --orange-light: #FF8C00;
         }
 
         * {
@@ -28,786 +26,986 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-color);
-            direction: ltr;
-            text-align: left;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* Conteneur principal du jeu */
-        .game-wrapper {
-            position: relative;
-            width: 90%;
-            max-width: 800px;
-            height: 80vh;
-        }
-
-        /* Conteneur de l'interface utilisateur du jeu, visible en arrière-plan */
-        .game-ui {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px var(--shadow-dark);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            filter: blur(5px);
-            opacity: 0.5;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            line-height: 1.6;
+            overflow-x: hidden;
+            direction: rtl; /* اتجاه الكتابة من اليمين لليسار */
+            text-align: right; /* محاذاة النص لليمين */
         }
         
-        /* État lorsque le jeu est actif */
-        .game-wrapper.playing .game-ui {
-            filter: blur(0);
-            opacity: 1;
-        }
-
-        /* Écran de démarrage comme une superposition */
-        .start-screen {
-            position: absolute;
+        /* New Sidebar Styles */
+        .sidebar {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 300px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 50px 30px;
+            transform: translateX(-100%);
+            z-index: 999;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            z-index: 10;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            align-items: flex-start;
+            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
         }
-
-        .game-wrapper.playing .start-screen {
-            opacity: 0;
-            visibility: hidden;
+        .sidebar.open {
+            transform: translateX(0);
         }
-
-        .start-button {
-            padding: 20px 40px;
-            font-size: 2em;
-            font-family: 'Anton', sans-serif;
-            color: #fff;
-            background-color: var(--green-btn);
-            border: none;
-            border-radius: 50px;
+        .sidebar-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5em;
+            color: var(--main-color);
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s ease;
         }
-
-        .start-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.5);
+        .sidebar-close-btn:hover {
+            transform: rotate(90deg);
         }
-
-        /* Superposition du compte à rebours */
-        .countdown-overlay, .loading-overlay {
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: right; /* محاذاة لليمين */
+        }
+        .sidebar-menu li {
+            opacity: 1;
+            transform: translateY(20px);
+            margin-bottom: 30px;
+        }
+        .sidebar-menu a {
+            font-family: 'Anton', sans-serif;
+            font-size: 2em;
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s, letter-spacing 0.3s;
+            display: block;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 5px;
+        }
+        .sidebar-menu a:hover {
+            color: var(--main-color);
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--main-color);
+        }
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px; /* تغيير الموقع إلى اليمين */
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+            background-color: var(--dark-bg);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+            transition: box-shadow 0.3s;
+        }
+        .menu-toggle:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+        }
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 4px;
+            background-color: var(--main-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-header {
+            background-color: transparent;
+            padding: 20px;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
-            background-color: rgba(17, 17, 17, 0.8);
-        }
-
-        .countdown-text {
+            z-index: 998;
             font-family: 'Anton', sans-serif;
-            font-size: 8em;
-            color: white;
-            text-shadow: 0 0 20px var(--main-color);
         }
 
-        /* Loading spinner */
-        .loader {
-            border: 16px solid rgba(255, 255, 255, 0.2);
-            border-top: 16px solid var(--orange-loading);
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Zone de la minuterie et des médailles */
-        .game-header {
+        .main-header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
         }
 
-        .medals {
-            font-size: 2.5em;
-            display: flex; /* Show medals in the main UI */
-            gap: 10px;
+        .header-logo {
+            width: 150px;
+            transition: transform 0.3s ease;
+        }
+        .header-logo:hover {
+            transform: scale(1.1);
         }
 
-        .medal-icon {
-            opacity: 0.3;
-            transition: opacity 0.5s;
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+        .main-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        .main-nav a:hover {
+            color: var(--main-color);
+            text-shadow: 0 0 10px var(--shadow-light);
         }
 
-        .medal-icon.unlocked {
+        .nav-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--main-color);
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            .nav-toggle-btn {
+                display: block;
+            }
+            .main-header .container {
+                justify-content: space-between;
+            }
+        }
+        
+        /* CSS الخاص بصفحة الألعاب الجديدة */
+        .games-section {
+            padding: 100px 20px 80px; /* مسافة علوية لتجنب التداخل مع الهيدر */
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .game-card {
+            background-color: #222;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(255, 140, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .game-card:hover::before {
             opacity: 1;
         }
-        
-        .score-display, .timer-display {
-            font-family: 'Anton', sans-serif;
-            font-size: 2.5em;
-            color: var(--main-color);
-        }
-        
-        /* Barre de progression */
-        .progress-bar-container {
-            width: 100%;
-            height: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, var(--green-glow), var(--main-color));
-            border-radius: 10px;
-            transition: width 0.3s ease-in-out;
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
         }
 
-        /* Champs de mot et de saisie */
-        .word-field, .input-field {
-            padding: 20px;
-            border-radius: 15px;
-            font-family: 'Poppins', sans-serif;
+        .game-card h3 {
+            font-family: 'Anton', sans-serif;
             font-size: 1.8em;
-            font-weight: bold;
-            color: var(--dark-bg);
-            background-color: white;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            border: 2px solid transparent;
-            transition: box-shadow 0.3s, border-color 0.3s;
-        }
-        
-        .input-field {
-            padding: 15px 20px;
-            font-size: 1.5em;
-            outline: none;
-        }
-        
-        .input-field:focus {
-            box-shadow: 0 0 20px var(--main-color), 0 0 30px var(--green-glow);
-            border-color: var(--main-color);
-        }
-
-        /* Modals */
-        .modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(17, 17, 17, 0.9);
-            z-index: 30;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .modal-content {
+            color: var(--orange-light);
+            margin-bottom: 15px;
             position: relative;
-            background-color: #1a1a1a;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px var(--shadow-dark);
-            transform: translateY(-50px);
-            overflow: hidden;
-            max-width: 90%;
-            min-width: 300px;
+            z-index: 1;
         }
 
-        .modal-content h3 {
-            font-family: 'Anton', sans-serif;
-            font-size: 2.5em;
-            color: var(--main-color);
-            margin-bottom: 10px;
-        }
-
-        .modal-content p {
-            font-size: 1.2em;
-            color: #ccc;
-            margin-bottom: 30px;
-        }
-
-        .modal-content button {
-            padding: 12px 25px;
-            font-size: 1.1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            background-color: var(--green-btn);
-            color: var(--dark-bg);
-        }
-
-        .modal-content button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.5);
-        }
-
-        .medal-in-modal {
-            font-size: 4em;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            font-size: 1.5em;
-            opacity: 0;
-        }
-
-        /* Promo code modal specific styles */
-        .promo-modal .modal-content {
-            padding: 50px;
-        }
-        .promo-modal h3 {
-            color: var(--orange-loading);
-            text-shadow: 0 0 10px rgba(255, 152, 0, 0.5);
-        }
-        .promo-code-container {
-            position: relative;
-            background-color: #333;
-            border: 2px dashed var(--main-color);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .promo-code-container:hover {
-            background-color: #444;
-        }
-        .promo-code-text {
-            font-family: 'Anton', sans-serif;
-            font-size: 1.5em;
-            letter-spacing: 2px;
-            color: var(--main-color);
-        }
-        .copy-message {
-            position: absolute;
-            bottom: -30px;
+        .game-card p {
             font-size: 0.9em;
-            color: #ddd;
-            opacity: 0;
-            transition: opacity 0.3s;
+            color: #ccc;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
         }
-        .close-button-x {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5em;
-            color: var(--red-btn);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .close-button-x:hover {
-            transform: scale(1.2) rotate(90deg);
-        }
-        .promo-modal button {
-            background-color: var(--red-btn);
-            color: white;
+        
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             margin-top: 20px;
         }
         
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .game-ui {
-                padding: 20px;
-            }
-            .start-button {
-                font-size: 1.5em;
-                padding: 15px 30px;
-            }
-            .countdown-text {
-                font-size: 4em;
-            }
-            .word-field, .input-field {
-                font-size: 1.2em;
-            }
-            .game-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .promo-code-text {
-                font-size: 1.2em;
-            }
+        .memory-card {
+            width: 100%;
+            padding-bottom: 100%; /* Maintain aspect ratio */
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-back, .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: var(--text-color);
+        }
+        
+        .card-back {
+            background-color: var(--main-color);
+        }
+        
+        .card-front {
+            background-color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .game-card canvas {
+            display: block;
+            border-radius: 10px;
+            border: 2px solid var(--main-color);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #000;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-play {
+            background-color: var(--main-color);
+            color: var(--dark-bg);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--shadow-light);
+            text-decoration: none;
+            margin-top: 15px;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-play:hover {
+            background-color: #00e078;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--shadow-light);
+        }
+        
+        .game-controls {
+            display: flex; /* تغيير من none إلى flex */
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .game-controls button {
+            background-color: #333;
+            color: var(--text-color);
+            border: 1px solid var(--main-color);
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        .game-controls button:hover {
+            background-color: var(--main-color);
+            color: var(--dark-bg);
+        }
+
+        .game-message {
+            color: var(--orange-light);
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+            margin-top: 50px;
+        }
+        
+        /* Mobile adjustments for the games grid */
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            .game-card {
+                padding: 20px;
+            }
+            .game-card h3 {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="game-wrapper" id="game-wrapper">
-        <!-- UI du jeu, visible en arrière-plan au démarrage -->
-        <div class="game-ui" id="game-ui">
-            <div class="game-header">
-                <div class="medals" id="medals-display">
-                    <span class="medal-icon" id="medal-bronze">🥉</span>
-                    <span class="medal-icon" id="medal-silver">🥈</span>
-                    <span class="medal-icon" id="medal-gold">🥇</span>
-                </div>
-                <div class="score-display">Score: <span id="score-value">0</span></div>
-                <div class="timer-display" id="timer-display"></div>
-            </div>
-            
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-            </div>
-
-            <div class="word-field" id="word-field"></div>
-            <input type="text" class="input-field" id="input-field" placeholder="Écrivez le mot ici...">
-        </div>
-        
-        <!-- Écran de démarrage qui est une superposition -->
-        <div class="start-screen" id="start-screen">
-            <button class="start-button" id="start-button">Démarrer le jeu</button>
-        </div>
-
-        <!-- Superposition du compte à rebours -->
-        <div class="countdown-overlay" id="countdown-overlay">
-            <div class="countdown-text" id="countdown-text"></div>
-        </div>
-        
-        <!-- Superposition de chargement -->
-        <div class="loading-overlay" id="loading-overlay">
-            <div class="loader"></div>
-        </div>
-
-        <!-- Modal de victoire de médaille -->
-        <div class="modal" id="medal-modal">
-            <div class="modal-content">
-                <div class="confetti-container"></div>
-                <span id="medal-icon-in-modal" class="medal-in-modal"></span>
-                <h3 id="medal-title"></h3>
-                <p id="medal-message"></p>
-                <div class="button-group">
-                    <button id="continue-button">Continuer</button>
-                    <button id="stop-button" style="background-color: var(--red-btn); color: white; margin-left: 10px;">Arrêter</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal de défaite -->
-        <div class="modal" id="loss-modal">
-            <div class="modal-content">
-                <h3>Oh, non, vous avez perdu!</h3>
-                <p>Pas de problème, réessayez. C'est en forgeant qu'on devient forgeron !</p>
-                <button id="restart-button">Recommencer</button>
-            </div>
-        </div>
-
-        <!-- Nouveau Modal de promotion pour la médaille d'or -->
-        <div class="modal promo-modal" id="promo-modal">
-            <div class="modal-content">
-                <span class="close-button-x" id="close-promo-x-button">X</span>
-                <h3>Félicitations, vous avez gagné une réduction sur l’abonnement de salle.</h3>
-                <p>Copiez Le code promo ici</p>
-                <div class="promo-code-container" id="promo-code-container">
-                    <span class="promo-code-text" id="promo-code-text">OXYGENE2022GYM25</span>
-                    <span class="copy-message" id="copy-message">Copié!</span>
-                </div>
-                <p>cette "Promo code " c'est pour vous quand vous venez à la salle pour vous inscrire ou pour renouveler l’abonnement vous obtiendrez une réduction entre 5% et 30% Vous et votre chance 🔥</p>
-                <button id="close-promo-button">Fermer</button>
-            </div>
-        </div>
+    <!-- New Sidebar (from index.html) -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
+        <ul class="sidebar-menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+            <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
+        </ul>
+    </div>
+    
+    <!-- Menu Toggle (from index.html) -->
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <!-- GSAP for animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Header (from index.html) -->
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="شعار OXYGENE GYM" class="header-logo">
+            </a>
+            <!-- Nav-toggle-btn is now handled by the sidebar toggle button -->
+        </div>
+    </header>
+
+    <main>
+        <section class="games-section">
+            <h2>OXYGENE GAMES</h2>
+            <p style="font-size: 1.2em; max-width: 800px; margin: auto; margin-bottom: 40px; color: #aaa;">
+                استرخِ وشارك في ألعابنا الرياضية الذهنية. اختبر تركيزك وردود أفعالك!
+            </p>
+
+            <div class="games-grid">
+                <!-- Tic-Tac-Toe Game -->
+                <div class="game-card">
+                    <h3>Tic-Tac-Toe</h3>
+                    <p>لعبة X و O الكلاسيكية. تحدى صديقك أو العب ضد الكمبيوتر.</p>
+                    <canvas id="tic-tac-toe-canvas" width="250" height="250"></canvas>
+                    <div class="game-controls">
+                        <div id="ttt-message" class="game-message"></div>
+                        <button onclick="resetGame('ttt')">إعادة تعيين</button>
+                    </div>
+                </div>
+
+                <!-- Memory Game -->
+                <div class="game-card">
+                    <h3>Memory Game</h3>
+                    <p>اختبر ذاكرتك! اعثر على أزواج البطاقات المتطابقة بأقل عدد من المحاولات.</p>
+                    <div id="memory-game-board" class="memory-board"></div>
+                    <div class="game-controls">
+                        <div id="memory-message" class="game-message"></div>
+                        <button onclick="resetGame('memory')">إعادة تعيين</button>
+                    </div>
+                </div>
+                
+                <!-- Snake Game -->
+                <div class="game-card">
+                    <h3>Snake Game</h3>
+                    <p>وجه الثعبان ليأكل الطعام ويزداد طوله. تجنب الاصطدام بالجدران أو بنفسك!</p>
+                    <canvas id="snake-canvas" width="250" height="250"></canvas>
+                    <div class="game-controls">
+                        <div id="snake-message" class="game-message"></div>
+                        <button onclick="resetGame('snake')">إعادة تعيين</button>
+                    </div>
+                </div>
+                
+                <!-- Brick Breaker -->
+                <div class="game-card">
+                    <h3>Brick Breaker</h3>
+                    <p>تحكم بالمضرب لكسر جميع الطوب. لا تدع الكرة تسقط!</p>
+                    <canvas id="brick-breaker-canvas" width="250" height="250"></canvas>
+                    <div class="game-controls">
+                        <div id="bb-message" class="game-message"></div>
+                        <button onclick="resetGame('brick-breaker')">إعادة تعيين</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (from index.html) -->
+    <footer>
+        <p>© 2025 OXYGENE GYM. جميع الحقوق محفوظة.</p>
+    </footer>
+
     <script>
-        // DOM Elements and variables
-        const startScreen = document.getElementById('start-screen');
-        const startButton = document.getElementById('start-button');
-        const gameWrapper = document.getElementById('game-wrapper');
-        const gameUI = document.getElementById('game-ui');
-        const countdownOverlay = document.getElementById('countdown-overlay');
-        const countdownText = document.getElementById('countdown-text');
-        const loadingOverlay = document.getElementById('loading-overlay');
-        const wordField = document.getElementById('word-field');
-        const inputField = document.getElementById('input-field');
-        const timerDisplay = document.getElementById('timer-display');
-        const scoreValue = document.getElementById('score-value');
-        const progressBar = document.getElementById('progress-bar');
-        const medalBronze = document.getElementById('medal-bronze');
-        const medalSilver = document.getElementById('medal-silver');
-        const medalGold = document.getElementById('medal-gold');
-        const medalModal = document.getElementById('medal-modal');
-        const lossModal = document.getElementById('loss-modal');
-        const promoModal = document.getElementById('promo-modal');
-        const continueButton = document.getElementById('continue-button');
-        const stopButton = document.getElementById('stop-button');
-        const restartButton = document.getElementById('restart-button');
-        const closePromoXButton = document.getElementById('close-promo-x-button');
-        const closePromoButton = document.getElementById('close-promo-button');
-        const medalIconInModal = document.getElementById('medal-icon-in-modal');
-        const medalTitleInModal = document.getElementById('medal-title');
-        const medalMessageInModal = document.getElementById('medal-message');
-        const confettiContainer = document.querySelector('.confetti-container');
-        const promoCodeContainer = document.getElementById('promo-code-container');
-        const promoCodeText = document.getElementById('promo-code-text');
-        const copyMessage = document.getElementById('copy-message');
+        // --- Sidebar JS (from index.html) ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarCloseBtn = document.getElementById('sidebar-close');
+        const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
 
-        // JS variables to match CSS colors
-        const mainColor = '#00ff88';
-        const darkBg = '#111';
-        const greenGlow = 'rgba(0, 255, 136, 0.7)';
-        const orangeLoading = '#FF9800';
+        const tl = gsap.timeline({ paused: true });
+        tl.to(sidebar, {
+            x: '0%',
+            duration: 0.6,
+            ease: 'power3.inOut'
+        });
+        tl.from(sidebarMenuItems, {
+            y: 20,
+            opacity: 0,
+            stagger: 0.1,
+            ease: 'power2.out'
+        }, "-=0.3");
 
-        // Game data in French
-        const levels = [
-            { id: 1, words: ['Gym', 'Coach', 'Cardio', 'Squat', 'Poids'], time: 5, medal: '🥉', title: 'Félicitations! Médaille de Bronze.', message: 'Vous êtes sur la bonne voie! Continuez à vous entraîner!' },
-            { id: 2, words: ['musculation', 'traction', 'abdominaux', 'résistance', 'échauffement'], time: 8, medal: '🥈', title: 'Excellent travail! Médaille d\'Argent.', message: 'Vos capacités sont illimitées. Vous êtes un véritable pro !' },
-            { id: 3, words: ['haltérophilie', 'entraînement intensif', 'condition physique', 'renforcement musculaire', 'développé couché'], time: 10, medal: '🥇', title: 'Incroyable! Médaille d\'Or!', message: 'Vous avez atteint le sommet! Vos compétences sont exceptionnelles!' }
-        ];
+        menuToggle.addEventListener('click', () => {
+            tl.play();
+        });
 
-        // Game State
-        let currentLevelIndex = 0;
-        let wordIndex = 0;
-        let score = 0;
-        let timerSeconds = 0;
-        let intervalId;
-
-        // Function to start the game
-        function startGame() {
-            // Add the 'playing' class to transition the game UI
-            gameWrapper.classList.add('playing');
-            // Show the countdown
-            showCountdown();
-        }
-
-        // Countdown function
-        function showCountdown() {
-            countdownOverlay.style.display = 'flex';
-            let count = 3;
-            countdownText.textContent = count;
-            gsap.timeline({ onComplete: () => {
-                countdownOverlay.style.display = 'none';
-                loadLevel();
-            }})
-            .fromTo(countdownText, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: 'power2.inOut', onStart: () => {
-                countdownText.textContent = count;
-            }})
-            .to(countdownText, { scale: 1.5, opacity: 0, duration: 0.2, onRepeat: () => {
-                count--;
-                if (count > 0) {
-                    countdownText.textContent = count;
-                } else {
-                    countdownText.textContent = 'GO!';
-                }
-            }, repeat: 2 });
-        }
-
-        // Function to load a level
-        function loadLevel() {
-            updateProgressBar();
-            inputField.value = '';
-            inputField.focus();
-            showNextWord();
-        }
-
-        // Function to display the next word
-        function showNextWord() {
-            clearInterval(intervalId);
-            inputField.value = '';
-            
-            if (wordIndex < levels[currentLevelIndex].words.length) {
-                const currentWord = levels[currentLevelIndex].words[wordIndex];
-                wordField.textContent = currentWord;
-                timerSeconds = levels[currentLevelIndex].time;
-                startTimer();
-            } else {
-                showMedalModal();
-            }
-        }
-
-        // Function to start the timer
-        function startTimer() {
-            let startTime = performance.now();
-            
-            intervalId = setInterval(() => {
-                const elapsedTime = performance.now() - startTime;
-                timerSeconds = Math.max(0, levels[currentLevelIndex].time - (elapsedTime / 1000));
-                timerDisplay.textContent = timerSeconds.toFixed(1);
-                
-                if (timerSeconds <= 0) {
-                    clearInterval(intervalId);
-                    showLossModal();
-                }
-            }, 100);
-        }
-
-        // Function to update the progress bar
-        function updateProgressBar() {
-            const progress = (wordIndex / levels[currentLevelIndex].words.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-
-        // Function to check the entered word
-        function checkWord() {
-            const currentWord = levels[currentLevelIndex].words[wordIndex].toLowerCase();
-            const typedWord = inputField.value.trim().toLowerCase();
-
-            if (typedWord === currentWord) {
-                clearInterval(intervalId);
-                score++;
-                scoreValue.textContent = score;
-                wordIndex++;
-                updateProgressBar();
-                
-                // Correct word animation
-                gsap.to(wordField, {
-                    scale: 1.1,
-                    color: mainColor,
-                    duration: 0.2,
-                    yoyo: true,
-                    repeat: 1,
-                    onComplete: () => {
-                        wordField.style.color = darkBg;
-                        if (wordIndex < levels[currentLevelIndex].words.length) {
-                            showNextWord();
-                        } else {
-                            showMedalModal();
-                        }
-                    }
-                });
-            }
-        }
-
-        // Function to show the medal modal with confetti
-        function showMedalModal() {
-            const currentLevel = levels[currentLevelIndex];
-            
-            // Unlock medals in the main UI
-            if (currentLevel.id === 1) medalBronze.classList.add('unlocked');
-            if (currentLevel.id === 2) medalSilver.classList.add('unlocked');
-            if (currentLevel.id === 3) medalGold.classList.add('unlocked');
-
-            medalIconInModal.textContent = currentLevel.medal;
-            medalTitleInModal.textContent = currentLevel.title;
-            medalMessageInModal.textContent = currentLevel.message;
-            
-            // Check if it's the final level (gold medal)
-            if (currentLevelIndex === levels.length - 1) {
-                continueButton.textContent = 'Obtenez votre cadeau';
-                stopButton.style.display = 'none';
-                medalIconInModal.textContent = '🥇'; // Set gold medal icon explicitly
-            } else {
-                continueButton.textContent = 'Continuer';
-                stopButton.style.display = 'inline-block';
-                // Set medal icon based on the current level
-                if (currentLevel.id === 1) medalIconInModal.textContent = '🥉';
-                if (currentLevel.id === 2) medalIconInModal.textContent = '🥈';
-            }
-            
-            gsap.to(medalModal, {
-                opacity: 1,
-                visibility: 'visible',
-                duration: 0.5,
-                ease: 'power2.inOut'
-            });
-            gsap.fromTo(medalModal.querySelector('.modal-content'), { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
-            
-            // Confetti animation
-            createConfetti();
-        }
-
-        // Function to show the loss modal
-        function showLossModal() {
-            gsap.to(lossModal, {
-                opacity: 1,
-                visibility: 'visible',
-                duration: 0.5,
-                ease: 'power2.inOut'
-            });
-            gsap.fromTo(lossModal.querySelector('.modal-content'), { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
-            
-            gsap.to(restartButton, {
-                scale: 1.05,
-                boxShadow: `0 0 20px ${greenGlow}`,
-                duration: 0.5,
-                yoyo: true,
-                repeat: -1
-            });
-        }
-        
-        // Function to show the promo modal
-        function showPromoModal() {
-            gsap.to(promoModal, {
-                opacity: 1,
-                visibility: 'visible',
-                duration: 0.5,
-                ease: 'power2.inOut'
-            });
-            gsap.fromTo(promoModal.querySelector('.modal-content'), { scale: 0.8, y: -50 }, { scale: 1, y: 0, duration: 0.5, ease: 'back.out(1.7)' });
-        }
-
-        // Function to create confetti animation
-        function createConfetti() {
-            const confettiEmojis = ['🎉', '🎊', '✨', '🏆'];
-            const containerRect = confettiContainer.getBoundingClientRect();
-            
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti-piece');
-                confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
-                confettiContainer.appendChild(confetti);
-
-                const startX = Math.random() * containerRect.width - containerRect.width / 2;
-                const startY = Math.random() * containerRect.height - containerRect.height / 2;
-                const endX = startX + (Math.random() - 0.5) * 500;
-                const endY = startY + (Math.random() * 500);
-                const rotation = Math.random() * 720;
-                const duration = 2 + Math.random() * 2;
-                
-                gsap.fromTo(confetti, {
-                    x: startX,
-                    y: startY,
-                    opacity: 1,
-                    rotation: 0
-                }, {
-                    x: endX,
-                    y: endY,
-                    opacity: 0,
-                    rotation: rotation,
-                    duration: duration,
-                    ease: 'power1.out',
-                    onComplete: () => confetti.remove()
-                });
-            }
-        }
-        
-        // Function to reset the game and return to the start screen
-        function resetGame() {
-            gsap.to([medalModal, lossModal, promoModal], { opacity: 0, visibility: 'hidden', duration: 0.5 });
-            
-            currentLevelIndex = 0;
-            wordIndex = 0;
-            score = 0;
-            scoreValue.textContent = 0;
-            
-            // Reset medal states
-            medalBronze.classList.remove('unlocked');
-            medalSilver.classList.remove('unlocked');
-            medalGold.classList.remove('unlocked');
-            
-            progressBar.style.width = '0%';
-            
-            // Remove the 'playing' class to reset the UI
-            gameWrapper.classList.remove('playing');
-        }
-
-        // Function to copy the promo code
-        function copyPromoCode() {
-            const codeText = promoCodeText.textContent;
-            
-            const tempInput = document.createElement('textarea');
-            tempInput.value = codeText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            
-            try {
-                const successful = document.execCommand('copy');
-                const msg = successful ? 'Copié!' : 'Échec de la copie';
-                
-                gsap.killTweensOf(copyMessage); // Stop any ongoing animations
-                gsap.fromTo(copyMessage, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, onComplete: () => {
-                    gsap.to(copyMessage, { opacity: 0, y: -10, duration: 0.3, delay: 1 });
-                }});
-                
-            } catch (err) {
-                console.error('Erreur lors de la copie du code promo:', err);
-            } finally {
-                document.body.removeChild(tempInput);
-            }
-        }
-
-        // Event listeners
-        startButton.addEventListener('click', startGame);
-        inputField.addEventListener('input', checkWord);
-        restartButton.addEventListener('click', resetGame);
-        
-        continueButton.addEventListener('click', () => {
-            if (currentLevelIndex === levels.length - 1) {
-                // Gold medal win - show loading spinner, then promo modal
-                gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5, onComplete: () => {
-                    loadingOverlay.style.display = 'flex';
-                    setTimeout(() => {
-                        loadingOverlay.style.display = 'none';
-                        showPromoModal();
-                    }, 3000);
-                }});
-            } else {
-                // Not the final level - continue to the next
-                gsap.to(medalModal, { opacity: 0, visibility: 'hidden', duration: 0.5 });
-                currentLevelIndex++;
-                wordIndex = 0;
-                
-                if (currentLevelIndex < levels.length) {
-                    showCountdown();
-                } else {
-                    resetGame();
-                }
-            }
+        sidebarCloseBtn.addEventListener('click', () => {
+            tl.reverse();
         });
         
-        stopButton.addEventListener('click', resetGame);
-        closePromoXButton.addEventListener('click', resetGame);
-        closePromoButton.addEventListener('click', resetGame);
-        promoCodeContainer.addEventListener('click', copyPromoCode);
+        // --- Game Logic ---
+        
+        // General game variables
+        let gameInstances = {};
+        
+        // Global reset function
+        function resetGame(gameId) {
+            if (gameInstances[gameId]) {
+                gameInstances[gameId].reset();
+            }
+        }
+        
+        // Tic-Tac-Toe Game
+        function TicTacToe(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const messageElement = canvas.closest('.game-card').querySelector('.game-message');
+            let board = ['', '', '', '', '', '', '', '', ''];
+            let currentPlayer = 'X';
+            let gameActive = true;
+            const winningCombinations = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            
+            const drawBoard = () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--main-color');
+                ctx.lineWidth = 5;
+                
+                // Draw grid lines
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 3, 0);
+                ctx.lineTo(canvas.width / 3, canvas.height);
+                ctx.moveTo(canvas.width / 3 * 2, 0);
+                ctx.lineTo(canvas.width / 3 * 2, canvas.height);
+                ctx.moveTo(0, canvas.height / 3);
+                ctx.lineTo(canvas.width, canvas.height / 3);
+                ctx.moveTo(0, canvas.height / 3 * 2);
+                ctx.lineTo(canvas.width, canvas.height / 3 * 2);
+                ctx.stroke();
+                
+                // Draw X's and O's
+                ctx.font = '80px Anton, sans-serif';
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                board.forEach((cell, index) => {
+                    const row = Math.floor(index / 3);
+                    const col = index % 3;
+                    const x = (col * canvas.width / 3) + (canvas.width / 6);
+                    const y = (row * canvas.height / 3) + (canvas.height / 6);
+                    if (cell) {
+                        ctx.fillText(cell, x, y);
+                    }
+                });
+            };
+            
+            const handleResultValidation = () => {
+                let roundWon = false;
+                for (let i = 0; i < winningCombinations.length; i++) {
+                    const winCondition = winningCombinations[i];
+                    let a = board[winCondition[0]];
+                    let b = board[winCondition[1]];
+                    let c = board[winCondition[2]];
+                    if (a === '' || b === '' || c === '') {
+                        continue;
+                    }
+                    if (a === b && b === c) {
+                        roundWon = true;
+                        break;
+                    }
+                }
+                
+                if (roundWon) {
+                    messageElement.innerText = `اللاعب ${currentPlayer} فاز!`;
+                    gameActive = false;
+                    return;
+                }
+                
+                let roundDraw = !board.includes('');
+                if (roundDraw) {
+                    messageElement.innerText = 'تعادل!';
+                    gameActive = false;
+                    return;
+                }
+                
+                // Switch player
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                messageElement.innerText = `الدور للاعب ${currentPlayer}`;
+            };
+            
+            const handleCellClick = (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                
+                const col = Math.floor(x / (canvas.width / 3));
+                const row = Math.floor(y / (canvas.height / 3));
+                const clickedCellIndex = row * 3 + col;
+                
+                if (board[clickedCellIndex] === '' && gameActive) {
+                    board[clickedCellIndex] = currentPlayer;
+                    drawBoard();
+                    handleResultValidation();
+                }
+            };
+            
+            const reset = () => {
+                board = ['', '', '', '', '', '', '', '', ''];
+                gameActive = true;
+                currentPlayer = 'X';
+                messageElement.innerText = `الدور للاعب ${currentPlayer}`;
+                drawBoard();
+            };
+            
+            canvas.addEventListener('click', handleCellClick);
+            this.reset = reset;
+            drawBoard();
+        }
+        
+        // Memory Game
+        function MemoryGame(boardId) {
+            const boardElement = document.getElementById(boardId);
+            const messageElement = boardElement.closest('.game-card').querySelector('.game-message');
+            const images = [
+                '<i class="fa-solid fa-dumbbell"></i>',
+                '<i class="fa-solid fa-weight-lifter"></i>',
+                '<i class="fa-solid fa-running"></i>',
+                '<i class="fa-solid fa-heart-pulse"></i>',
+                '<i class="fa-solid fa-fire"></i>',
+                '<i class="fa-solid fa-person-swimming"></i>',
+                '<i class="fa-solid fa-bicycle"></i>',
+                '<i class="fa-solid fa-basketball"></i>'
+            ];
+            let cards = [...images, ...images];
+            let flippedCards = [];
+            let matchedCards = [];
+            let gameActive = true;
+            let moves = 0;
+
+            const shuffle = (array) => {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            };
+
+            const createBoard = () => {
+                boardElement.innerHTML = '';
+                shuffle(cards).forEach((image, index) => {
+                    const card = document.createElement('div');
+                    card.classList.add('memory-card');
+                    card.dataset.index = index;
+                    card.innerHTML = `<div class="card-back"><i class="fa-solid fa-circle-question"></i></div><div class="card-front">${image}</div>`;
+                    card.addEventListener('click', () => flipCard(card));
+                    boardElement.appendChild(card);
+                });
+                messageElement.innerText = `عدد الحركات: ${moves}`;
+            };
+            
+            const flipCard = (card) => {
+                if (!gameActive || flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                    return;
+                }
+                
+                card.classList.add('flipped');
+                flippedCards.push(card);
+                
+                if (flippedCards.length === 2) {
+                    moves++;
+                    messageElement.innerText = `عدد الحركات: ${moves}`;
+                    checkForMatch();
+                }
+            };
+
+            const checkForMatch = () => {
+                const [card1, card2] = flippedCards;
+                const front1 = card1.querySelector('.card-front').innerHTML;
+                const front2 = card2.querySelector('.card-front').innerHTML;
+
+                if (front1 === front2) {
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    matchedCards.push(card1, card2);
+                    flippedCards = [];
+                    if (matchedCards.length === cards.length) {
+                        messageElement.innerText = `لقد فزت في ${moves} حركة!`;
+                        gameActive = false;
+                    }
+                } else {
+                    gameActive = false;
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        flippedCards = [];
+                        gameActive = true;
+                    }, 1000);
+                }
+            };
+            
+            const reset = () => {
+                flippedCards = [];
+                matchedCards = [];
+                gameActive = true;
+                moves = 0;
+                boardElement.innerHTML = '';
+                createBoard();
+                messageElement.innerText = `عدد الحركات: ${moves}`;
+            };
+            
+            createBoard();
+            this.reset = reset;
+        }
+
+        // Snake Game
+        function SnakeGame(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const messageElement = canvas.closest('.game-card').querySelector('.game-message');
+            const box = 10;
+            let snake = [];
+            let food = {};
+            let score = 0;
+            let d = '';
+            let game;
+            
+            const createFood = () => {
+                food = {
+                    x: Math.floor(Math.random() * (canvas.width / box)) * box,
+                    y: Math.floor(Math.random() * (canvas.height / box)) * box
+                };
+            };
+            
+            const draw = () => {
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw snake
+                for (let i = 0; i < snake.length; i++) {
+                    ctx.fillStyle = (i === 0) ? getComputedStyle(document.documentElement).getPropertyValue('--main-color') : '#00e078';
+                    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                    ctx.strokeStyle = '#000';
+                    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+                }
+                
+                // Draw food
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--orange-light');
+                ctx.fillRect(food.x, food.y, box, box);
+                
+                let snakeX = snake[0].x;
+                let snakeY = snake[0].y;
+                
+                // Update snake position
+                if (d === 'LEFT') snakeX -= box;
+                if (d === 'UP') snakeY -= box;
+                if (d === 'RIGHT') snakeX += box;
+                if (d === 'DOWN') snakeY += box;
+                
+                // Check for collisions
+                if (snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(snakeX, snakeY, snake)) {
+                    clearInterval(game);
+                    messageElement.innerText = `انتهت اللعبة! نقاطك: ${score}`;
+                    return;
+                }
+                
+                // If snake eats food
+                if (snakeX === food.x && snakeY === food.y) {
+                    score++;
+                    messageElement.innerText = `النقاط: ${score}`;
+                    createFood();
+                } else {
+                    snake.pop();
+                }
+                
+                let newHead = { x: snakeX, y: snakeY };
+                snake.unshift(newHead);
+            };
+            
+            const collision = (x, y, array) => {
+                for (let i = 0; i < array.length; i++) {
+                    if (array[i].x === x && array[i].y === y) return true;
+                }
+                return false;
+            };
+            
+            const direction = (event) => {
+                let key = event.keyCode;
+                if (key === 37 && d !== 'RIGHT') d = 'LEFT';
+                else if (key === 38 && d !== 'DOWN') d = 'UP';
+                else if (key === 39 && d !== 'LEFT') d = 'RIGHT';
+                else if (key === 40 && d !== 'UP') d = 'DOWN';
+            };
+            
+            const reset = () => {
+                clearInterval(game);
+                snake = [{ x: 120, y: 120 }];
+                score = 0;
+                d = '';
+                createFood();
+                messageElement.innerText = `النقاط: ${score}`;
+                game = setInterval(draw, 100);
+            };
+
+            document.addEventListener('keydown', direction);
+            this.reset = reset;
+            reset();
+        }
+        
+        // Brick Breaker
+        function BrickBreaker(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const messageElement = canvas.closest('.game-card').querySelector('.game-message');
+            
+            let ball = { x: canvas.width / 2, y: canvas.height - 30, radius: 5, dx: 2, dy: -2 };
+            let paddle = { height: 10, width: 75, x: (canvas.width - 75) / 2, speed: 7, left: false, right: false };
+            let bricks = [];
+            const brick = { rowCount: 3, columnCount: 5, width: 45, height: 10, padding: 5, offsetTop: 30, offsetLeft: 15 };
+            let score = 0;
+            let lives = 3;
+            let gameActive = true;
+            
+            const createBricks = () => {
+                for (let c = 0; c < brick.columnCount; c++) {
+                    bricks[c] = [];
+                    for (let r = 0; r < brick.rowCount; r++) {
+                        bricks[c][r] = { x: 0, y: 0, status: 1 };
+                    }
+                }
+            };
+            
+            const drawBricks = () => {
+                for (let c = 0; c < brick.columnCount; c++) {
+                    for (let r = 0; r < brick.rowCount; r++) {
+                        if (bricks[c][r].status === 1) {
+                            const brickX = (c * (brick.width + brick.padding)) + brick.offsetLeft;
+                            const brickY = (r * (brick.height + brick.padding)) + brick.offsetTop;
+                            bricks[c][r].x = brickX;
+                            bricks[c][r].y = brickY;
+                            ctx.beginPath();
+                            ctx.rect(brickX, brickY, brick.width, brick.height);
+                            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--orange-light');
+                            ctx.fill();
+                            ctx.closePath();
+                        }
+                    }
+                }
+            };
+            
+            const drawBall = () => {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--main-color');
+                ctx.fill();
+                ctx.closePath();
+            };
+            
+            const drawPaddle = () => {
+                ctx.beginPath();
+                ctx.rect(paddle.x, canvas.height - paddle.height, paddle.width, paddle.height);
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--main-color');
+                ctx.fill();
+                ctx.closePath();
+            };
+            
+            const movePaddle = () => {
+                if (paddle.right && paddle.x < canvas.width - paddle.width) {
+                    paddle.x += paddle.speed;
+                } else if (paddle.left && paddle.x > 0) {
+                    paddle.x -= paddle.speed;
+                }
+            };
+            
+            const drawScore = () => {
+                ctx.font = '12px Poppins, sans-serif';
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.fillText(`النقاط: ${score}`, 8, 20);
+            };
+            
+            const drawLives = () => {
+                ctx.font = '12px Poppins, sans-serif';
+                ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+                ctx.fillText(`الفرص: ${lives}`, canvas.width - 65, 20);
+            };
+            
+            const collisionDetection = () => {
+                for (let c = 0; c < brick.columnCount; c++) {
+                    for (let r = 0; r < brick.rowCount; r++) {
+                        const b = bricks[c][r];
+                        if (b.status === 1) {
+                            if (ball.x > b.x && ball.x < b.x + brick.width && ball.y > b.y && ball.y < b.y + brick.height) {
+                                ball.dy = -ball.dy;
+                                b.status = 0;
+                                score++;
+                                if (score === brick.rowCount * brick.columnCount) {
+                                    messageElement.innerText = 'تهانينا، لقد فزت!';
+                                    gameActive = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            
+            const draw = () => {
+                if (!gameActive) return;
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBricks();
+                drawBall();
+                drawPaddle();
+                drawScore();
+                drawLives();
+                collisionDetection();
+                
+                // Wall collision detection
+                if (ball.x + ball.dx > canvas.width - ball.radius || ball.x + ball.dx < ball.radius) {
+                    ball.dx = -ball.dx;
+                }
+                if (ball.y + ball.dy < ball.radius) {
+                    ball.dy = -ball.dy;
+                } else if (ball.y + ball.dy > canvas.height - ball.radius) {
+                    if (ball.x > paddle.x && ball.x < paddle.x + paddle.width) {
+                        ball.dy = -ball.dy;
+                    } else {
+                        lives--;
+                        if (!lives) {
+                            messageElement.innerText = 'انتهت اللعبة!';
+                            gameActive = false;
+                        } else {
+                            ball.x = canvas.width / 2;
+                            ball.y = canvas.height - 30;
+                            ball.dx = 2;
+                            ball.dy = -2;
+                            paddle.x = (canvas.width - paddle.width) / 2;
+                        }
+                    }
+                }
+                
+                movePaddle();
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+                
+                requestAnimationFrame(draw);
+            };
+            
+            const keyDownHandler = (e) => {
+                if (e.key === 'Right' || e.key === 'ArrowRight') {
+                    paddle.right = true;
+                } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+                    paddle.left = true;
+                }
+            };
+            
+            const keyUpHandler = (e) => {
+                if (e.key === 'Right' || e.key === 'ArrowRight') {
+                    paddle.right = false;
+                } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+                    paddle.left = false;
+                }
+            };
+            
+            const reset = () => {
+                gameActive = true;
+                score = 0;
+                lives = 3;
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height - 30;
+                ball.dx = 2;
+                ball.dy = -2;
+                paddle.x = (canvas.width - paddle.width) / 2;
+                messageElement.innerText = '';
+                createBricks();
+                draw();
+            };
+
+            document.addEventListener('keydown', keyDownHandler);
+            document.addEventListener('keyup', keyUpHandler);
+            this.reset = reset;
+            reset();
+        }
+
+        window.onload = function () {
+            // Instantiate all games
+            gameInstances.ttt = new TicTacToe('tic-tac-toe-canvas');
+            gameInstances.memory = new MemoryGame('memory-game-board');
+            gameInstances.snake = new SnakeGame('snake-canvas');
+            gameInstances['brick-breaker'] = new BrickBreaker('brick-breaker-canvas');
+        };
     </script>
 </body>
 </html>
