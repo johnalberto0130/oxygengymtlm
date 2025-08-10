@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jeu de mémoire - OXYGENE GYM</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+  body {
+    margin:0; padding:20px;
+    background: #000;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .container {
+    background: #000;
+    border: 3px solid #0f0;
+    box-shadow: 0 0 25px #0f0;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 480px;
+    width: 95vw;
+    position: relative;
+  }
+  h1 {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .errors {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: 700;
+    font-size: 1.1em;
+    user-select: none;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .card {
+    background: #111;
+    border-radius: 12px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: inset 0 0 10px #0f0;
+    transition: transform 0.3s;
+  }
+  .card.flipped, .card.matched {
+    background: #0f0;
+    color: #000;
+    cursor: default;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #0f0;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: #0f0;
+    color: #000;
+    box-shadow: 0 0 10px #0f0;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: #0c0;
+  }
+  /* Popup */
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #111;
+    border: 3px solid #0f0;
+    box-shadow: 0 0 30px #0f0;
+    padding: 30px 40px;
+    border-radius: 15px;
+    color: #0f0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.3rem;
+    max-width: 350px;
+    z-index: 1000;
+  }
+  .popup.show {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.4s ease-out;
+  }
+</style>
+</head>
+<body>
+
+<div class="container" role="main" aria-label="Jeu de mémoire de gym">
+  <h1>Jeu de mémoire</h1>
+  <div class="errors">Errors ❌: <span id="errorCount">0</span></div>
+  <div class="grid" id="gameGrid" aria-live="polite"></div>
+  <button id="restartBtn" aria-label="Rejouer le jeu">Rejouer</button>
+</div>
+
+<div class="popup" id="popup" role="alertdialog" aria-modal="true" aria-labelledby="popupMessage"></div>
+
+<audio id="clapSound" src="https://www.soundjay.com/human/applause-8.mp3"></audio>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+(() => {
+  const emojis = ['⚽','🏋️','🤾','🤸','🧗','🏃','🤼','🧘'];
+  // 16 cards (8 pairs)
+  const cardsArray = [...emojis, ...emojis];
+  const grid = document.getElementById('gameGrid');
+  const errorCountEl = document.getElementById('errorCount');
+  const restartBtn = document.getElementById('restartBtn');
+  const popup = document.getElementById('popup');
+  const clapSound = document.getElementById('clapSound');
+
+  let firstCard = null;
+  let secondCard = null;
+  let lockBoard = false;
+  let matches = 0;
+  let errors = 0;
+
+  function shuffle(array) {
+    for (let i = array.length -1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  function createBoard() {
+    grid.innerHTML = '';
+    const shuffled = shuffle(cardsArray.slice());
+    shuffled.forEach((emoji, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', 'Carte non retournée');
+      card.dataset.emoji = emoji;
+      card.dataset.index = index;
+      card.textContent = '';
+      card.addEventListener('click', flipCard);
+      card.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          flipCard.call(card);
+        }
+      });
+      grid.appendChild(card);
+    });
+    resetGameState();
+  }
+
+  function resetGameState() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+    matches = 0;
+    errors = 0;
+    errorCountEl.textContent = errors;
+    hidePopup();
+  }
+
+  function flipCard() {
+    if(lockBoard || this.classList.contains('flipped') || this.classList.contains('matched')) return;
+
+    this.classList.add('flipped');
+    this.textContent = this.dataset.emoji;
+    this.setAttribute('aria-label', `Carte montrant ${this.dataset.emoji}`);
+
+    if(!firstCard) {
+      firstCard = this;
+      return;
+    }
+
+    secondCard = this;
+    checkMatch();
+  }
+
+  function checkMatch() {
+    if(firstCard.dataset.emoji === secondCard.dataset.emoji) {
+      // Matched
+      firstCard.classList.add('matched');
+      secondCard.classList.add('matched');
+      matches++;
+      resetTurn();
+      if(matches === emojis.length) {
+        endGame();
+      }
+    } else {
+      // Not matched
+      lockBoard = true;
+      errors++;
+      errorCountEl.textContent = errors;
+      setTimeout(() => {
+        firstCard.classList.remove('flipped');
+        firstCard.textContent = '';
+        firstCard.setAttribute('aria-label', 'Carte non retournée');
+        secondCard.classList.remove('flipped');
+        secondCard.textContent = '';
+        secondCard.setAttribute('aria-label', 'Carte non retournée');
+        resetTurn();
+      }, 1000);
+    }
+  }
+
+  function resetTurn() {
+    [firstCard, secondCard] = [null, null];
+    lockBoard = false;
+  }
+
+  function endGame() {
+    lockBoard = true;
+    const maxErrors = 6; // تعريف عدد الأخطاء القليل
+    if(errors <= maxErrors) {
+      showPopup("Wow, vous avez une mémoire très forte. C’est cool 👏");
+      celebrate();
+    } else {
+      showPopup("Tu gagné, mais avec le goût de perte, tu fait beaucoup d’erreurs ❌.<br>Inscrivez-vous sur \"OXYGENE GYM\" pour renforcer votre mémoire.");
+    }
+  }
+
+  function showPopup(message) {
+    popup.innerHTML = message + '<br><button id="closePopupBtn" aria-label="Fermer la fenêtre">Fermer</button>';
+    popup.classList.add('show');
+    document.getElementById('closePopupBtn').focus();
+    document.getElementById('closePopupBtn').onclick = () => {
+      popup.classList.remove('show');
+      resetGame();
+    };
+  }
+
+  function hidePopup() {
+    popup.classList.remove('show');
+  }
+
+  function resetGame() {
+    createBoard();
+  }
+
+  function celebrate() {
+    clapSound.play();
+    for (let i = 0; i < 25; i++) {
+      let confetti = document.createElement('div');
+      confetti.textContent = "🎉";
+      confetti.style.position = "fixed";
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.top = "-30px";
+      confetti.style.fontSize = "1.5rem";
+      document.body.appendChild(confetti);
+      gsap.to(confetti, {
+        y: window.innerHeight + 50,
+        rotation: Math.random() * 360,
+        duration: 2 + Math.random()*2,
+        ease: "power1.out",
+        onComplete: () => confetti.remove()
+      });
+    }
+  }
+
+  restartBtn.addEventListener('click', resetGame);
+
+  // بدء اللعبة أول مرة
+  createBoard();
+})();
+</script>
+
+</body>
+</html>
