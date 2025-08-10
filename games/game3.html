@@ -182,6 +182,10 @@
 
   function cutEmoji(emoji) {
     if (!emoji) return;
+    // إضافة شرط لمنع التكرار
+    if (emoji.dataset.cut === "true") return;  // إذا تم قطعها سابقاً لا نفعل مجدداً
+    emoji.dataset.cut = "true";  // علامة أن هذه الإيموجي مقطوعة
+
     score++;
     updateScoreboard();
     gsap.killTweensOf(emoji);
