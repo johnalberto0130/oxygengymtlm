@@ -118,6 +118,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tone@14.7.58/build/Tone.min.js"></script>
 <script>
   const emojis = ['⚽', '🏋️', '🤾', '🤸', '🧗', '🏃', '🤼', '🧘'];
   const gameContainer = document.querySelector('.game-container');
@@ -136,6 +137,20 @@
   let spawnInterval;
   let gameActive = false;
 
+  // إعدادات الصوت
+  const cutSound = new Tone.PolySynth().toDestination();
+  const bombSound = new Tone.Synth({
+    oscillator: { type: "square" },
+    envelope: {
+      attack: 0.05,
+      decay: 0.1,
+      sustain: 0.1,
+      release: 0.5,
+    },
+  }).toDestination();
+  const applauseSound = new Tone.Player("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85121/applause.wav").toDestination();
+  const sadSound = new Tone.Player("https://s3-us-west-2.amazonaws.com/s.cdpn.io/85121/wah-wah-wah.mp3").toDestination();
+
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -146,27 +161,30 @@
 
     const emoji = document.createElement('div');
     emoji.classList.add('emoji');
-    emoji.textContent = emojis[randomInt(0, emojis.length -1)];
-    emoji.style.left = randomInt(20, 320) + 'px';
+    emoji.textContent = emojis[randomInt(0, emojis.length - 1)];
+    emoji.style.left = randomInt(20, gameContainer.offsetWidth - 70) + 'px';
     emoji.style.bottom = '-60px';
     gameContainer.appendChild(emoji);
     emojiElements.push(emoji);
 
     // صعود الإيموجي مع حركة أفقية تذبذبية
     gsap.to(emoji, {
-      duration: randomInt(3,5),
-      bottom: 800,
+      duration: randomInt(3, 5),
+      bottom: gameContainer.offsetHeight + 60,
       ease: "power1.out",
       onComplete: () => {
         if (gameActive) {
           removeEmoji(emoji);
           survie++;
           updateScoreboard();
+          if (survie >= 5) {
+            endGame();
+          }
         }
       }
     });
     gsap.to(emoji, {
-      duration: randomInt(1,3),
+      duration: randomInt(1, 3),
       x: "+=30",
       yoyo: true,
       repeat: -1,
@@ -174,31 +192,27 @@
     });
 
     // عند النقر: قطع وسقوط
-    emoji.addEventListener('click', () => {
+    function onClickHandler() {
       if (!gameActive) return;
-      cutEmoji(emoji);
-    });
-  }
-
-  function cutEmoji(emoji) {
-    if (!emoji) return;
-    // إضافة شرط لمنع التكرار
-    if (emoji.dataset.cut === "true") return;  // إذا تم قطعها سابقاً لا نفعل مجدداً
-    emoji.dataset.cut = "true";  // علامة أن هذه الإيموجي مقطوعة
-
-    score++;
-    updateScoreboard();
-    gsap.killTweensOf(emoji);
-    gsap.to(emoji, {
-      rotation: randomInt(-90, 90),
-      y: "+=100",
-      opacity: 0,
-      duration: 0.6,
-      ease: "power1.in",
-      onComplete: () => {
-        removeEmoji(emoji);
-      }
-    });
+      if (emoji.dataset.cut === "true") return;
+      emoji.dataset.cut = "true";
+      emoji.removeEventListener('click', onClickHandler);
+      score++;
+      updateScoreboard();
+      cutSound.triggerAttackRelease("C4", "8n");
+      gsap.killTweensOf(emoji);
+      gsap.to(emoji, {
+        rotation: randomInt(-90, 90),
+        y: "+=100",
+        opacity: 0,
+        duration: 0.6,
+        ease: "power1.in",
+        onComplete: () => {
+          removeEmoji(emoji);
+        }
+      });
+    }
+    emoji.addEventListener('click', onClickHandler);
   }
 
   function removeEmoji(emoji) {
@@ -245,7 +259,7 @@
     let win = diff > 0;
     let msg = '';
 
-    if(win) {
+    if (win) {
       msg = `🔥 Bravo! Vous avez plus de coupés que de survivants (${score} vs ${survie}) 🎉`;
       playConfetti();
       playApplause();
@@ -270,59 +284,69 @@
   }
 
   // مؤثرات GSAP
-
   function playConfetti() {
-    for(let i=0; i<30; i++) {
-      let confetti = document.createElement('div');
-      confetti.textContent = '🎉';
-      confetti.style.position = 'fixed';
-      confetti.style.fontSize = `${randomInt(20,40)}px`;
-      confetti.style.left = `${randomInt(0, window.innerWidth)}px`;
-      confetti.style.top = `-${randomInt(10,100)}px`;
-      confetti.style.pointerEvents = 'none';
-      document.body.appendChild(confetti);
+    const confettiColors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+    for (let i = 0; i < 30; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'absolute';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.backgroundColor = confettiColors[randomInt(0, confettiColors.length - 1)];
+      confetti.style.borderRadius = '50%';
+      confetti.style.left = `${randomInt(0, gameContainer.offsetWidth)}px`;
+      confetti.style.top = `${randomInt(0, gameContainer.offsetHeight)}px`;
+      gameContainer.appendChild(confetti);
+
       gsap.to(confetti, {
-        y: window.innerHeight + 100,
-        rotation: randomInt(0,360),
-        duration: randomInt(2,4),
+        duration: randomInt(1, 3) + 1,
+        x: randomInt(-200, 200),
+        y: randomInt(-200, 200),
+        opacity: 0,
         ease: "power1.out",
         onComplete: () => confetti.remove()
       });
     }
   }
-  function playEmojiRain(emojiChar) {
-    for(let i=0; i<30; i++) {
-      let rain = document.createElement('div');
-      rain.textContent = emojiChar;
-      rain.style.position = 'fixed';
-      rain.style.fontSize = `${randomInt(20,40)}px`;
-      rain.style.left = `${randomInt(0, window.innerWidth)}px`;
-      rain.style.top = `-${randomInt(10,100)}px`;
-      rain.style.pointerEvents = 'none';
-      document.body.appendChild(rain);
-      gsap.to(rain, {
-        y: window.innerHeight + 100,
-        rotation: randomInt(0,360),
-        duration: randomInt(2,4),
-        ease: "power1.out",
-        onComplete: () => rain.remove()
+
+  function playEmojiRain(emoji) {
+    for (let i = 0; i < 20; i++) {
+      const rainEmoji = document.createElement('div');
+      rainEmoji.classList.add('emoji');
+      rainEmoji.textContent = emoji;
+      rainEmoji.style.left = `${randomInt(0, gameContainer.offsetWidth - 50)}px`;
+      rainEmoji.style.top = `-50px`;
+      gameContainer.appendChild(rainEmoji);
+
+      gsap.to(rainEmoji, {
+        duration: randomInt(2, 4) + 1,
+        top: gameContainer.offsetHeight + 50,
+        rotation: 360,
+        opacity: 0,
+        ease: "power1.in",
+        onComplete: () => rainEmoji.remove()
       });
     }
   }
 
-  // أصوات
-  const applauseAudio = new Audio('https://actions.google.com/sounds/v1/human/applause.ogg');
-  const sadAudio = new Audio('https://actions.google.com/sounds/v1/cartoon/boing.ogg');
-
   function playApplause() {
-    applauseAudio.play();
+    applauseSound.start();
   }
+
   function playSadSound() {
-    sadAudio.play();
+    sadSound.start();
   }
 
-  startBtn.addEventListener('click', startGame);
-</script>
+  startBtn.addEventListener('click', () => {
+    // إزالة أي عناصر سابقة قبل بدء اللعبة
+    emojiElements.forEach(e => e.remove());
+    emojiElements = [];
+    startGame();
+  });
 
+  gameContainer.addEventListener('click', (e) => {
+    // لمنع النقر على خلفية اللعبة من حجب النقرات
+    e.stopPropagation();
+  });
+</script>
 </body>
 </html>
