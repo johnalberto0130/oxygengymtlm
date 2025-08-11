@@ -1,261 +1,563 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeu XO</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Jeu XO - OXYGENE GAMES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
-    body {
-        background: #111;
-        color: white;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-    }
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: red;
-        color: white;
-        border: none;
-        font-size: 1.2em;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    .level-selection {
-        margin-bottom: 20px;
-    }
-    select {
-        padding: 5px;
-        font-size: 1em;
-    }
-    .game-container {
-        background: #000;
-        border: 3px solid #0f0;
-        box-shadow: 0 0 20px #0f0;
-        padding: 15px;
-        border-radius: 15px;
-        display: inline-block;
-        max-width: 95vw;
-        position: relative;
-    }
-    .board {
-        display: grid;
-        grid-template-columns: repeat(3, 100px);
-        gap: 5px;
-        justify-content: center;
-    }
-    .cell {
-        width: 100px;
-        height: 100px;
-        background: #222;
-        font-size: 2.5em;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: white;
-        box-shadow: 0 0 10px #0f0 inset;
-        border-radius: 5px;
-    }
-    .cell.X { color: red; }
-    .cell.O { color: yellow; }
-    .message {
-        margin: 15px 0;
-        font-size: 1.2em;
-    }
-    button {
-        background: #0f0;
-        color: #000;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1em;
-        cursor: pointer;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
-    button:hover {
-        background: #0c0;
-    }
-    @media (max-width: 500px) {
-        .board {
-            grid-template-columns: repeat(3, 80px);
-        }
-        .cell {
-            width: 80px;
-            height: 80px;
-            font-size: 2em;
-        }
-    }
+  :root{
+    --bg:#070909;
+    --panel:#0d1111;
+    --glow:#12d12b;
+    --x-color:#ff3b30; /* rouge */
+    --o-color:#ffd600; /* jaune */
+    --cell-size:100px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(18, 25, 18,0.25), transparent),
+                radial-gradient(1000px 500px at 90% 90%, rgba(5, 20, 10,0.15), transparent),
+                var(--bg);
+    font-family:"Poppins",system-ui,Arial;
+    color:#e9f6ea;
+  }
+
+  .card{
+    width: min(680px, 96vw);
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(10,14,10,0.6));
+    border-radius:18px;
+    padding:28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 40px rgba(18,209,43,0.06);
+    border: 2px solid rgba(18,209,43,0.06);
+  }
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:20px;
+    margin:0;
+    color:var(--glow);
+    letter-spacing:0.6px;
+  }
+  .controls{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+  #startBtn{
+    background:var(--glow);
+    color:#001;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow: 0 0 18px rgba(18,209,43,0.35);
+  }
+
+  /* Board */
+  .board {
+    display:grid;
+    grid-template-columns: repeat(3, var(--cell-size));
+    grid-template-rows: repeat(3, var(--cell-size));
+    gap:12px;
+    justify-content:center;
+    margin: 8px auto 0;
+    width: calc(3*var(--cell-size) + 2*12px);
+  }
+  .cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:46px;
+    cursor:pointer;
+    user-select:none;
+    position:relative;
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+    border: 2px solid rgba(18,209,43,0.12);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .cell:active{ transform: scale(.98); }
+  .cell.disabled{ cursor: default; opacity:0.98; }
+  /* glow border on hover (but don't allow on disabled) */
+  .cell:hover:not(.disabled){
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 18px rgba(18,209,43,0.14);
+    border-color: rgba(18,209,43,0.35);
+  }
+  /* colors for X and O */
+  .cell.x { color: var(--x-color); text-shadow: 0 0 12px rgba(255,59,48,0.25); font-weight:800; }
+  .cell.o { color: var(--o-color); text-shadow: 0 0 12px rgba(255,214,0,0.25); font-weight:800; }
+
+  /* footer status */
+  .status {
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    color:#cfe6cd;
+  }
+  .status .turn { font-weight:700; display:flex; gap:8px; align-items:center; }
+  .levelBadge { background: rgba(255,255,255,0.04); padding:6px 10px; border-radius:10px; color:#d8ffd8; font-weight:700; }
+
+  /* popup overlay */
+  .overlay {
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1200;
+    visibility:hidden;
+    opacity:0;
+  }
+  .overlay.show{ visibility:visible; opacity:1; }
+  .popup {
+    width: min(420px, 92vw);
+    background: linear-gradient(180deg, #0b120b, #0e1610);
+    border-radius:14px;
+    padding:22px;
+    border: 2px solid rgba(18,209,43,0.12);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 30px rgba(18,209,43,0.06);
+    text-align:center;
+    color:#eafbe6;
+  }
+  .popup h2{ margin:0 0 12px 0; color:var(--glow); font-size:18px;}
+  .popup p{ margin:0 0 18px 0; color:#bfe9b6; }
+  .popup .choices{ display:flex; gap:12px; flex-direction:column; }
+  .popup .choices button{
+    padding:12px 10px;
+    border-radius:10px;
+    border:none;
+    background: rgba(255,255,255,0.04);
+    color:#dfffd8;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  }
+  .popup .choices button.primary{
+    background: linear-gradient(90deg,#12d12b,#7cff6b);
+    color:#001;
+    box-shadow: 0 8px 30px rgba(18,209,43,0.28);
+  }
+  .popup .row{ display:flex; gap:10px; justify-content:center; margin-top:8px; }
+  .popup .small{ font-size:13px; color:#a8e0a0; opacity:0.95; }
+
+  /* responsive */
+  @media (max-width:420px){
+    :root{ --cell-size:88px; }
+  }
 </style>
 </head>
 <body>
 
-<button class="close-btn" onclick="closeGame()">X</button>
+<div class="card" role="application" aria-label="Jeu Tic Tac Toe">
+  <header>
+    <h1>OXYGENE XO</h1>
+    <div class="controls">
+      <div class="levelBadge" id="levelBadge">Mode: Local</div>
+      <button id="startBtn">Commencer</button>
+    </div>
+  </header>
 
-<h1>Jeu XO</h1>
-<div class="level-selection">
-    <label for="level">Choisissez le niveau :</label>
-    <select id="level">
-        <option value="facile">Facile</option>
-        <option value="difficile">Difficile</option>
-        <option value="pro">Pro</option>
-    </select>
-    <button onclick="startGame()">Commencer</button>
+  <main>
+    <div class="board" id="board" role="grid" aria-label="Plateau de jeu"></div>
+
+    <div class="status">
+      <div class="turn" id="turnDisplay">Tour: <span id="turnIcon">X</span></div>
+      <div id="scoreBoard">X: <strong id="scoreX">0</strong> — O: <strong id="scoreO">0</strong></div>
+    </div>
+  </main>
 </div>
 
-<div class="game-container" id="game-container" style="display:none;">
-    <div class="board" id="board"></div>
-    <div class="message" id="message">Votre tour !</div>
-    <button onclick="resetGame()">Rejouer</button>
+<!-- Popup 1: Choix mode -->
+<div class="overlay" id="modeOverlay" aria-hidden="true">
+  <div class="popup" role="dialog" aria-modal="true" aria-labelledby="modeTitle">
+    <h2 id="modeTitle">Choisissez le mode</h2>
+    <p>Jouez avec un ami ou contre le système</p>
+    <div class="choices">
+      <button id="btnFriend" class="primary">Jouez avec un ami</button>
+      <button id="btnSystem">Jouez contre le système</button>
+    </div>
+  </div>
 </div>
 
-<audio id="clapSound" src="https://www.soundjay.com/human/applause-8.mp3"></audio>
+<!-- Popup 2: Choix difficulté (affiche seulement si system) -->
+<div class="overlay" id="levelOverlay" aria-hidden="true">
+  <div class="popup" role="dialog" aria-modal="true" aria-labelledby="levelTitle">
+    <h2 id="levelTitle">Choisissez la difficulté</h2>
+    <p>La difficulté influence l'intelligence du système</p>
+    <div class="choices" id="levelChoices">
+      <button data-level="easy" class="primary">Facile</button>
+      <button data-level="medium">Moyen</button>
+      <button data-level="hard">Difficile</button>
+    </div>
+    <div class="row small">Facile = aléatoire · Moyen = bloquer/attendre · Difficile = Minimax</div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script>
-    const boardEl = document.getElementById("board");
-    const messageEl = document.getElementById("message");
-    const clapSound = document.getElementById("clapSound");
-    let board, gameActive, currentPlayer, level;
+/* ====== Variables et état ====== */
+const boardEl = document.getElementById('board');
+const startBtn = document.getElementById('startBtn');
+const modeOverlay = document.getElementById('modeOverlay');
+const levelOverlay = document.getElementById('levelOverlay');
+const btnFriend = document.getElementById('btnFriend');
+const btnSystem = document.getElementById('btnSystem');
+const levelChoices = document.getElementById('levelChoices');
+const levelBadge = document.getElementById('levelBadge');
+const turnIcon = document.getElementById('turnIcon');
+const scoreXEl = document.getElementById('scoreX');
+const scoreOEl = document.getElementById('scoreO');
 
-    function startGame() {
-        level = document.getElementById("level").value;
-        document.getElementById("game-container").style.display = "inline-block";
-        createBoard();
-        messageEl.textContent = "Votre tour !";
-    }
+let cells = [];                // DOM cells
+let board = Array(9).fill(null);// logical board: 'X'|'O'|null
+let currentPlayer = 'X';
+let gameActive = false;
+let playAgainstSystem = false;
+let aiLevel = 'easy'; // 'easy'|'medium'|'hard'
+let scores = { X:0, O:0 };
 
-    function closeGame() {
-        document.getElementById("game-container").style.display = "none";
-    }
+/* ====== util ====== */
+const winCombos = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
+];
 
-    function createBoard() {
-        boardEl.innerHTML = "";
-        board = ["", "", "", "", "", "", "", "", ""];
-        gameActive = true;
-        currentPlayer = "X";
-        for (let i = 0; i < 9; i++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell");
-            cell.dataset.index = i;
-            cell.addEventListener("click", handleClick);
-            boardEl.appendChild(cell);
-        }
-    }
+function createBoard(){
+  boardEl.innerHTML = '';
+  cells = [];
+  board = Array(9).fill(null);
+  for(let i=0;i<9;i++){
+    const c = document.createElement('div');
+    c.className = 'cell';
+    c.setAttribute('role','button');
+    c.setAttribute('aria-label', `Case ${i+1}`);
+    c.dataset.index = i;
+    // click handler: immediate disable to avoid double counting fast clicks
+    c.addEventListener('click', onCellClick);
+    cells.push(c);
+    boardEl.appendChild(c);
+  }
+  updateTurnDisplay();
+}
 
-    function handleClick(e) {
-        const index = e.target.dataset.index;
-        if (!gameActive || board[index] !== "") return;
-        makeMove(index, currentPlayer);
-        if (checkWinner(currentPlayer)) {
-            endGame(true);
-            return;
-        }
-        if (!board.includes("")) {
-            endGame(false);
-            return;
-        }
-        currentPlayer = "O";
-        setTimeout(computerMove, 500);
-    }
+/* ====== popup helpers (GSAP animations) ====== */
+function showOverlay(overlayEl){
+  overlayEl.classList.add('show');
+  overlayEl.setAttribute('aria-hidden','false');
+  gsap.fromTo(overlayEl.querySelector('.popup'),
+    { y:-24, opacity:0, scale:0.96 },
+    { y:0, opacity:1, scale:1, duration:0.38, ease:"power2.out" });
+}
+function hideOverlay(overlayEl){
+  gsap.to(overlayEl.querySelector('.popup'), { y:-12, opacity:0, scale:0.98, duration:0.22, ease:"power2.in",
+    onComplete: ()=> {
+      overlayEl.classList.remove('show');
+      overlayEl.setAttribute('aria-hidden','true');
+    }});
+}
 
-    function makeMove(index, player) {
-        board[index] = player;
-        const cell = boardEl.querySelector(`[data-index="${index}"]`);
-        cell.textContent = player;
-        cell.classList.add(player);
-    }
+/* ====== start flow ====== */
+startBtn.addEventListener('click', ()=> showOverlay(modeOverlay));
 
-    function computerMove() {
-        let move;
-        if (level === "facile") {
-            move = randomMove();
-        } else if (level === "difficile") {
-            move = blockMove() ?? randomMove();
-        } else if (level === "pro") {
-            move = winMove() ?? blockMove() ?? randomMove();
-        }
-        makeMove(move, "O");
-        if (checkWinner("O")) {
-            endGame(true, false);
-            return;
-        }
-        if (!board.includes("")) {
-            endGame(false);
-            return;
-        }
-        currentPlayer = "X";
-    }
+btnFriend.addEventListener('click', ()=>{
+  playAgainstSystem = false;
+  aiLevel = 'none';
+  levelBadge.textContent = 'Mode: Local';
+  hideOverlay(modeOverlay);
+  startMatch();
+});
 
-    function randomMove() {
-        let emptyIndices = board.map((val, idx) => val === "" ? idx : null).filter(v => v !== null);
-        return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-    }
+btnSystem.addEventListener('click', ()=>{
+  playAgainstSystem = true;
+  hideOverlay(modeOverlay);
+  // show difficulty selection
+  showOverlay(levelOverlay);
+});
 
-    function blockMove() {
-        return findBestMove("X");
-    }
+/* difficulty buttons */
+levelChoices.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  const level = btn.dataset.level;
+  if(!level) return;
+  aiLevel = level;
+  levelBadge.textContent = `Mode: CPU (${level})`;
+  hideOverlay(levelOverlay);
+  startMatch();
+});
 
-    function winMove() {
-        return findBestMove("O");
-    }
+/* ====== game logic ====== */
+function startMatch(){
+  createBoard();
+  gameActive = true;
+  currentPlayer = 'X';
+  updateTurnDisplay();
+  // reset per-match flags on cells
+  cells.forEach(cell => {
+    cell.classList.remove('x','o','disabled');
+    cell.textContent = '';
+    delete cell.dataset.clicked;
+  });
+}
 
-    function findBestMove(player) {
-        const wins = [
-            [0,1,2],[3,4,5],[6,7,8],
-            [0,3,6],[1,4,7],[2,5,8],
-            [0,4,8],[2,4,6]
-        ];
-        for (let comb of wins) {
-            const [a,b,c] = comb;
-            let values = [board[a], board[b], board[c]];
-            if (values.filter(v => v === player).length === 2 && values.includes("")) {
-                return comb[values.indexOf("")];
-            }
-        }
-        return null;
-    }
+/* prevent double fast clicks: disable cell immediately on handler entry */
+function onCellClick(e){
+  const cell = e.currentTarget;
+  const idx = Number(cell.dataset.index);
+  if(!gameActive) return;
+  if(cell.dataset.clicked) return; // already clicked/disabled
+  // immediate lock to avoid double click glitches
+  cell.dataset.clicked = 'true';
+  cell.classList.add('disabled');
 
-    function checkWinner(player) {
-        const wins = [
-            [0,1,2],[3,4,5],[6,7,8],
-            [0,3,6],[1,4,7],[2,5,8],
-            [0,4,8],[2,4,6]
-        ];
-        return wins.some(comb => comb.every(idx => board[idx] === player));
-    }
+  // only allow if board empty at idx
+  if(board[idx] !== null){
+    return;
+  }
+  makeMove(idx, currentPlayer, true);
+}
 
-    function endGame(win, player=true) {
-        gameActive = false;
-        if (win && player) {
-            messageEl.textContent = "🎉 Félicitations, vous avez gagné ! 🎉";
-            clapSound.play();
-            for (let i = 0; i < 20; i++) {
-                let confetti = document.createElement("div");
-                confetti.textContent = "🎉";
-                confetti.style.position = "fixed";
-                confetti.style.left = Math.random() * window.innerWidth + "px";
-                confetti.style.top = "-20px";
-                document.body.appendChild(confetti);
-                gsap.to(confetti, {y: window.innerHeight + 50, rotation: Math.random() * 360, duration: 2 + Math.random()*2, onComplete: ()=>confetti.remove()});
-            }
-        } else if (win && !player) {
-            messageEl.textContent = "😅 Vous avez perdu, réessayez !";
-        } else {
-            messageEl.textContent = "Match nul !";
-        }
-    }
+/* make a move (player or AI)
+   userTriggered: if true, we only flip player symbol visuals now
+*/
+function makeMove(idx, player, userTriggered=false){
+  if(!gameActive) return;
+  if(board[idx] !== null) return;
 
-    function resetGame() {
-        createBoard();
-        messageEl.textContent = "Votre tour !";
+  // logical
+  board[idx] = player;
+
+  // visual
+  const cell = cells[idx];
+  cell.textContent = player;
+  cell.classList.add(player === 'X' ? 'x' : 'o');
+
+  // ensure cell won't be clickable again
+  cell.dataset.clicked = 'true';
+  cell.classList.add('disabled');
+
+  // check win/draw
+  if(checkWinFor(player)){
+    gameActive = false;
+    scores[player] += 1;
+    updateScoreboard();
+    showResult(`${player} a gagné !`);
+    return;
+  }
+  if(board.every(v => v !== null)){
+    gameActive = false;
+    showResult(`Match nul !`);
+    return;
+  }
+
+  // switch turn
+  currentPlayer = (player === 'X') ? 'O' : 'X';
+  updateTurnDisplay();
+
+  // if next is CPU and mode CPU -> schedule AI move
+  if(gameActive && playAgainstSystem && currentPlayer === 'O'){
+    // small delay for UX
+    setTimeout(()=> {
+      aiPlay();
+    }, aiLevel === 'hard' ? 350 : 220);
+  }
+}
+
+/* check win */
+function checkWinFor(player){
+  return winCombos.some(combo => combo.every(i => board[i] === player));
+}
+
+/* show result popup briefly with animation */
+function showResult(text){
+  // small modal-like message (reuse main overlay pattern)
+  const popup = document.createElement('div');
+  popup.className = 'popup';
+  popup.innerHTML = `<h2>${text}</h2><p>Partie terminée</p><div class="row"><button id="rematchBtn" class="primary">Rejouer</button><button id="homeBtn">Accueil</button></div>`;
+  document.body.appendChild(popup);
+  // center overlay background
+  const tempOverlay = document.createElement('div');
+  tempOverlay.className = 'overlay show';
+  tempOverlay.style.zIndex = 2000;
+  tempOverlay.appendChild(popup);
+  document.body.appendChild(tempOverlay);
+  gsap.fromTo(popup, {y:-24,opacity:0,scale:0.96},{y:0,opacity:1,scale:1,duration:0.36,ease:'power2.out'});
+
+  // handlers
+  tempOverlay.addEventListener('click', (ev)=>{
+    if(ev.target === tempOverlay) {
+      cleanup();
     }
+  });
+  popup.querySelector('#rematchBtn').addEventListener('click', ()=>{
+    cleanup();
+    startMatch();
+  });
+  popup.querySelector('#homeBtn').addEventListener('click', ()=>{
+    cleanup();
+    // show mode menu again
+    showOverlay(modeOverlay);
+  });
+
+  function cleanup(){
+    gsap.to(popup, {opacity:0, y:-12, duration:0.22, onComplete: ()=>{
+      if(tempOverlay.parentNode) tempOverlay.parentNode.removeChild(tempOverlay);
+    }});
+  }
+}
+
+/* update UI */
+function updateTurnDisplay(){
+  turnIcon.textContent = currentPlayer;
+  turnIcon.style.color = currentPlayer === 'X' ? getComputedStyle(document.documentElement).getPropertyValue('--x-color') : getComputedStyle(document.documentElement).getPropertyValue('--o-color');
+  // better: set inline color exactly
+  turnIcon.style.color = currentPlayer === 'X' ? '#ff3b30' : '#ffd600';
+}
+function updateScoreboard(){
+  scoreXEl.textContent = scores.X;
+  scoreOEl.textContent = scores.O;
+}
+
+/* ====== AI moves ====== */
+function aiPlay(){
+  if(!gameActive) return;
+  let move;
+  if(aiLevel === 'easy'){
+    move = aiRandomMove();
+  } else if(aiLevel === 'medium'){
+    move = aiMediumMove();
+  } else {
+    move = aiMinimaxMove();
+  }
+  if(typeof move === 'number'){
+    makeMove(move, 'O', false);
+  }
+}
+
+/* easy: random empty */
+function aiRandomMove(){
+  const empties = board.map((v,i)=> v===null ? i : null).filter(v => v!==null);
+  if(empties.length===0) return null;
+  return empties[Math.floor(Math.random()*empties.length)];
+}
+
+/* medium: win if possible, else block if needed, else random */
+function aiMediumMove(){
+  // try to win
+  for(let i=0;i<9;i++){
+    if(board[i]===null){
+      board[i] = 'O';
+      if(checkWinFor('O')) { board[i]=null; return i; }
+      board[i] = null;
+    }
+  }
+  // try to block X
+  for(let i=0;i<9;i++){
+    if(board[i]===null){
+      board[i] = 'X';
+      if(checkWinFor('X')) { board[i]=null; return i; }
+      board[i] = null;
+    }
+  }
+  // prefer center
+  if(board[4] === null) return 4;
+  // else random corner then side
+  const corners = [0,2,6,8].filter(i=>board[i]===null);
+  if(corners.length) return corners[Math.floor(Math.random()*corners.length)];
+  return aiRandomMove();
+}
+
+/* hard: minimax algorithm */
+function aiMinimaxMove(){
+  // minimax returns {index, score}
+  const copy = board.slice();
+  const result = minimax(copy, 'O');
+  return result.index;
+}
+
+function minimax(testBoard, player){
+  // terminal checks
+  if(isWinner(testBoard, 'X')) return {score: -10};
+  if(isWinner(testBoard, 'O')) return {score: 10};
+  if(testBoard.every(v=>v!==null)) return {score: 0};
+
+  const moves = [];
+  for(let i=0;i<9;i++){
+    if(testBoard[i]===null){
+      const move = {};
+      move.index = i;
+      testBoard[i] = player;
+
+      if(player === 'O'){
+        const res = minimax(testBoard, 'X');
+        move.score = res.score;
+      } else {
+        const res = minimax(testBoard, 'O');
+        move.score = res.score;
+      }
+
+      testBoard[i] = null;
+      moves.push(move);
+    }
+  }
+
+  // choose best move
+  let bestMove;
+  if(player === 'O'){
+    let bestScore = -Infinity;
+    for(const m of moves){
+      if(m.score > bestScore){ bestScore = m.score; bestMove = m; }
+    }
+  } else {
+    let bestScore = Infinity;
+    for(const m of moves){
+      if(m.score < bestScore){ bestScore = m.score; bestMove = m; }
+    }
+  }
+  return bestMove;
+}
+function isWinner(testBoard, player){
+  return winCombos.some(combo => combo.every(i => testBoard[i] === player));
+}
+
+/* ====== init ====== */
+createBoard();
+updateScoreboard();
+
+/* accessibility: keyboard support - use numbers 1..9 to mark cells */
+document.addEventListener('keydown', (e)=>{
+  if(!gameActive) return;
+  const key = e.key;
+  if(key >= '1' && key <= '9'){
+    const idx = Number(key) - 1;
+    const cell = cells[idx];
+    if(cell && !cell.dataset.clicked){
+      // simulate click
+      cell.click();
+    }
+  }
+});
 </script>
-
 </body>
 </html>
