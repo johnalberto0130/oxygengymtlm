@@ -174,14 +174,12 @@
             align-items: center;
             flex-shrink: 0;
             padding: 0;
-            /* Added margin-right to create spacing between items on desktop */
-            /* Removed as it was causing the overflow issue */
         }
         
         .slider-item img {
             width: 100%;
-            height: 500px; /* Adjusted height for better consistency */
-            object-fit: cover; /* Keeps images filling the frame */
+            height: 500px; /* Ensures all images have a consistent height */
+            object-fit: cover; /* This makes the image fill the entire container, cropping the edges if necessary */
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;
         }
@@ -304,11 +302,11 @@
                         <p class="slider-text">Zone de poids libres</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/9ca1Yda.jpeg" alt="Image of Complex 6">
+                        <img src="https://i.imgur.com/SgeEpEq.jpeg" alt="Image of Complex 6">
                         <p class="slider-text">Petit terrain-gazon artificiel-</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/HsHHWiM.jpeg" alt="Image of Complex 7">
+                        <img src="https://i.imgur.com/wFqSGs3.jpeg" alt="Image of Complex 7">
                         <p class="slider-text">Équipements neuf & modernes</p>
                     </div>
                 </div>
@@ -489,10 +487,9 @@
             // Calculate the new index
             slider.current = (slider.current + direction + totalItems) % totalItems;
 
-            // Use GSAP for a smooth sliding transition
-            const itemWidth = slider.items[0].offsetWidth;
+            // Use GSAP for a smooth sliding transition based on percentage
             gsap.to(slider.wrapper, {
-                x: -slider.current * itemWidth,
+                x: -slider.current * 100 + '%',
                 duration: 0.6,
                 ease: "power2.inOut",
                 onComplete: () => {
