@@ -174,12 +174,14 @@
             align-items: center;
             flex-shrink: 0;
             padding: 0;
+            /* Added margin-right to create spacing between items on desktop */
+            /* Removed as it was causing the overflow issue */
         }
-
+        
         .slider-item img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
+            width: 100%;
+            height: 500px; /* Adjusted height for better consistency */
+            object-fit: cover; /* Keeps images filling the frame */
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;
         }
@@ -196,7 +198,7 @@
             font-weight: bold;
             font-size: 1em;
             color: var(--text-color);
-            text-align: center;
+            text-align: center; /* Centered text */
             background-color: transparent; /* Removed background color */
             padding: 0; /* Removed padding */
             border-radius: 0; /* Removed border-radius */
@@ -246,7 +248,7 @@
                 width: 100%;
             }
             .slider-item img {
-                max-height: 300px;
+                height: 300px; /* Adjust height for smaller screens */
             }
             .slider-text {
                 font-size: 0.9em;
@@ -290,7 +292,7 @@
                         <p class="slider-text">Salle de boxe et Kickboxing</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/ZK2Alsx.jpeg" alt="Image of Complex 3">
+                        <img src="https://i.imgur.com/CY675dZ.jpeg" alt="Image of Complex 3">
                         <p class="slider-text">Espace détente et vestiaires</p>
                     </div>
                     <div class="slider-item">
@@ -298,15 +300,15 @@
                         <p class="slider-text">Équipements de dernière génération</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/w3gqLiQ.jpeg" alt="Image of Complex 5">
+                        <img src="https://i.imgur.com/yqydGjE.jpeg" alt="Image of Complex 5">
                         <p class="slider-text">Zone de poids libres</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/LcyK4KW.jpeg" alt="Image of Complex 6">
+                        <img src="https://i.imgur.com/9ca1Yda.jpeg" alt="Image of Complex 6">
                         <p class="slider-text">Petit terrain-gazon artificiel-</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://i.imgur.com/1drAQG2.jpeg" alt="Image of Complex 7">
+                        <img src="https://i.imgur.com/HsHHWiM.jpeg" alt="Image of Complex 7">
                         <p class="slider-text">Équipements neuf & modernes</p>
                     </div>
                 </div>
