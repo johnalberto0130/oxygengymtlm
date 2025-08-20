@@ -1,679 +1,686 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OXYGENE GYM - Gallery</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        /* Variables and global styles */
-        :root {
-            --main-color: #00ff88;
-            --dark-bg: #111;
-            --text-color: #f0f0f0;
-            --shadow-light: rgba(0, 255, 136, 0.5);
-            --shadow-dark: rgba(0, 0, 0, 0.8);
-            --orange-light: #FF8C00;
-        }
+ <html lang="fr">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>OXYGENE GYM - Gallery</title>
+     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+     <style>
+         /* Variables and global styles */
+         :root {
+             --main-color: #00ff88;
+             --dark-bg: #111;
+             --text-color: #f0f0f0;
+             --shadow-light: rgba(0, 255, 136, 0.5);
+             --shadow-dark: rgba(0, 0, 0, 0.8);
+             --orange-light: #FF8C00;
+         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+         html {
+             scroll-behavior: smooth;
+         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-top: 80px; /* For fixed menu toggle */
-        }
+         body {
+             font-family: 'Poppins', sans-serif;
+             background-color: var(--dark-bg);
+             color: var(--text-color);
+             line-height: 1.6;
+             overflow-x: hidden;
+             padding-top: 80px; /* For fixed menu toggle */
+         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+         .container {
+             max-width: 1200px;
+             margin: 0 auto;
+             padding: 0 20px;
+         }
 
-        /* Background animation */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 60%),
-                        radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
-            animation: pulse-bg 15s infinite;
-            z-index: -1;
-        }
+         /* Background animation */
+         body::before {
+             content: '';
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 60%),
+                         radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
+             animation: pulse-bg 15s infinite;
+             z-index: -1;
+         }
 
-        @keyframes pulse-bg {
-            0% { transform: scale(1) translate(0, 0); opacity: 1; }
-            50% { transform: scale(1.2) translate(10%, -10%); opacity: 0.8; }
-            100% { transform: scale(1) translate(0, 0); opacity: 1; }
-        }
+         @keyframes pulse-bg {
+             0% { transform: scale(1) translate(0, 0); opacity: 1; }
+             50% { transform: scale(1.2) translate(10%, -10%); opacity: 0.8; }
+             100% { transform: scale(1) translate(0, 0); opacity: 1; }
+         }
 
-        section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+         section {
+             padding: 80px 20px;
+             max-width: 1200px;
+             margin: auto;
+             text-align: center;
+             position: relative;
+             z-index: 1;
+         }
 
-        .section-title {
-            font-family: 'Anton', sans-serif;
-            font-size: 3em;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            color: var(--orange-light);
-            text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
-        }
+         .section-title {
+             font-family: 'Anton', sans-serif;
+             font-size: 3em;
+             text-transform: uppercase;
+             margin-bottom: 50px;
+             color: var(--orange-light);
+             text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
+         }
 
-        /* --- Sidebar Styles --- */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 300px;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95);
-            padding: 50px 30px;
-            transform: translateX(-100%);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
-        }
+         /* --- Sidebar Styles --- */
+         .sidebar {
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 300px;
+             height: 100vh;
+             background-color: rgba(0, 0, 0, 0.95);
+             padding: 50px 30px;
+             transform: translateX(-100%);
+             z-index: 999;
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             align-items: flex-start;
+             transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+         }
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
+         .sidebar.open {
+             transform: translateX(0);
+         }
 
-        .sidebar-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5em;
-            color: var(--main-color);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+         .sidebar-close-btn {
+             position: absolute;
+             top: 20px;
+             right: 20px;
+             font-size: 2.5em;
+             color: var(--main-color);
+             cursor: pointer;
+             transition: transform 0.3s ease;
+         }
 
-        .sidebar-close-btn:hover {
-            transform: rotate(90deg);
-        }
+         .sidebar-close-btn:hover {
+             transform: rotate(90deg);
+         }
 
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            text-align: left;
-        }
+         .sidebar-menu {
+             list-style: none;
+             padding: 0;
+             margin: 0;
+             width: 100%;
+             text-align: left;
+         }
 
-        .sidebar-menu li {
-            opacity: 1;
-            transform: translateY(20px);
-            margin-bottom: 30px;
-        }
+         .sidebar-menu li {
+             opacity: 1;
+             transform: translateY(20px);
+             margin-bottom: 30px;
+         }
 
-        .sidebar-menu a {
-            font-family: 'Anton', sans-serif;
-            font-size: 2em;
-            color: var(--text-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.3s, letter-spacing 0.3s;
-            display: block;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 5px;
-        }
+         .sidebar-menu a {
+             font-family: 'Anton', sans-serif;
+             font-size: 2em;
+             color: var(--text-color);
+             text-decoration: none;
+             text-transform: uppercase;
+             transition: color 0.3s, letter-spacing 0.3s;
+             display: block;
+             border-bottom: 2px solid transparent;
+             padding-bottom: 5px;
+         }
 
-        .sidebar-menu a:hover {
-            color: var(--main-color);
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--main-color);
-        }
+         .sidebar-menu a:hover {
+             color: var(--main-color);
+             letter-spacing: 2px;
+             border-bottom: 2px solid var(--main-color);
+         }
 
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 10px;
-            background-color: var(--dark-bg);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            transition: box-shadow 0.3s;
-        }
+         .menu-toggle {
+             position: fixed;
+             top: 20px;
+             left: 20px;
+             width: 50px;
+             height: 50px;
+             display: flex;
+             flex-direction: column;
+             justify-content: space-around;
+             align-items: center;
+             cursor: pointer;
+             z-index: 1001;
+             padding: 10px;
+             background-color: var(--dark-bg);
+             border-radius: 50%;
+             box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+             transition: box-shadow 0.3s;
+         }
 
-        .menu-toggle:hover {
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
-        }
+         .menu-toggle:hover {
+             box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+         }
 
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 4px;
-            background-color: var(--main-color);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
+         .menu-toggle span {
+             display: block;
+             width: 100%;
+             height: 4px;
+             background-color: var(--main-color);
+             border-radius: 2px;
+             transition: all 0.3s ease;
+         }
 
-        /* --- New Gallery Slider Styles --- */
-        .slider-container {
-            position: relative;
-            max-width: 900px;
-            margin: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            background-color: transparent;
-            overflow: hidden;
-        }
+         /* --- New Gallery Slider Styles --- */
+         .slider-container {
+             position: relative;
+             max-width: 900px;
+             margin: auto;
+             border-radius: 15px;
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+             background-color: transparent;
+             overflow: hidden;
+         }
 
-        .slider-wrapper {
-            display: flex;
-        }
+         .slider-wrapper {
+             display: flex;
+         }
 
-        .slider-item {
-            width: 100%;
-            flex-shrink: 0;
-            padding: 0;
-            position: relative;
-            height: 500px;
-            /* Add a class for non-video items to fix height */
-        }
-        
-        .slider-item img,
-        .slider-item video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease-in-out;
-        }
+         .slider-item {
+             width: 100%;
+             flex-shrink: 0;
+             padding: 0;
+             position: relative;
+             height: 500px;
+             /* Add a class for non-video items to fix height */
+         }
 
-        .slider-item img:hover,
-        .slider-item video:hover {
-            transform: scale(1.02);
-        }
+         .slider-item img,
+         .slider-item video {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+             border-radius: 10px;
+             transition: transform 0.3s ease-in-out;
+         }
 
-        .slider-text {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            font-family: 'Poppins', sans-serif;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: var(--text-color);
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px 20px;
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.5s ease-out;
-        }
+         .slider-item img:hover,
+         .slider-item video:hover {
+             transform: scale(1.02);
+         }
 
-        .slider-text.active {
-            opacity: 1;
-        }
-        
-        /* New styles for the play/pause button */
-        .video-overlay-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--main-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10; /* Make sure it's above the video */
-            transition: all 0.3s ease;
-        }
+         .slider-text {
+             position: absolute;
+             bottom: 20px;
+             left: 50%;
+             transform: translateX(-50%);
+             width: 90%;
+             font-family: 'Poppins', sans-serif;
+             font-weight: bold;
+             font-size: 1.2em;
+             color: var(--text-color);
+             text-align: center;
+             background-color: rgba(0, 0, 0, 0.6);
+             padding: 10px 20px;
+             border-radius: 8px;
+             opacity: 0;
+             transition: opacity 0.5s ease-out;
+         }
 
-        .video-overlay-btn:hover {
-            background-color: var(--main-color);
-            color: var(--dark-bg);
-            box-shadow: 0 0 20px var(--main-color);
-        }
+         .slider-text.active {
+             opacity: 1;
+         }
 
-        .video-overlay-btn i {
-            font-size: 2.5em;
-            color: var(--text-color);
-            transition: color 0.3s;
-        }
+         /* New styles for the play/pause button */
+         .video-overlay-btn {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             width: 80px;
+             height: 80px;
+             background-color: rgba(0, 0, 0, 0.5);
+             border: 2px solid var(--main-color);
+             border-radius: 50%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             z-index: 10; /* Make sure it's above the video */
+             transition: all 0.3s ease;
+         }
 
-        .video-overlay-btn:hover i {
-            color: var(--dark-bg);
-        }
-        
-        .video-controls-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
+         .video-overlay-btn:hover {
+             background-color: var(--main-color);
+             color: var(--dark-bg);
+             box-shadow: 0 0 20px var(--main-color);
+         }
 
-        .video-controls-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+         .video-overlay-btn i {
+             font-size: 2.5em;
+             color: var(--text-color);
+             transition: color 0.3s;
+         }
 
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-            padding: 0 10px;
-        }
+         .video-overlay-btn:hover i {
+             color: var(--dark-bg);
+         }
 
-        .slider-nav button {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: var(--main-color);
-            font-size: 1.5em;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            opacity: 0.8;
-        }
+         .video-controls-container {
+             position: relative;
+             width: 100%;
+             height: 100%;
+         }
 
-        .slider-nav button:hover {
-            opacity: 1;
-            transform: scale(1.1);
-            background-color: var(--main-color);
-            color: var(--dark-bg);
-        }
+         .video-controls-container video {
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+         }
 
-        /* Responsive adjustments for phones and smaller screens */
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2em;
-            }
-            .sidebar {
-                width: 100%;
-            }
-            .slider-item {
-                height: 300px;
-            }
-            .slider-text {
-                font-size: 0.9em;
-                padding: 5px 10px;
-                bottom: 10px;
-            }
-            .video-overlay-btn {
-                width: 60px;
-                height: 60px;
-            }
-            .video-overlay-btn i {
-                font-size: 2em;
-            }
-        }
-    </style>
-</head>
-<body>
+         .slider-nav {
+             position: absolute;
+             top: 50%;
+             width: 100%;
+             display: flex;
+             justify-content: space-between;
+             transform: translateY(-50%);
+             padding: 0 10px;
+         }
 
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
-        <ul class="sidebar-menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-            <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
-        </ul>
-    </div>
+         .slider-nav button {
+             background-color: rgba(0, 0, 0, 0.5);
+             border: none;
+             color: var(--main-color);
+             font-size: 1.5em;
+             padding: 8px 12px;
+             cursor: pointer;
+             border-radius: 50%;
+             transition: all 0.3s ease;
+             box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+             opacity: 0.8;
+         }
 
-    <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+         .slider-nav button:hover {
+             opacity: 1;
+             transform: scale(1.1);
+             background-color: var(--main-color);
+             color: var(--dark-bg);
+         }
 
-    <main>
-        <section id="complexes-gallery">
-            <h2 class="section-title">Nos complexes</h2>
-            <div class="slider-container">
-                <div class="slider-wrapper" id="complexes-slider-wrapper">
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/Ujg9Mf0.jpeg" alt="Image of Complex 1">
-                        <p class="slider-text">vue de l'extérieur</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/Lnj0dfh.jpeg" alt="Image of Complex 2">
-                        <p class="slider-text">Salle de boxe et Kickboxing</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/CY675dZ.jpeg" alt="Image of Complex 3">
-                        <p class="slider-text">Espace détente et vestiaires</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/8Iu1FPR.jpeg" alt="Image of Complex 4">
-                        <p class="slider-text">Équipements de dernière génération</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/yqydGjE.jpeg" alt="Image of Complex 5">
-                        <p class="slider-text">coin restauration</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/SgeEpEq.jpeg" alt="Image of Complex 6">
-                        <p class="slider-text">Petit terrain-gazon artificiel-</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/wFqSGs3.jpeg" alt="Image of Complex 7">
-                        <p class="slider-text">Équipements neuf & modernes</p>
-                    </div>
-                </div>
-                <div class="slider-nav">
-                    <button onclick="moveSlider('complexes', -1)"><i class="fas fa-chevron-left"></i></button>
-                    <button onclick="moveSlider('complexes', 1)"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </section>
+         /* Responsive adjustments for phones and smaller screens */
+         @media (max-width: 768px) {
+             .section-title {
+                 font-size: 2em;
+             }
+             .sidebar {
+                 width: 100%;
+             }
+             .slider-item {
+                 height: 300px;
+             }
+             .slider-text {
+                 font-size: 0.9em;
+                 padding: 5px 10px;
+                 bottom: 10px;
+             }
+             .video-overlay-btn {
+                 width: 60px;
+                 height: 60px;
+             }
+             .video-overlay-btn i {
+                 font-size: 2em;
+             }
+         }
+     </style>
+ </head>
+ <body>
 
-        <section id="champions-gallery">
-            <h2 class="section-title">Nos champions</h2>
-            <div class="slider-container">
-                <div class="slider-wrapper" id="champions-slider-wrapper">
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/kMV6viM.jpeg" alt="Image of Champion 1">
-                        <p class="slider-text">Haberi anas - 1ST 🥇-kickboxing</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/CpMrImn.jpeg" alt="Image of Champion 2">
-                        <p class="slider-text">Ben allal Ramzi -  2ST🥈fitness</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/vO035oA.jpeg" alt="Image of Champion 3">
-                        <p class="slider-text">Héroïnes de Salle 🦸 - Kickboxing</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/cyUZrID.jpeg" alt="Image of Champion 4">
-                        <p class="slider-text">Aymen Héros 01/25 🏆 - Crossfit </p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://i.imgur.com/c8qTw2z.jpeg" alt="Image of Champion 5">
-                        <p class="slider-text">Super Coach de OXYGEN GYM - Crossfit  🏆</p>
-                    </div>
-                </div>
-                <div class="slider-nav">
-                    <button onclick="moveSlider('champions', -1)"><i class="fas fa-chevron-left"></i></button>
-                    <button onclick="moveSlider('champions', 1)"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </section>
+     <div class="sidebar" id="sidebar">
+         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
+         <ul class="sidebar-menu">
+             <li><a href="index.html">Accueil</a></li>
+             <li><a href="gallery.html">Gallery</a></li>
+             <li><a href="challenges.html">Challenges</a></li>
+             <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
+         </ul>
+     </div>
 
-        <section id="ambiance-gallery">
-            <h2 class="section-title">Ambiance dans nos complexes</h2>
-            <div class="slider-container">
-                <div class="slider-wrapper" id="ambiance-slider-wrapper">
-                    <div class="slider-item">
-                        <div class="video-controls-container">
-                            <video autoplay loop playsinline class="slider-video">
-                                <source src="videos/my-video1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay-btn" onclick="togglePlay(this)">
-                                <i class="fas fa-pause"></i>
-                            </div>
-                        </div>
-                        <p class="slider-text">Entraînement en groupe motivant</p>
-                    </div>
-                    <div class="slider-item">
-                        <div class="video-controls-container">
-                            <video loop playsinline class="slider-video">
-                                <source src="videos/my-video2.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay-btn" onclick="togglePlay(this)">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <p class="slider-text">Rire et bonne humeur</p>
-                    </div>
-                    <div class="slider-item">
-                        <div class="video-controls-container">
-                            <video loop playsinline class="slider-video">
-                                <source src="videos/my-video3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay-btn" onclick="togglePlay(this)">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <p class="slider-text">Moment de partage entre membres</p>
-                    </div>
-                    <div class="slider-item">
-                        <div class="video-controls-container">
-                            <video loop playsinline class="slider-video">
-                                <source src="videos/my-video4.mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay-btn" onclick="togglePlay(this)">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <p class="slider-text">Focus et détermination</p>
-                    </div>
-                    <div class="slider-item">
-                        <div class="video-controls-container">
-                            <video loop playsinline class="slider-video">
-                                <source src="videos/my-video5.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-overlay-btn" onclick="togglePlay(this)">
-                                <i class="fas fa-play"></i>
-                            </div>
-                        </div>
-                        <p class="slider-text">Un coach à votre écoute</p>
-                    </div>
-                </div>
-                <div class="slider-nav">
-                    <button onclick="moveSlider('ambiance', -1)"><i class="fas fa-chevron-left"></i></button>
-                    <button onclick="moveSlider('ambiance', 1)"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </section>
-    </main>
+     <div class="menu-toggle" id="menu-toggle">
+         <span></span>
+         <span></span>
+         <span></span>
+     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
+     <main>
+         <section id="complexes-gallery">
+             <h2 class="section-title">Nos complexes</h2>
+             <div class="slider-container">
+                 <div class="slider-wrapper" id="complexes-slider-wrapper">
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/Ujg9Mf0.jpeg" alt="Image of Complex 1">
+                         <p class="slider-text">vue de l'extérieur</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/Lnj0dfh.jpeg" alt="Image of Complex 2">
+                         <p class="slider-text">Salle de boxe et Kickboxing</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/CY675dZ.jpeg" alt="Image of Complex 3">
+                         <p class="slider-text">Espace détente et vestiaires</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/8Iu1FPR.jpeg" alt="Image of Complex 4">
+                         <p class="slider-text">Équipements de dernière génération</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/yqydGjE.jpeg" alt="Image of Complex 5">
+                         <p class="slider-text">coin restauration</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/SgeEpEq.jpeg" alt="Image of Complex 6">
+                         <p class="slider-text">Petit terrain-gazon artificiel-</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/wFqSGs3.jpeg" alt="Image of Complex 7">
+                         <p class="slider-text">Équipements neuf & modernes</p>
+                     </div>
+                 </div>
+                 <div class="slider-nav">
+                     <button onclick="moveSlider('complexes', -1)"><i class="fas fa-chevron-left"></i></button>
+                     <button onclick="moveSlider('complexes', 1)"><i class="fas fa-chevron-right"></i></button>
+                 </div>
+             </div>
+         </section>
 
-        // Sidebar logic
-        const menuToggle = document.getElementById('menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarCloseBtn = document.getElementById('sidebar-close');
-        const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
+         <section id="champions-gallery">
+             <h2 class="section-title">Nos champions</h2>
+             <div class="slider-container">
+                 <div class="slider-wrapper" id="champions-slider-wrapper">
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/kMV6viM.jpeg" alt="Image of Champion 1">
+                         <p class="slider-text">Haberi anas - 1ST 🥇-kickboxing</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/CpMrImn.jpeg" alt="Image of Champion 2">
+                         <p class="slider-text">Ben allal Ramzi -  2ST🥈fitness</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/vO035oA.jpeg" alt="Image of Champion 3">
+                         <p class="slider-text">Héroïnes de Salle 🦸 - Kickboxing</p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/cyUZrID.jpeg" alt="Image of Champion 4">
+                         <p class="slider-text">Aymen Héros 01/25 🏆 - Crossfit </p>
+                     </div>
+                     <div class="slider-item">
+                         <img src="https://i.imgur.com/c8qTw2z.jpeg" alt="Image of Champion 5">
+                         <p class="slider-text">Super Coach de OXYGEN GYM - Crossfit  🏆</p>
+                     </div>
+                 </div>
+                 <div class="slider-nav">
+                     <button onclick="moveSlider('champions', -1)"><i class="fas fa-chevron-left"></i></button>
+                     <button onclick="moveSlider('champions', 1)"><i class="fas fa-chevron-right"></i></button>
+                 </div>
+             </div>
+         </section>
 
-        const tl = gsap.timeline({ paused: true });
-        tl.to(sidebar, {
-            x: '0%',
-            duration: 0.6,
-            ease: 'power3.inOut'
-        });
-        tl.from(sidebarMenuItems, {
-            y: 20,
-            opacity: 0,
-            stagger: 0.1,
-            ease: 'power2.out'
-        }, "-=0.3");
+         <section id="ambiance-gallery">
+             <h2 class="section-title">Ambiance dans nos complexes</h2>
+             <div class="slider-container">
+                 <div class="slider-wrapper" id="ambiance-slider-wrapper">
+                     <div class="slider-item">
+                         <div class="video-controls-container">
+                             <video autoplay loop playsinline class="slider-video">
+                                 <source src="videos/my-video1.mp4" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
+                             <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                 <i class="fas fa-pause"></i>
+                             </div>
+                         </div>
+                         <p class="slider-text">Entraînement en groupe motivant</p>
+                     </div>
+                     <div class="slider-item">
+                         <div class="video-controls-container">
+                             <video loop playsinline class="slider-video">
+                                 <source src="videos/my-video2.mp4" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
+                             <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                 <i class="fas fa-play"></i>
+                             </div>
+                         </div>
+                         <p class="slider-text">Rire et bonne humeur</p>
+                     </div>
+                     <div class="slider-item">
+                         <div class="video-controls-container">
+                             <video loop playsinline class="slider-video">
+                                 <source src="videos/my-video3.mp4" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
+                             <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                 <i class="fas fa-play"></i>
+                             </div>
+                         </div>
+                         <p class="slider-text">Moment de partage entre membres</p>
+                     </div>
+                     <div class="slider-item">
+                         <div class="video-controls-container">
+                             <video loop playsinline class="slider-video">
+                                 <source src="videos/my-video4.mp4">
+                                 Your browser does not support the video tag.
+                             </video>
+                             <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                 <i class="fas fa-play"></i>
+                             </div>
+                         </div>
+                         <p class="slider-text">Focus et détermination</p>
+                     </div>
+                     <div class="slider-item">
+                         <div class="video-controls-container">
+                             <video loop playsinline class="slider-video">
+                                 <source src="videos/my-video5.mp4" type="video/mp4">
+                                 Your browser does not support the video tag.
+                             </video>
+                             <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                 <i class="fas fa-play"></i>
+                             </div>
+                         </div>
+                         <p class="slider-text">Un coach à votre écoute</p>
+                     </div>
+                 </div>
+                 <div class="slider-nav">
+                     <button onclick="moveSlider('ambiance', -1)"><i class="fas fa-chevron-left"></i></button>
+                     <button onclick="moveSlider('ambiance', 1)"><i class="fas fa-chevron-right"></i></button>
+                 </div>
+             </div>
+         </section>
+     </main>
 
-        menuToggle.addEventListener('click', () => {
-            tl.play();
-        });
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+     <script>
+         gsap.registerPlugin(ScrollTrigger);
 
-        sidebarCloseBtn.addEventListener('click', () => {
-            tl.reverse();
-        });
+         // Sidebar logic
+         const menuToggle = document.getElementById('menu-toggle');
+         const sidebar = document.getElementById('sidebar');
+         const sidebarCloseBtn = document.getElementById('sidebar-close');
+         const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
 
-        // GSAP animations for titles
-        gsap.from(".section-title", {
-            scrollTrigger: {
-                trigger: ".section-title",
-                start: "top 90%",
-                toggleActions: "play none none none"
-            },
-            duration: 1,
-            y: 30,
-            opacity: 0,
-            ease: "power2.out",
-            stagger: 0.3
-        });
-        
-        // GSAP animations for sliders
-        const sliders = document.querySelectorAll('.slider-container');
-        sliders.forEach(slider => {
-            gsap.from(slider, {
-                scrollTrigger: {
-                    trigger: slider,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                duration: 1.5,
-                y: 50,
-                opacity: 0,
-                scale: 0.95,
-                ease: "power3.out"
-            });
-        });
+         const tl = gsap.timeline({ paused: true });
+         tl.to(sidebar, {
+             x: '0%',
+             duration: 0.6,
+             ease: 'power3.inOut'
+         });
+         tl.from(sidebarMenuItems, {
+             y: 20,
+             opacity: 0,
+             stagger: 0.1,
+             ease: 'power2.out'
+         }, "-=0.3");
 
-        // Sliders logic
-        const slidersData = {
-            'complexes': {
-                wrapper: document.getElementById('complexes-slider-wrapper'),
-                current: 0,
-                items: document.querySelectorAll('#complexes-slider-wrapper .slider-item')
-            },
-            'champions': {
-                wrapper: document.getElementById('champions-slider-wrapper'),
-                current: 0,
-                items: document.querySelectorAll('#champions-slider-wrapper .slider-item')
-            },
-            'ambiance': {
-                wrapper: document.getElementById('ambiance-slider-wrapper'),
-                current: 0,
-                items: document.querySelectorAll('#ambiance-slider-wrapper .slider-item')
-            }
-        };
+         menuToggle.addEventListener('click', () => {
+             tl.play();
+         });
 
-        function moveSlider(id, direction) {
-            const slider = slidersData[id];
-            const totalItems = slider.items.length;
-            
-            // Pause all videos before moving
-            const allVideos = document.querySelectorAll('.slider-video');
-            allVideos.forEach(video => {
-                video.pause();
-                const icon = video.closest('.video-controls-container').querySelector('i');
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            });
+         sidebarCloseBtn.addEventListener('click', () => {
+             tl.reverse();
+         });
 
-            // Hide the text of the current slide
-            const currentText = slider.items[slider.current].querySelector('.slider-text');
-            if (currentText) {
-                currentText.classList.remove('active');
-            }
+         // GSAP animations for titles
+         gsap.from(".section-title", {
+             scrollTrigger: {
+                 trigger: ".section-title",
+                 start: "top 90%",
+                 toggleActions: "play none none none"
+             },
+             duration: 1,
+             y: 30,
+             opacity: 0,
+             ease: "power2.out",
+             stagger: 0.3
+         });
 
-            // Calculate the new index
-            slider.current = (slider.current + direction + totalItems) % totalItems;
+         // GSAP animations for sliders
+         const sliders = document.querySelectorAll('.slider-container');
+         sliders.forEach(slider => {
+             gsap.from(slider, {
+                 scrollTrigger: {
+                     trigger: slider,
+                     start: "top 85%",
+                     toggleActions: "play none none none"
+                 },
+                 duration: 1.5,
+                 y: 50,
+                 opacity: 0,
+                 scale: 0.95,
+                 ease: "power3.out"
+             });
+         });
 
-            // Use GSAP for the slide animation
-            gsap.to(slider.wrapper, {
-                xPercent: -slider.current * 100,
-                duration: 0.6,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    // Play the video on the new slide after the slide animation is complete
-                    const newVideo = slider.items[slider.current].querySelector('.slider-video');
-                    if (newVideo) {
-                        newVideo.play();
-                        const icon = newVideo.closest('.video-controls-container').querySelector('i');
-                        icon.classList.remove('fa-play');
-                        icon.classList.add('fa-pause');
-                    }
+         // Sliders logic
+         const slidersData = {
+             'complexes': {
+                 wrapper: document.getElementById('complexes-slider-wrapper'),
+                 current: 0,
+                 items: document.querySelectorAll('#complexes-slider-wrapper .slider-item')
+             },
+             'champions': {
+                 wrapper: document.getElementById('champions-slider-wrapper'),
+                 current: 0,
+                 items: document.querySelectorAll('#champions-slider-wrapper .slider-item')
+             },
+             'ambiance': {
+                 wrapper: document.getElementById('ambiance-slider-wrapper'),
+                 current: 0,
+                 items: document.querySelectorAll('#ambiance-slider-wrapper .slider-item')
+             }
+         };
 
-                    // Show the text of the new slide
-                    const newText = slider.items[slider.current].querySelector('.slider-text');
-                    if (newText) {
-                        newText.classList.add('active');
-                    }
-                }
-            });
-        }
-        
-        // New function to toggle play/pause
-        function togglePlay(btn) {
-            const video = btn.closest('.video-controls-container').querySelector('.slider-video');
-            const icon = btn.querySelector('i');
+         function moveSlider(id, direction) {
+             const slider = slidersData[id];
+             const totalItems = slider.items.length;
 
-            if (video.paused) {
-                video.play();
-                icon.classList.remove('fa-play');
-                icon.classList.add('fa-pause');
-            } else {
-                video.pause();
-                icon.classList.remove('fa-pause');
-                icon.classList.add('fa-play');
-            }
-        }
+             // Pause all videos before moving
+             const allVideos = document.querySelectorAll('.slider-video');
+             allVideos.forEach(video => {
+                 video.pause();
+                 const icon = video.closest('.video-controls-container').querySelector('i');
+                 if (icon) {
+                     icon.classList.remove('fa-pause');
+                     icon.classList.add('fa-play');
+                 }
+             });
 
-        // Initialize first slide on page load
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
-                const firstText = wrapper.querySelector('.slider-item:first-child .slider-text');
-                if (firstText) {
-                    firstText.classList.add('active');
-                }
-            });
+             // Hide the text of the current slide
+             const currentText = slider.items[slider.current].querySelector('.slider-text');
+             if (currentText) {
+                 currentText.classList.remove('active');
+             }
 
-            const firstAmbianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
-            if (firstAmbianceVideo) {
-                // Since `autoplay` doesn't work with sound, we can play it manually and set the icon
-                firstAmbianceVideo.play().catch(e => {
-                    console.log('Autoplay blocked. User interaction required.');
-                });
-                const firstAmbianceIcon = firstAmbianceVideo.closest('.video-controls-container').querySelector('i');
-                firstAmbianceIcon.classList.remove('fa-play');
-                firstAmbianceIcon.classList.add('fa-pause');
-            }
-        });
+             // Calculate the new index
+             slider.current = (slider.current + direction + totalItems) % totalItems;
 
-    </script>
-</body>
-</html>
+             // Use GSAP for the slide animation
+             gsap.to(slider.wrapper, {
+                 xPercent: -slider.current * 100,
+                 duration: 0.6,
+                 ease: "power2.inOut",
+                 onComplete: () => {
+                     // Play the video on the new slide after the slide animation is complete
+                     const newVideo = slider.items[slider.current].querySelector('.slider-video');
+                     if (newVideo) {
+                         newVideo.play().catch(e => {
+                             console.log('Autoplay blocked. User interaction required.');
+                         });
+                         const icon = newVideo.closest('.video-controls-container').querySelector('i');
+                         if (icon) {
+                             icon.classList.remove('fa-play');
+                             icon.classList.add('fa-pause');
+                         }
+                     }
+
+                     // Show the text of the new slide
+                     const newText = slider.items[slider.current].querySelector('.slider-text');
+                     if (newText) {
+                         newText.classList.add('active');
+                     }
+                 }
+             });
+         }
+
+         // New function to toggle play/pause
+         function togglePlay(btn) {
+             const video = btn.closest('.video-controls-container').querySelector('.slider-video');
+             const icon = btn.querySelector('i');
+
+             if (video.paused) {
+                 video.play();
+                 icon.classList.remove('fa-play');
+                 icon.classList.add('fa-pause');
+             } else {
+                 video.pause();
+                 icon.classList.remove('fa-pause');
+                 icon.classList.add('fa-play');
+             }
+         }
+
+         // Initialize first slide on page load
+         window.addEventListener('load', () => {
+             document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
+                 const firstText = wrapper.querySelector('.slider-item:first-child .slider-text');
+                 if (firstText) {
+                     firstText.classList.add('active');
+                 }
+             });
+
+             const firstAmbianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
+             if (firstAmbianceVideo) {
+                 // Since `autoplay` doesn't work with sound, we can play it manually and set the icon
+                 firstAmbianceVideo.play().catch(e => {
+                     console.log('Autoplay blocked. User interaction required.');
+                 });
+                 const firstAmbianceIcon = firstAmbianceVideo.closest('.video-controls-container').querySelector('i');
+                 if (firstAmbianceIcon) {
+                     firstAmbianceIcon.classList.remove('fa-play');
+                     firstAmbianceIcon.classList.add('fa-pause');
+                 }
+             }
+         });
+     </script>
+ </body>
+ </html>
