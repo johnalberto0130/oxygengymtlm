@@ -201,7 +201,6 @@
              padding: 0;
              position: relative;
              height: 500px;
-             /* Add a class for non-video items to fix height */
          }
 
          .slider-item img,
@@ -255,7 +254,7 @@
              align-items: center;
              justify-content: center;
              cursor: pointer;
-             z-index: 10; /* Make sure it's above the video */
+             z-index: 10;
              transition: all 0.3s ease;
          }
 
@@ -442,7 +441,7 @@
                  <div class="slider-wrapper" id="ambiance-slider-wrapper">
                      <div class="slider-item">
                          <div class="video-controls-container">
-                             <video autoplay loop playsinline class="slider-video">
+                             <video autoplay loop playsinline class="slider-video" muted>
                                  <source src="videos/my-video1.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -454,7 +453,7 @@
                      </div>
                      <div class="slider-item">
                          <div class="video-controls-container">
-                             <video loop playsinline class="slider-video">
+                             <video loop playsinline class="slider-video" muted>
                                  <source src="videos/my-video2.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -466,7 +465,7 @@
                      </div>
                      <div class="slider-item">
                          <div class="video-controls-container">
-                             <video loop playsinline class="slider-video">
+                             <video loop playsinline class="slider-video" muted>
                                  <source src="videos/my-video3.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -478,7 +477,7 @@
                      </div>
                      <div class="slider-item">
                          <div class="video-controls-container">
-                             <video loop playsinline class="slider-video">
+                             <video loop playsinline class="slider-video" muted>
                                  <source src="videos/my-video4.mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -490,7 +489,7 @@
                      </div>
                      <div class="slider-item">
                          <div class="video-controls-container">
-                             <video loop playsinline class="slider-video">
+                             <video loop playsinline class="slider-video" muted>
                                  <source src="videos/my-video5.mp4" type="video/mp4">
                                  Your browser does not support the video tag.
                              </video>
@@ -498,7 +497,7 @@
                                  <i class="fas fa-play"></i>
                              </div>
                          </div>
-                         <p class="slider-text">Un coach à votre écoute</p>
+                         <p class="slider-text">Un coach à votre écوت</p>
                      </div>
                  </div>
                  <div class="slider-nav">
@@ -595,10 +594,11 @@
              const slider = slidersData[id];
              const totalItems = slider.items.length;
 
-             // Pause all videos before moving
+             // Pause and reset all videos
              const allVideos = document.querySelectorAll('.slider-video');
              allVideos.forEach(video => {
                  video.pause();
+                 video.currentTime = 0; // Reset video to the beginning
                  const icon = video.closest('.video-controls-container').querySelector('i');
                  if (icon) {
                      icon.classList.remove('fa-pause');
@@ -643,12 +643,28 @@
              });
          }
 
+         // Function to pause all videos except the one being clicked
+         function pauseAllOtherVideos(currentVideo) {
+             const allVideos = document.querySelectorAll('.slider-video');
+             allVideos.forEach(video => {
+                 if (video !== currentVideo && !video.paused) {
+                     video.pause();
+                     const icon = video.closest('.video-controls-container').querySelector('i');
+                     if (icon) {
+                         icon.classList.remove('fa-pause');
+                         icon.classList.add('fa-play');
+                     }
+                 }
+             });
+         }
+
          // New function to toggle play/pause
          function togglePlay(btn) {
              const video = btn.closest('.video-controls-container').querySelector('.slider-video');
              const icon = btn.querySelector('i');
 
              if (video.paused) {
+                 pauseAllOtherVideos(video);
                  video.play();
                  icon.classList.remove('fa-play');
                  icon.classList.add('fa-pause');
@@ -670,7 +686,6 @@
 
              const firstAmbianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
              if (firstAmbianceVideo) {
-                 // Since `autoplay` doesn't work with sound, we can play it manually and set the icon
                  firstAmbianceVideo.play().catch(e => {
                      console.log('Autoplay blocked. User interaction required.');
                  });
