@@ -201,6 +201,7 @@
             padding: 0;
             position: relative;
             height: 500px;
+            /* Add a class for non-video items to fix height */
         }
         
         .slider-item img,
@@ -236,9 +237,58 @@
         }
 
         .slider-text.active {
-            opacity: 1; /* Fade in */
+            opacity: 1;
         }
         
+        /* New styles for the play/pause button */
+        .video-overlay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--main-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10; /* Make sure it's above the video */
+            transition: all 0.3s ease;
+        }
+
+        .video-overlay-btn:hover {
+            background-color: var(--main-color);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px var(--main-color);
+        }
+
+        .video-overlay-btn i {
+            font-size: 2.5em;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .video-overlay-btn:hover i {
+            color: var(--dark-bg);
+        }
+        
+        .video-controls-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-controls-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
         .slider-nav {
             position: absolute;
             top: 50%;
@@ -250,11 +300,11 @@
         }
 
         .slider-nav button {
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.5);
             border: none;
             color: var(--main-color);
-            font-size: 1.5em; /* Smaller icon size */
-            padding: 8px 12px; /* Smaller padding for smaller button */
+            font-size: 1.5em;
+            padding: 8px 12px;
             cursor: pointer;
             border-radius: 50%;
             transition: all 0.3s ease;
@@ -284,6 +334,13 @@
                 font-size: 0.9em;
                 padding: 5px 10px;
                 bottom: 10px;
+            }
+            .video-overlay-btn {
+                width: 60px;
+                height: 60px;
+            }
+            .video-overlay-btn i {
+                font-size: 2em;
             }
         }
     </style>
@@ -384,38 +441,63 @@
             <div class="slider-container">
                 <div class="slider-wrapper" id="ambiance-slider-wrapper">
                     <div class="slider-item">
-                        <video autoplay loop playsinline class="slider-video">
-                            <source src="videos/my-video1.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="video-controls-container">
+                            <video autoplay loop playsinline class="slider-video">
+                                <source src="videos/my-video1.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                <i class="fas fa-pause"></i>
+                            </div>
+                        </div>
                         <p class="slider-text">Entraînement en groupe motivant</p>
                     </div>
                     <div class="slider-item">
-                        <video muted loop playsinline class="slider-video">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-two-male-friends-chatting-at-the-gym-14631-large.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="video-controls-container">
+                            <video loop playsinline class="slider-video">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-two-male-friends-chatting-at-the-gym-14631-large.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                         <p class="slider-text">Rire et bonne humeur</p>
                     </div>
                     <div class="slider-item">
-                        <video muted loop playsinline class="slider-video">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-training-at-a-gym-with-his-personal-trainer-29622-large.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="video-controls-container">
+                            <video loop playsinline class="slider-video">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-training-at-a-gym-with-his-personal-trainer-29622-large.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                         <p class="slider-text">Moment de partage entre membres</p>
                     </div>
                     <div class="slider-item">
-                        <video muted loop playsinline class="slider-video">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-exercising-on-a-treadmill-20182-large.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="video-controls-container">
+                            <video loop playsinline class="slider-video">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-exercising-on-a-treadmill-20182-large.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                         <p class="slider-text">Focus et détermination</p>
                     </div>
                     <div class="slider-item">
-                        <video muted loop playsinline class="slider-video">
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-friends-at-the-gym-doing-a-stretching-and-weight-lifting-exercise-46809-large.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                        <div class="video-controls-container">
+                            <video loop playsinline class="slider-video">
+                                <source src="https://assets.mixkit.co/videos/preview/mixkit-friends-at-the-gym-doing-a-stretching-and-weight-lifting-exercise-46809-large.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-overlay-btn" onclick="togglePlay(this)">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                         <p class="slider-text">Un coach à votre écoute</p>
                     </div>
                 </div>
@@ -512,12 +594,15 @@
         function moveSlider(id, direction) {
             const slider = slidersData[id];
             const totalItems = slider.items.length;
-
-            // Stop the video on the current slide before moving
-            const currentVideo = slider.items[slider.current].querySelector('video');
-            if (currentVideo) {
-                currentVideo.pause();
-            }
+            
+            // Pause all videos before moving
+            const allVideos = document.querySelectorAll('.slider-video');
+            allVideos.forEach(video => {
+                video.pause();
+                const icon = video.closest('.video-controls-container').querySelector('i');
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            });
 
             // Hide the text of the current slide
             const currentText = slider.items[slider.current].querySelector('.slider-text');
@@ -528,16 +613,19 @@
             // Calculate the new index
             slider.current = (slider.current + direction + totalItems) % totalItems;
 
-            // Use GSAP with xPercent for a precise and stable percentage-based transition
+            // Use GSAP for the slide animation
             gsap.to(slider.wrapper, {
                 xPercent: -slider.current * 100,
                 duration: 0.6,
                 ease: "power2.inOut",
                 onComplete: () => {
                     // Play the video on the new slide after the slide animation is complete
-                    const newVideo = slider.items[slider.current].querySelector('video');
+                    const newVideo = slider.items[slider.current].querySelector('.slider-video');
                     if (newVideo) {
                         newVideo.play();
+                        const icon = newVideo.closest('.video-controls-container').querySelector('i');
+                        icon.classList.remove('fa-play');
+                        icon.classList.add('fa-pause');
                     }
 
                     // Show the text of the new slide
@@ -549,19 +637,43 @@
             });
         }
         
-        // Activate the text for the first slide and play the video on page load
-        window.addEventListener('load', () => {
-            const ambianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
-            if (ambianceVideo) {
-                ambianceVideo.play();
+        // New function to toggle play/pause
+        function togglePlay(btn) {
+            const video = btn.closest('.video-controls-container').querySelector('.slider-video');
+            const icon = btn.querySelector('i');
+
+            if (video.paused) {
+                video.play();
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+            } else {
+                video.pause();
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
             }
+        }
+
+        // Initialize first slide on page load
+        window.addEventListener('load', () => {
             document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
                 const firstText = wrapper.querySelector('.slider-item:first-child .slider-text');
                 if (firstText) {
                     firstText.classList.add('active');
                 }
             });
+
+            const firstAmbianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
+            if (firstAmbianceVideo) {
+                // Since `autoplay` doesn't work with sound, we can play it manually and set the icon
+                firstAmbianceVideo.play().catch(e => {
+                    console.log('Autoplay blocked. User interaction required.');
+                });
+                const firstAmbianceIcon = firstAmbianceVideo.closest('.video-controls-container').querySelector('i');
+                firstAmbianceIcon.classList.remove('fa-play');
+                firstAmbianceIcon.classList.add('fa-pause');
+            }
         });
+
     </script>
 </body>
 </html>
