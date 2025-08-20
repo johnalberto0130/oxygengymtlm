@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* CSS variables and global styles from index.html for consistency */
+        /* Variables and global styles */
         :root {
             --main-color: #00ff88;
             --dark-bg: #111;
@@ -23,13 +23,43 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 80px; /* Space for the fixed menu toggle */
+            padding-top: 80px; /* For fixed menu toggle */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Background animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 60%),
+                        radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
+            animation: pulse-bg 15s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse-bg {
+            0% { transform: scale(1) translate(0, 0); opacity: 1; }
+            50% { transform: scale(1.2) translate(10%, -10%); opacity: 0.8; }
+            100% { transform: scale(1) translate(0, 0); opacity: 1; }
         }
 
         section {
@@ -158,44 +188,38 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             background-color: transparent;
-            /* New: Ensure no overflow from outside */
             overflow: hidden;
         }
 
         .slider-wrapper {
             display: flex;
-            /* New: We will use GSAP to control the transform.
-               This makes sure CSS transition doesn't interfere. */
         }
 
         .slider-item {
-            /* New: Each item takes up exactly 100% of the container width */
             width: 100%;
             flex-shrink: 0;
             padding: 0;
             position: relative;
-            /* New: Set a consistent height for a better look */
             height: 500px;
         }
         
-        .slider-item img {
+        .slider-item img,
+        .slider-item video {
             width: 100%;
             height: 100%;
-            /* New: Use object-fit: cover to prevent any gaps
-               and ensure the image fills the container */
             object-fit: cover;
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;
         }
 
-        .slider-item img:hover {
+        .slider-item img:hover,
+        .slider-item video:hover {
             transform: scale(1.02);
         }
 
         .slider-text {
-            /* Text positioning remains the same */
             position: absolute;
-            bottom: 20px; /* Adjust as needed */
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -254,7 +278,6 @@
                 width: 100%;
             }
             .slider-item {
-                /* New: Reduced height on mobile for better viewing */
                 height: 300px;
             }
             .slider-text {
@@ -267,7 +290,6 @@
 </head>
 <body>
 
-    <!-- Sidebar from index.html -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -278,7 +300,6 @@
         </ul>
     </div>
 
-    <!-- Menu Toggle from index.html -->
     <div class="menu-toggle" id="menu-toggle">
         <span></span>
         <span></span>
@@ -286,7 +307,6 @@
     </div>
 
     <main>
-        <!-- Section 1: Nos complexes -->
         <section id="complexes-gallery">
             <h2 class="section-title">Nos complexes</h2>
             <div class="slider-container">
@@ -327,7 +347,6 @@
             </div>
         </section>
 
-        <!-- Section 2: Nos champions -->
         <section id="champions-gallery">
             <h2 class="section-title">Nos champions</h2>
             <div class="slider-container">
@@ -360,38 +379,44 @@
             </div>
         </section>
 
-        <!-- Section 3: Ambiance dans nos complexes -->
         <section id="ambiance-gallery">
             <h2 class="section-title">Ambiance dans nos complexes</h2>
             <div class="slider-container">
                 <div class="slider-wrapper" id="ambiance-slider-wrapper">
                     <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+1" alt="Image of Ambiance 1">
+                        <video autoplay muted loop playsinline class="slider-video">
+                            <source src="videos/my-video1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="slider-text">Entraînement en groupe motivant</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+2" alt="Image of Ambiance 2">
+                        <video muted loop playsinline class="slider-video">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-two-male-friends-chatting-at-the-gym-14631-large.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="slider-text">Rire et bonne humeur</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+3" alt="Image of Ambiance 3">
+                        <video muted loop playsinline class="slider-video">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-training-at-a-gym-with-his-personal-trainer-29622-large.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="slider-text">Moment de partage entre membres</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+4" alt="Image of Ambiance 4">
+                        <video muted loop playsinline class="slider-video">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-exercising-on-a-treadmill-20182-large.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="slider-text">Focus et détermination</p>
                     </div>
                     <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+5" alt="Image of Ambiance 5">
+                        <video muted loop playsinline class="slider-video">
+                            <source src="https://assets.mixkit.co/videos/preview/mixkit-friends-at-the-gym-doing-a-stretching-and-weight-lifting-exercise-46809-large.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <p class="slider-text">Un coach à votre écoute</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+6" alt="Image of Ambiance 6">
-                        <p class="slider-text">Après l'effort, le réconfort</p>
-                    </div>
-                    <div class="slider-item">
-                        <img src="https://placehold.co/800x600/FF8C00/fff?text=Ambiance+Image+7" alt="Image of Ambiance 7">
-                        <p class="slider-text">La famille OXYGENE GYM</p>
                     </div>
                 </div>
                 <div class="slider-nav">
@@ -407,7 +432,7 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Sidebar logic from index.html
+        // Sidebar logic
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
@@ -488,6 +513,12 @@
             const slider = slidersData[id];
             const totalItems = slider.items.length;
 
+            // Stop the video on the current slide before moving
+            const currentVideo = slider.items[slider.current].querySelector('video');
+            if (currentVideo) {
+                currentVideo.pause();
+            }
+
             // Hide the text of the current slide
             const currentText = slider.items[slider.current].querySelector('.slider-text');
             if (currentText) {
@@ -503,7 +534,13 @@
                 duration: 0.6,
                 ease: "power2.inOut",
                 onComplete: () => {
-                    // Show the text of the new slide after the slide animation is complete
+                    // Play the video on the new slide after the slide animation is complete
+                    const newVideo = slider.items[slider.current].querySelector('video');
+                    if (newVideo) {
+                        newVideo.play();
+                    }
+
+                    // Show the text of the new slide
                     const newText = slider.items[slider.current].querySelector('.slider-text');
                     if (newText) {
                         newText.classList.add('active');
@@ -512,8 +549,12 @@
             });
         }
         
-        // Activate the text for the first slide on page load
+        // Activate the text for the first slide and play the video on page load
         window.addEventListener('load', () => {
+            const ambianceVideo = document.querySelector('#ambiance-slider-wrapper .slider-video');
+            if (ambianceVideo) {
+                ambianceVideo.play();
+            }
             document.querySelectorAll('.slider-wrapper').forEach(wrapper => {
                 const firstText = wrapper.querySelector('.slider-item:first-child .slider-text');
                 if (firstText) {
