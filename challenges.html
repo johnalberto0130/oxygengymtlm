@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* CSS variables and global styles for consistency */
+        /* CSS variables and global styles */
         :root {
             --main-color: #00ff88;
             --dark-bg: #111;
@@ -17,336 +17,68 @@
             --orange-light: #FF8C00;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * {margin:0; padding:0; box-sizing:border-box;}
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 80px; /* Space for the fixed menu toggle */
+            padding-top: 80px;
         }
 
-        section {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
+        section {padding: 80px 20px; max-width:1200px; margin:auto; text-align:center; position:relative; z-index:1;}
+        .section-title {font-family:'Anton',sans-serif;font-size:3em;text-transform:uppercase;margin-bottom:20px;color:var(--orange-light);text-shadow:1px 1px 5px rgba(255,140,0,0.5);}
+        .subtitle {font-size:1.2em;color:var(--text-color);margin-bottom:40px;}
 
-        .section-title {
-            font-family: 'Anton', sans-serif;
-            font-size: 3em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: var(--orange-light);
-            text-shadow: 1px 1px 5px rgba(255, 140, 0, 0.5);
-        }
+        /* Sidebar */
+        .sidebar {position:fixed;top:0;left:0;width:300px;height:100vh;background-color:rgba(0,0,0,0.95);padding:50px 30px;transform:translateX(-100%);z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;transition:transform 0.6s cubic-bezier(0.86,0,0.07,1);}
+        .sidebar.open {transform:translateX(0);}
+        .sidebar-close-btn {position:absolute;top:20px;right:20px;font-size:2.5em;color:var(--main-color);cursor:pointer;transition:transform 0.3s ease;}
+        .sidebar-close-btn:hover {transform:rotate(90deg);}
+        .sidebar-menu {list-style:none;padding:0;margin:0;width:100%;text-align:left;}
+        .sidebar-menu li {opacity:1;transform:translateY(20px);margin-bottom:30px;}
+        .sidebar-menu a {font-family:'Anton',sans-serif;font-size:2em;color:var(--text-color);text-decoration:none;text-transform:uppercase;transition:color 0.3s, letter-spacing 0.3s;display:block;border-bottom:2px solid transparent;padding-bottom:5px;}
+        .sidebar-menu a:hover {color:var(--main-color);letter-spacing:2px;border-bottom:2px solid var(--main-color);}
+        .menu-toggle {position:fixed;top:20px;left:20px;width:50px;height:50px;display:flex;flex-direction:column;justify-content:space-around;align-items:center;cursor:pointer;z-index:1001;padding:10px;background-color:var(--dark-bg);border-radius:50%;box-shadow:0 0 10px rgba(0,255,136,0.3);transition:box-shadow 0.3s;}
+        .menu-toggle:hover {box-shadow:0 0 15px rgba(0,255,136,0.7);}
+        .menu-toggle span {display:block;width:100%;height:4px;background-color:var(--main-color);border-radius:2px;transition:all 0.3s ease;}
 
-        .subtitle {
-            font-size: 1.2em;
-            color: var(--text-color);
-            margin-bottom: 40px;
-        }
+        /* Challenges */
+        .countdown-container {display:flex;justify-content:center;align-items:center;gap:40px;margin-bottom:40px;}
+        .countdown-item {display:flex;flex-direction:column;align-items:center;}
+        .countdown-number {font-family:'Anton',sans-serif;font-size:4em;color:var(--orange-light);text-shadow:0 0 10px rgba(255,140,0,0.5);transition:transform 0.5s ease-in-out;}
+        .countdown-label {font-size:1.2em;color:var(--text-color);}
+        .rewards-container {margin-bottom:50px;}
+        .rewards-text {font-size:1.5em;font-weight:600;color:var(--text-color);margin-bottom:20px;}
+        .rewards-image {max-width:100%;height:auto;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.5);object-fit:contain;}
 
-        /* --- Sidebar Styles --- */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 300px;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95);
-            padding: 50px 30px;
-            transform: translateX(-100%);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
-        }
+        /* Accordion */
+        .accordion {max-width:600px;margin:auto;background-color:#222;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+        .accordion-header {padding:20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:1.5em;font-weight:700;color:var(--orange-light);border-bottom:1px solid #333;user-select:none;}
+        .accordion-header i {transition:transform 0.3s ease;}
+        .accordion-header.open i {transform:rotate(180deg);}
+        .accordion-content {max-height:0;overflow:hidden;transition:max-height 0.3s ease;text-align:left;padding:0 20px;}
+        .accordion-content.open {max-height:500px;padding:20px;}
+        .accordion-content ul {list-style:none;}
+        .accordion-content li {margin-bottom:10px;}
 
-        .sidebar.open {
-            transform: translateX(0);
-        }
-
-        .sidebar-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5em;
-            color: var(--main-color);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar-close-btn:hover {
-            transform: rotate(90deg);
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            text-align: left;
-        }
-
-        .sidebar-menu li {
-            opacity: 1;
-            transform: translateY(20px);
-            margin-bottom: 30px;
-        }
-
-        .sidebar-menu a {
-            font-family: 'Anton', sans-serif;
-            font-size: 2em;
-            color: var(--text-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.3s, letter-spacing 0.3s;
-            display: block;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 5px;
-        }
-
-        .sidebar-menu a:hover {
-            color: var(--main-color);
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--main-color);
-        }
-
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 10px;
-            background-color: var(--dark-bg);
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-            transition: box-shadow 0.3s;
-        }
-
-        .menu-toggle:hover {
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 4px;
-            background-color: var(--main-color);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        /* --- Challenges Specific Styles --- */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .countdown-number {
-            font-family: 'Anton', sans-serif;
-            font-size: 4em;
-            color: var(--orange-light);
-            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .countdown-label {
-            font-size: 1.2em;
-            color: var(--text-color);
-        }
-
-        .rewards-container {
-            margin-bottom: 50px;
-        }
-        
-        .rewards-text {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 20px;
-        }
-
-        /* Updated style for the rewards image */
-        .rewards-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            object-fit: contain; /* Ensure the image fits within its container */
-        }
-
-        .accordion {
-            max-width: 600px;
-            margin: auto;
-            background-color: #222;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .accordion-header {
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--orange-light);
-            border-bottom: 1px solid #333;
-            user-select: none;
-        }
-
-        .accordion-header i {
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-header.open i {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            text-align: left;
-            padding: 0 20px;
-        }
-        
-        .accordion-content.open {
-            max-height: 500px; /* A large value to ensure all content is shown */
-            padding: 20px;
-        }
-        
-        .accordion-content ul {
-            list-style: none;
-        }
-        
-        .accordion-content li {
-            margin-bottom: 10px;
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 40px;
-            background-color: #222;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        
-        .form-title {
-            font-family: 'Anton', sans-serif;
-            font-size: 2em;
-            color: var(--orange-light);
-            margin-bottom: 30px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .form-title i {
-            margin-right: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ccc;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #555;
-            background-color: #333;
-            color: var(--text-color);
-            border-radius: 8px;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--main-color);
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-        }
-
-        .form-submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: var(--dark-bg);
-            background-color: var(--orange-light);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .form-submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 1s ease-in-out;
-            z-index: -1;
-        }
-        
-        .form-submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 5px 5px 20px rgba(255, 140, 0, 0.8), -5px -5px 20px rgba(255, 140, 0, 0.8);
-        }
+        /* Form */
+        .form-container {max-width:600px;margin:50px auto;padding:40px;background-color:#222;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative;}
+        .form-title {font-family:'Anton',sans-serif;font-size:2em;color:var(--orange-light);margin-bottom:30px;text-align:center;display:flex;align-items:center;justify-content:center;}
+        .form-title i {margin-right:15px;}
+        .form-group {margin-bottom:20px;text-align:left;}
+        .form-group label {display:block;margin-bottom:8px;color:#ccc;}
+        .form-group input {width:100%;padding:12px;border:2px solid #555;background-color:#333;color:var(--text-color);border-radius:8px;transition:border-color 0.3s;}
+        .form-group input:focus {outline:none;border-color:var(--main-color);box-shadow:0 0 10px rgba(0,255,136,0.3);}
+        .form-submit-btn {display:block;width:100%;padding:15px;font-size:1.2em;font-weight:bold;text-transform:uppercase;color:var(--dark-bg);background-color:var(--orange-light);border:none;border-radius:10px;cursor:pointer;text-decoration:none;transition:all 0.3s ease;box-shadow:0 0 15px rgba(255,140,0,0.5);position:relative;overflow:hidden;z-index:1;}
+        .form-submit-btn::before {content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:left 1s ease-in-out;z-index:-1;}
+        .form-submit-btn:hover {transform:translateY(-3px);box-shadow:5px 5px 20px rgba(255,140,0,0.8),-5px -5px 20px rgba(255,140,0,0.8);}
     </style>
 </head>
 <body>
 
-    <!-- Sidebar from index.html and gallery.html -->
+    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -357,7 +89,7 @@
         </ul>
     </div>
 
-    <!-- Menu Toggle from index.html and gallery.html -->
+    <!-- Menu Toggle -->
     <div class="menu-toggle" id="menu-toggle">
         <span></span>
         <span></span>
@@ -394,7 +126,6 @@
                 <p class="rewards-text">
                     Des gros cadeaux vous attendent.<br>Soyez prêts, héros.
                 </p>
-                <!-- Image without the placeholder div -->
                 <img src="https://i.imgur.com/zFlIOrO.jpeg" alt="Image des récompenses" class="rewards-image">
             </div>
             
@@ -419,7 +150,7 @@
                     <i class="fas fa-bullseye" style="color: var(--orange-light);"></i>
                     Formulaire de participation
                 </div>
-                <form action="https://script.google.com/macros/library/d/1sdYUujavgrtAMDLB0pNmQJ9oCIk4T3LmyLkLlK9XkvoM24lr_HUYFfR5/1" method="get">
+                <form id="registrationForm">
                     <div class="form-group">
                         <label for="full_name">Nom et Prénom <span style="color: var(--orange-light);">*</span></label>
                         <input type="text" id="full_name" name="full_name" required placeholder="Votre nom complet">
@@ -438,6 +169,7 @@
         </section>
     </main>
 
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
@@ -450,172 +182,5 @@
         const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
 
         const tl = gsap.timeline({ paused: true });
-        tl.to(sidebar, {
-            x: '0%',
-            duration: 0.6,
-            ease: 'power3.inOut'
-        });
-        tl.from(sidebarMenuItems, {
-            y: 20,
-            opacity: 1,
-            stagger: 0.1,
-            ease: 'power2.out'
-        }, "-=0.3");
-
-        menuToggle.addEventListener('click', () => {
-            tl.play();
-        });
-
-        sidebarCloseBtn.addEventListener('click', () => {
-            tl.reverse();
-        });
-
-        // GSAP animations for the page sections
-        gsap.from(".section-title, .subtitle", {
-            duration: 1,
-            y: 30,
-            opacity: 0,
-            ease: "power2.out",
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: ".section-title",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            }
-        });
-
-        gsap.from(".countdown-item", {
-            duration: 1,
-            y: 30,
-            opacity: 0,
-            ease: "back.out(1.7)",
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: ".countdown-container",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            }
-        });
-
-        gsap.from(".rewards-text, .rewards-image", {
-            duration: 1.5,
-            y: 50,
-            opacity: 0,
-            scale: 0.95,
-            ease: "power3.out",
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: ".rewards-container",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            }
-        });
-
-        gsap.from(".accordion", {
-            duration: 1,
-            x: -50,
-            opacity: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ".accordion",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            }
-        });
-
-        gsap.from(".form-container", {
-            duration: 1.5,
-            x: 50,
-            opacity: 0,
-            ease: "power3.out",
-            scrollTrigger: {
-                trigger: ".form-container",
-                start: "top 85%",
-                toggleActions: "play none none none"
-            }
-        });
-        
-        // GSAP for the form icon
-        gsap.to(".form-title i", {
-            rotation: 360,
-            duration: 5,
-            ease: "linear",
-            repeat: -1
-        });
-        
-        // GSAP for the submit button glow effect on hover
-        const submitBtn = document.querySelector(".form-submit-btn");
-        submitBtn.addEventListener('mouseenter', () => {
-            gsap.to(submitBtn, {
-                boxShadow: '0 0 20px rgba(255, 140, 0, 1)',
-                scale: 1.02,
-                duration: 0.3,
-                ease: "power1.out"
-            });
-        });
-        
-        submitBtn.addEventListener('mouseleave', () => {
-            gsap.to(submitBtn, {
-                boxShadow: '0 0 15px rgba(255, 140, 0, 0.5)',
-                scale: 1,
-                duration: 0.3,
-                ease: "power1.out"
-            });
-        });
-
-
-        // Countdown timer logic with a fixed end date
-        // Use a fixed end date that all users will see.
-        // Format: YYYY, MM, DD, HH, MM, SS (Month is 0-indexed, so 5 is June)
-        const countdownDate = new Date(2025, 11, 25, 12, 0, 0).getTime(); // Example: December 25, 2025 at 12:00:00
-
-        const daysEl = document.getElementById("days");
-        const hoursEl = document.getElementById("hours");
-        const minutesEl = document.getElementById("minutes");
-        const secondsEl = document.getElementById("seconds");
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            if (distance < 0) {
-                // If the countdown is finished
-                clearInterval(countdownInterval);
-                daysEl.textContent = "00";
-                hoursEl.textContent = "00";
-                minutesEl.textContent = "00";
-                secondsEl.textContent = "00";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            daysEl.textContent = days.toString().padStart(2, '0');
-            hoursEl.textContent = hours.toString().padStart(2, '0');
-            minutesEl.textContent = minutes.toString().padStart(2, '0');
-            secondsEl.textContent = seconds.toString().padStart(2, '0');
-        }
-
-        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
-        updateCountdown();
-
-        // Accordion functionality
-        const accordionHeader = document.getElementById("conditions-header");
-        const accordionContent = document.getElementById("conditions-content");
-        
-        accordionHeader.addEventListener("click", () => {
-            const isOpen = accordionHeader.classList.toggle("open");
-            
-            gsap.to(accordionContent, {
-                maxHeight: isOpen ? "500px" : "0", // A large max-height value
-                padding: isOpen ? "20px" : "0 20px",
-                duration: 0.3,
-                ease: "power2.inOut"
-            });
-        });
-    </script>
-</body>
-</html>
+        tl.to(sidebar, { x: '0%', duration: 0.6, ease: 'power3.inOut' });
+        tl.from(sidebarMenuItems, { y: 20, opacity: 1, stagger: 0.1, ease: 'power2.out' }, "-=0.3
