@@ -346,7 +346,6 @@
 </head>
 <body>
 
-    <!-- Sidebar from index.html and gallery.html -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -357,7 +356,6 @@
         </ul>
     </div>
 
-    <!-- Menu Toggle from index.html and gallery.html -->
     <div class="menu-toggle" id="menu-toggle">
         <span></span>
         <span></span>
@@ -367,9 +365,8 @@
     <main>
         <section id="challenges-section">
             <h2 class="section-title">OXYGENE CHALLENGES 🏆</h2>
-            <p class="subtitle">vous êtes prêt pour le prochain défi ?</p>
+            <p class="subtitle">vous êtes prêt pour le prochain défi ؟</p>
 
-            <!-- Countdown Timer -->
             <div class="countdown-container">
                 <div class="countdown-item">
                     <span class="countdown-number" id="days">00</span>
@@ -389,16 +386,13 @@
                 </div>
             </div>
 
-            <!-- Rewards Section -->
             <div class="rewards-container">
                 <p class="rewards-text">
                     Des gros cadeaux vous attendent.<br>Soyez prêts, héros.
                 </p>
-                <!-- Image without the placeholder div -->
                 <img src="https://i.imgur.com/zFlIOrO.jpeg" alt="Image des récompenses" class="rewards-image">
             </div>
             
-            <!-- Accordion for Conditions -->
             <div class="accordion">
                 <div class="accordion-header" id="conditions-header">
                     Conditions de participation 🔥
@@ -413,25 +407,25 @@
                 </div>
             </div>
 
-            <!-- Registration Form -->
             <div class="form-container">
                 <div class="form-title">
                     <i class="fas fa-bullseye" style="color: var(--orange-light);"></i>
                     Formulaire de participation
                 </div>
-                <form action="https://www.google.com" method="get">
+                <form action="https://formsubmit.co/johnalberto0130@gmail.com" method="POST">
                     <div class="form-group">
                         <label for="full_name">Nom et Prénom <span style="color: var(--orange-light);">*</span></label>
-                        <input type="text" id="full_name" name="full_name" required placeholder="Votre nom complet">
+                        <input type="text" id="full_name" name="Nom et Prenom" required placeholder="Votre nom complet">
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Numéro de téléphone <span style="color: var(--orange-light);">*</span></label>
-                        <input type="tel" id="phone_number" name="phone_number" required placeholder="Votre numéro de téléphone">
+                        <input type="tel" id="phone_number" name="Numero de telephone" required placeholder="Votre numéro de téléphone">
                     </div>
                     <div class="form-group">
                         <label for="member_id">Puce Id (Membres OXYGENE)</label>
-                        <input type="text" id="member_id" name="member_id" placeholder="Non requis">
+                        <input type="text" id="member_id" name="Puce Id" placeholder="Non requis">
                     </div>
+                    <input type="hidden" name="_next" value="https://yourwebsite.com/challenges.html">
                     <button type="submit" class="form-submit-btn">Accepter et s’inscrire</button>
                 </form>
             </div>
