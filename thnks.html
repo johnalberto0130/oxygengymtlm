@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre inscription !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        :root {
+            --main-color: #00ff88;
+            --dark-bg: #111;
+            --text-color: #f0f0f0;
+            --shadow-light: rgba(0, 255, 136, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+            --orange-light: #FF8C00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden; /* Hide overflow to prevent scrollbars from animation */
+        }
+
+        .thank-you-container {
+            max-width: 600px;
+            padding: 50px;
+            background-color: #222;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--orange-light);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .thank-you-container h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: 2.5em;
+            color: var(--orange-light);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .thank-you-container h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 25px;
+        }
+        
+        .thank-you-container p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--dark-bg);
+            background-color: var(--main-color);
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+        }
+        
+        /* Animation elements */
+        .flame {
+            position: absolute;
+            background-color: #FF8C00;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            z-index: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="thank-you-container">
+        <h1 class="heading">✨Félicitations ✨</h1>
+        <h2>vous avez été inscrit avec succès ✅</h2>
+        <p class="message">
+            Merci, votre inscription au challenge a été confirmée. ✅
+        </p>
+        <a href="https://www.facebook.com" class="cta-button">
+            Cliquez ici pour revenir à la page d’accueil
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Animation using GSAP
+        document.addEventListener("DOMContentLoaded", function() {
+            // Animate the container
+            gsap.from(".thank-you-container", {
+                duration: 1.5,
+                y: 50,
+                opacity: 0,
+                scale: 0.95,
+                ease: "power3.out"
+            });
+            
+            // Animate the text and button with a slight delay
+            gsap.from("h1, h2, .message, .cta-button", {
+                duration: 1,
+                y: 20,
+                opacity: 0,
+                stagger: 0.3,
+                ease: "power2.out",
+                delay: 0.5
+            });
+
+            // "Flame" effect on the button
+            const ctaButton = document.querySelector(".cta-button");
+            ctaButton.addEventListener("mouseenter", () => {
+                gsap.to(ctaButton, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: "power1.out"
+                });
+            });
+
+            ctaButton.addEventListener("mouseleave", () => {
+                gsap.to(ctaButton, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power1.out"
+                });
+            });
+
+            // Random flame-like animation on click (for fun)
+            ctaButton.addEventListener("click", (event) => {
+                const rect = ctaButton.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+
+                const flame = document.createElement("div");
+                flame.className = "flame";
+                document.body.appendChild(flame);
+
+                const size = 50 + Math.random() * 50;
+                gsap.set(flame, {
+                    x: rect.left + x - size / 2,
+                    y: rect.top + y - size / 2,
+                    width: size,
+                    height: size,
+                });
+
+                gsap.to(flame, {
+                    duration: 0.8,
+                    scale: 2,
+                    opacity: 0,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        flame.remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
