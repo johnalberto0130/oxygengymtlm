@@ -1,575 +1,64 @@
+
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu de Vitesse de Saisie</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+
+    <title>FreeKick Classic</title>
+
     <style>
-        :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #ffffff;
-            --bg-color: #2c3e50;
-            --border-glow-color: #4CAF50;
-            --font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--secondary-color);
-            font-family: var(--font-family);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            position: relative;
-            width: 90%;
-            max-width: 800px;
-            height: 600px;
-            background-color: #34495e;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Overlay for blur effect */
-        .game-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            transition: backdrop-filter 0.5s ease-in-out;
-        }
-
-        .start-screen {
-            text-align: center;
-            z-index: 10;
-        }
-
-        .start-btn {
-            padding: 18px 40px;
-            font-size: 2em;
-            font-weight: bold;
-            color: var(--secondary-color);
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            letter-spacing: 1px;
-        }
-
-        .start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(76, 175, 80, 0.4);
-        }
-
-        .countdown-screen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
-        }
-
-        .countdown-text {
-            font-size: 5em;
-            font-weight: bold;
-            color: var(--secondary-color);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .game-area {
-            width: 100%;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            z-index: 10;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .game-header {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .progress-bar-container {
-            width: 80%;
-            height: 15px;
-            background-color: #555;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0;
-            background-color: #2ecc71;
-            transition: width 0.3s ease-in-out;
-        }
-
-        .word-display-container {
-            width: 80%;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px var(--border-glow-color), 0 0 25px var(--border-glow-color);
-            transition: box-shadow 0.3s ease-in-out;
-            position: relative;
-        }
-
-        #current-word {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #000;
-            margin: 0;
-        }
-
-        #timer {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #000;
-        }
-
-        #user-input {
-            width: 80%;
-            padding: 15px;
-            font-size: 1.5em;
-            font-weight: bold;
-            text-align: center;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 15px #2980b9, 0 0 25px #3498db;
-            outline: none;
-            transition: box-shadow 0.3s ease-in-out;
-        }
-
-        #user-input:focus {
-            box-shadow: 0 0 20px #3498db, 0 0 30px #3498db;
-        }
-
-        .score-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        #score-text {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        .medal-icon {
-            font-size: 2em;
-            transform: scale(0);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Modal Styling */
-        .modal-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 30;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .modal-content {
-            background-color: #34495e;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transform: translateY(-50px);
-            opacity: 0;
-        }
-
-        #modal-title {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        #modal-message {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .modal-btn {
-            padding: 12px 25px;
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--secondary-color);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-
-        #restart-btn {
-            background-color: #e74c3c;
-            box-shadow: 0 0 10px #e74c3c;
-        }
-
-        #restart-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
-        }
-
-        #continue-btn {
-            background-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-color);
-        }
-
-        #continue-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.5);
-        }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      #openfl-content {
+        background: #000000;
+        width: 100%;
+        height: 100%;
+      }
     </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="game-overlay"></div>
-        <div class="start-screen">
-            <button class="start-btn">Commencer à jouer</button>
-        </div>
-
-        <div class="countdown-screen hidden">
-            <span class="countdown-text"></span>
-        </div>
-
-        <div class="game-area hidden">
-            <div class="game-header">
-                <div class="progress-bar-container">
-                    <div class="progress-bar"></div>
-                </div>
-            </div>
-            <div class="word-display-container">
-                <h2 id="current-word"></h2>
-                <span id="timer"></span>
-            </div>
-            <input type="text" id="user-input" placeholder="Commencez à taper ici..." autocomplete="off">
-            <div class="score-container">
-                <span id="score-text">Score: 0</span>
-                <span id="medal-icon" class="medal-icon"></span>
-            </div>
-        </div>
-
-        <div id="modal" class="modal-container hidden">
-            <div class="modal-content">
-                <h3 id="modal-title"></h3>
-                <p id="modal-message"></p>
-                <div class="modal-buttons">
-                    <button id="restart-btn" class="modal-btn hidden">Recommencer</button>
-                    <button id="continue-btn" class="modal-btn hidden">Continuer</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
-        const startBtn = document.querySelector('.start-btn');
-        const startScreen = document.querySelector('.start-screen');
-        const gameArea = document.querySelector('.game-area');
-        const countdownScreen = document.querySelector('.countdown-screen');
-        const countdownText = document.querySelector('.countdown-text');
-        const gameOverlay = document.querySelector('.game-overlay');
-
-        const currentWordEl = document.getElementById('current-word');
-        const userInputEl = document.getElementById('user-input');
-        const timerEl = document.getElementById('timer');
-        const scoreTextEl = document.getElementById('score-text');
-        const medalIconEl = document.getElementById('medal-icon');
-        const progressBar = document.querySelector('.progress-bar');
-
-        const modalContainer = document.getElementById('modal');
-        const modalTitleEl = document.getElementById('modal-title');
-        const modalMessageEl = document.getElementById('modal-message');
-        const restartBtn = document.getElementById('restart-btn');
-        const continueBtn = document.getElementById('continue-btn');
-
-        const levels = [
-            {
-                words: ['Gym', 'Coach', 'Cardio', 'Squat', 'Poids'],
-                time: 5,
-                medal: '🥉',
-                requiredScore: 5
-            },
-            {
-                words: ['musculation', 'traction', 'abdominaux', 'résistance', 'échauffement'],
-                time: 8,
-                medal: '🥈',
-                requiredScore: 10
-            },
-            {
-                words: ['haltérophilie', 'entraînement intensif', 'condition physique', 'renforcement musculaire', 'développé couché'],
-                time: 10,
-                medal: '🥇',
-                requiredScore: 15
-            }
-        ];
-
-        let currentLevelIndex = 0;
-        let currentWordIndex = 0;
-        let score = 0;
-        let timer;
-        let timeRemaining = 0;
-        let gameOver = false;
-
-        // GSAP animations
-        const animateIn = (element, delay = 0, y = 20) => {
-            gsap.fromTo(element, { opacity: 0, y: y }, { opacity: 1, y: 0, duration: 0.8, delay: delay, ease: 'power2.out' });
-        };
-
-        const animatePulse = (element) => {
-            gsap.to(element, { scale: 1.1, duration: 0.5, repeat: -1, yoyo: true, ease: 'power1.inOut' });
-        };
-
-        const showModal = (title, message, showContinue = false) => {
-            modalTitleEl.textContent = title;
-            modalMessageEl.textContent = message;
-            restartBtn.classList.remove('hidden');
-
-            if (showContinue) {
-                continueBtn.classList.remove('hidden');
-            } else {
-                continueBtn.classList.add('hidden');
-            }
-
-            modalContainer.classList.remove('hidden');
-            gsap.fromTo(modalContainer, { opacity: 0, visibility: 'hidden' }, { opacity: 1, visibility: 'visible', duration: 0.5 });
-            gsap.fromTo('.modal-content', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
-
-            if (!showContinue) {
-                animatePulse(restartBtn);
-            }
-        };
-
-        const hideModal = () => {
-            gsap.to(modalContainer, { opacity: 0, visibility: 'hidden', duration: 0.5 });
-            gsap.killTweensOf(restartBtn);
-            gsap.to(restartBtn, { scale: 1, duration: 0.1 });
-        };
-
-        const startGame = () => {
-            gsap.to(startScreen, {
-                opacity: 0, duration: 0.5, onComplete: () => {
-                    startScreen.classList.add('hidden');
-                    gsap.to(gameOverlay, { backdropFilter: 'blur(0)', duration: 0.5 });
-                    startCountdown();
-                }
-            });
-        };
-
-        const startCountdown = () => {
-            let count = 3;
-            countdownScreen.classList.remove('hidden');
-            countdownText.textContent = count;
-
-            gsap.fromTo(countdownText, { scale: 0.5, opacity: 0 }, {
-                scale: 1, opacity: 1, duration: 1, ease: 'power2.out', onComplete: () => {
-                    const countdownInterval = setInterval(() => {
-                        count--;
-                        if (count > 0) {
-                            countdownText.textContent = count;
-                            gsap.fromTo(countdownText, { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, ease: 'power2.out' });
-                        } else if (count === 0) {
-                            countdownText.textContent = 'Go!';
-                            gsap.fromTo(countdownText, { scale: 0.5, opacity: 0 }, {
-                                scale: 1, opacity: 1, duration: 1, ease: 'power2.out', onComplete: () => {
-                                    clearInterval(countdownInterval);
-                                    countdownScreen.classList.add('hidden');
-                                    setupLevel();
-                                }
-                            });
-                        }
-                    }, 1000);
-                }
-            });
-        };
-
-        const setupLevel = () => {
-            gameArea.classList.remove('hidden');
-            animateIn(gameArea, 0.5);
-            userInputEl.focus();
-            currentWordIndex = 0;
-            updateWord();
-            updateProgressBar();
-            updateScoreAndMedal();
-        };
-
-        const updateWord = () => {
-            const currentLevel = levels[currentLevelIndex];
-            if (currentWordIndex < currentLevel.words.length) {
-                const word = currentLevel.words[currentWordIndex];
-                currentWordEl.textContent = word;
-                userInputEl.value = '';
-                userInputEl.disabled = false;
-                startTimer(currentLevel.time);
-            } else {
-                handleLevelComplete();
-            }
-        };
-
-        const startTimer = (duration) => {
-            clearInterval(timer);
-            timeRemaining = duration;
-            timerEl.textContent = timeRemaining.toFixed(1) + 's';
-
-            timer = setInterval(() => {
-                timeRemaining -= 0.1;
-                timerEl.textContent = timeRemaining.toFixed(1) + 's';
-
-                if (timeRemaining <= 0) {
-                    clearInterval(timer);
-                    handleLoss();
-                }
-            }, 100);
-        };
-
-        const handleCorrectWord = () => {
-            clearInterval(timer);
-            score++;
-            updateScoreAndMedal();
-            updateProgressBar();
-            currentWordIndex++;
-            updateWord();
-        };
-
-        const handleLoss = () => {
-            gameOver = true;
-            userInputEl.disabled = true;
-            clearInterval(timer);
-            showModal("Oh, non, vous avez perdu.", "Pas de problème, réessayez.");
-        };
-
-        const handleLevelComplete = () => {
-            clearInterval(timer);
-            const currentLevel = levels[currentLevelIndex];
-            const nextLevelExists = currentLevelIndex + 1 < levels.length;
-            const title = `Félicitations! Vous avez gagné la médaille ${currentLevel.medal}`;
-            const message = nextLevelExists ? "Prêt pour le prochain défi ?" : "Incroyable ! Vous avez terminé tous les niveaux !";
-
-            showModal(title, message, nextLevelExists);
-        };
-
-        const restartGame = () => {
-            hideModal();
-            currentLevelIndex = 0;
-            currentWordIndex = 0;
-            score = 0;
-            gameOver = false;
-            scoreTextEl.textContent = 'Score: 0';
-            medalIconEl.textContent = '';
-            medalIconEl.style.transform = 'scale(0)';
-            gsap.to(gameArea, {
-                opacity: 0, duration: 0.5, onComplete: () => {
-                    gameArea.classList.add('hidden');
-                    startScreen.classList.remove('hidden');
-                    gsap.fromTo(startScreen, { opacity: 0 }, { opacity: 1, duration: 0.5 });
-                    gsap.to(gameOverlay, { backdropFilter: 'blur(5px)', duration: 0.5 });
-                }
-            });
-        };
-
-        const updateScoreAndMedal = () => {
-            scoreTextEl.textContent = `Score: ${score}`;
-            const currentLevel = levels[currentLevelIndex];
-            if (score >= currentLevel.requiredScore && currentLevel.medal) {
-                medalIconEl.textContent = currentLevel.medal;
-                gsap.to(medalIconEl, { scale: 1, duration: 0.5, ease: 'back.out(1.7)' });
-            }
-        };
-
-        const updateProgressBar = () => {
-            const currentLevel = levels[currentLevelIndex];
-            const progress = (currentWordIndex / currentLevel.words.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        };
-
-        // Event Listeners
-        startBtn.addEventListener('click', startGame);
-
-        userInputEl.addEventListener('input', (e) => {
-            if (gameOver) return;
-
-            const typedWord = e.target.value.trim().toLowerCase();
-            const currentLevel = levels[currentLevelIndex];
-            const currentWord = currentLevel.words[currentWordIndex].toLowerCase();
-
-            if (typedWord === currentWord) {
-                handleCorrectWord();
-            }
-        });
-
-        restartBtn.addEventListener('click', () => {
-            restartGame();
-        });
-
-        continueBtn.addEventListener('click', () => {
-            hideModal();
-            currentLevelIndex++;
-            currentWordIndex = 0;
-            updateScoreAndMedal();
-            updateProgressBar();
-            startCountdown();
-        });
-
-        // Initial setup
-        document.addEventListener('DOMContentLoaded', () => {
-            animatePulse(startBtn);
-        });
+      window.addEventListener(
+        "touchmove",
+        function (event) {
+          event.preventDefault();
+        },
+        false
+      );
+      window.famobi_gameID = "3d-free-kick";
+      window.famobi_gameJS = [
+        "base64Logo.js",
+        "iOS.js",
+        "lib/howler.min.js",
+        "lib/pako.min.js",
+        "game.js",
+        function () {
+          // start the game
+          window.famobi.onOffsetChange((offset) => {
+            iOSjs.resize();
+          });
+          lime.embed("openfl-content", 0, 0, "2B8B1E");
+        },
+      ];
+      (function (document, url, fgJS, firstJS) {
+        fgJS = document.createElement("script");
+        firstJS = document.getElementsByTagName("script")[0];
+        fgJS.src = url + encodeURIComponent(document.location.href);
+        firstJS.parentNode.insertBefore(fgJS, firstJS);
+      })(document, '//games.cdn.famobi.com/html5games/gameapi/v1.js?e=');
     </script>
-</body>
+  </head>
+  <body>
+    <div id="openfl-content"></div>
+  </body>
 </html>
