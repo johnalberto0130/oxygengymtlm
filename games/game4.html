@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,6 +34,8 @@
         },
         false
       );
+
+      // تعريف اللعبة
       window.famobi_gameID = "3d-free-kick";
       window.famobi_gameJS = [
         "base64Logo.js",
@@ -43,19 +44,13 @@
         "lib/pako.min.js",
         "game.js",
         function () {
-          // start the game
+          // تشغيل اللعبة
           window.famobi.onOffsetChange((offset) => {
             iOSjs.resize();
           });
           lime.embed("openfl-content", 0, 0, "2B8B1E");
         },
       ];
-      (function (document, url, fgJS, firstJS) {
-        fgJS = document.createElement("script");
-        firstJS = document.getElementsByTagName("script")[0];
-        fgJS.src = url + encodeURIComponent(document.location.href);
-        firstJS.parentNode.insertBefore(fgJS, firstJS);
-      })(document, '//games.cdn.famobi.com/html5games/gameapi/v1.js?e=');
     </script>
   </head>
   <body>
