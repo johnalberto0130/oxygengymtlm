@@ -1,137 +1,329 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Rock_Paper_Scissor_test</title>
-	
-	<!-- Standardised web app manifest -->
-	<link rel="manifest" href="appmanifest.json" />
-	
-	<!-- Allow fullscreen mode on iOS devices. (These are Apple specific meta tags.) -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<link rel="apple-touch-icon" sizes="256x256" href="icon-256.png" />
-	<meta name="HandheldFriendly" content="true" />
-	
-	<!-- Chrome for Android web app tags -->
-	<meta name="mobile-web-app-capable" content="yes" />
-	<link rel="shortcut icon" sizes="256x256" href="icon-256.png" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jeu Fruit Ninja Emoji - OXYGENE GAMES</title>
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+    overflow: hidden;
+  }
+  .game-container {
+    position: relative;
+    width: 360px;
+    height: 80vh;
+    max-height: 700px;
+    background: #111;
+    border-radius: 15px;
+    box-shadow: 0 0 25px #0f0;
+    overflow: hidden;
+  }
+  .scoreboard {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: #0f0;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 0 0 8px #0f0;
+    user-select: none;
+  }
+  .scoreboard .score,
+  .scoreboard .survie {
+    margin-bottom: 4px;
+  }
+  .timer {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #0f0;
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 0 0 8px #0f0;
+  }
+  .emoji {
+    position: absolute;
+    font-size: 50px;
+    user-select: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    will-change: transform, opacity;
+    text-shadow: 0 0 5px #0f0;
+  }
+  .message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    transform: translate(-50%, -50%);
+    background: #0f0;
+    color: #000;
+    padding: 20px 30px;
+    border-radius: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    display: none;
+    box-shadow: 0 0 25px #0f0;
+    text-align: center;
+  }
+  .button-restart, .button-start {
+    margin-top: 15px;
+    background: #0f0;
+    color: #000;
+    border: none;
+    padding: 10px 25px;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #0f0;
+    transition: background 0.3s ease;
+  }
+  .button-restart:hover, .button-start:hover {
+    background: #0c0;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
 
-    <!-- All margins and padding must be zero for the canvas to fill the screen. -->
-	<style type="text/css">
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		html, body {
-			background: #000;
-			color: #fff;
-			overflow: hidden;
-			touch-action: none;
-			-ms-touch-action: none;
-		}
-		canvas {
-			touch-action-delay: none;
-			touch-action: none;
-			-ms-touch-action: none;
-		}
-    </style>
-	
+<div class="game-container" tabindex="0">
+  <div class="scoreboard">
+    <div class="score">Score 🔥: <span id="score">0</span></div>
+    <div class="survie">Survie ❌: <span id="survie">0</span></div>
+  </div>
+  <div class="timer">Temps ⏳: <span id="timer">45</span>s</div>
+  <div class="message" id="message"></div>
 
-</head> 
- 
-<body> 
-	<div id="fb-root"></div>
-	
-	<script>
-	// Issue a warning if trying to preview an exported project on disk.
-	(function(){
-		// Check for running exported on file protocol
-		if (window.location.protocol.substr(0, 4) === "file")
-		{
-			alert("Exported games won't work until you upload them. (When running on the file:/// protocol, browsers block many features from working for security reasons.)");
-		}
-	})();
-	</script>
-	
-	<!-- The canvas must be inside a div called c2canvasdiv -->
-	<div id="c2canvasdiv">
-	
-		<!-- The canvas the project will render to.  If you change its ID, don't forget to change the
-		ID the runtime looks for in the jQuery events above (ready() and cr_sizeCanvas()). -->
-		<canvas id="c2canvas" width="800" height="600">
-			<!-- This text is displayed if the visitor's browser does not support HTML5.
-			You can change it, but it is a good idea to link to a description of a browser
-			and provide some links to download some popular HTML5-compatible browsers. -->
-			<h1>Your browser does not appear to support HTML5.  Try upgrading your browser to the latest version.  <a href="http://www.whatbrowser.org">What is a browser?</a>
-			<br/><br/><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">Microsoft Internet Explorer</a><br/>
-			<a href="http://www.mozilla.com/firefox/">Mozilla Firefox</a><br/>
-			<a href="http://www.google.com/chrome/">Google Chrome</a><br/>
-			<a href="http://www.apple.com/safari/download/">Apple Safari</a></h1>
-		</canvas>
-		
-	</div>
-	
-	<!-- Pages load faster with scripts at the bottom -->
-	
-	<!-- Construct 2 exported games require jQuery. -->
-	<script src="jquery-3.4.1.min.js"></script>
+  <div class="overlay" id="startOverlay">
+    <button class="button-start" id="startBtn">Start</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  const emojis = ['⚽', '🏋️', '🤾', '🤸', '🧗', '🏃', '🤼', '🧘'];
+  const gameContainer = document.querySelector('.game-container');
+  const scoreEl = document.getElementById('score');
+  const survieEl = document.getElementById('survie');
+  const timerEl = document.getElementById('timer');
+  const messageEl = document.getElementById('message');
+  const startOverlay = document.getElementById('startOverlay');
+  const startBtn = document.getElementById('startBtn');
+
+  let score = 0;
+  let survie = 0;
+  let emojiElements = [];
+  let gameDuration = 45; // seconds
+  let countdownInterval;
+  let spawnInterval;
+  let gameActive = false;
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function spawnEmoji() {
+    if (!gameActive) return;
+    if (emojiElements.length >= 6) return;
+
+    const emoji = document.createElement('div');
+    emoji.classList.add('emoji');
+    emoji.textContent = emojis[randomInt(0, emojis.length -1)];
+    emoji.style.left = randomInt(20, 320) + 'px';
+    emoji.style.bottom = '-60px';
+    emoji.dataset.cut = "false"; // حالة عدم القطع مبدئيًا
+    gameContainer.appendChild(emoji);
+    emojiElements.push(emoji);
+
+    // حركة صعود الإيموجي مع حركة أفقية تذبذبية
+    gsap.to(emoji, {
+      duration: randomInt(3,5),
+      bottom: 800,
+      ease: "power1.out",
+      onComplete: () => {
+        if (gameActive) {
+          removeEmoji(emoji);
+          survie++;
+          updateScoreboard();
+        }
+      }
+    });
+    gsap.to(emoji, {
+      duration: randomInt(1,3),
+      x: "+=30",
+      yoyo: true,
+      repeat: -1,
+      ease: "sine.inOut"
+    });
+
+    // عند النقر: قطع وسقوط لكن لمرة واحدة فقط!
+    emoji.addEventListener('click', () => {
+      if (!gameActive) return;
+      if (emoji.dataset.cut === "true") return; // لا تكرر القطع
+      emoji.dataset.cut = "true";
+
+      score++;
+      updateScoreboard();
+      gsap.killTweensOf(emoji);
+      gsap.to(emoji, {
+        rotation: randomInt(-90, 90),
+        y: "+=100",
+        opacity: 0,
+        duration: 0.6,
+        ease: "power1.in",
+        onComplete: () => {
+          removeEmoji(emoji);
+        }
+      });
+    });
+  }
+
+  function removeEmoji(emoji) {
+    if (!emoji) return;
+    const index = emojiElements.indexOf(emoji);
+    if (index > -1) emojiElements.splice(index, 1);
+    emoji.remove();
+  }
+
+  function updateScoreboard() {
+    scoreEl.textContent = score;
+    survieEl.textContent = survie;
+  }
+
+  function startGame() {
+    score = 0;
+    survie = 0;
+    gameDuration = 45;
+    updateScoreboard();
+    timerEl.textContent = gameDuration;
+    messageEl.style.display = 'none';
+    gameActive = true;
+    startOverlay.style.display = 'none';
+
+    countdownInterval = setInterval(() => {
+      gameDuration--;
+      timerEl.textContent = gameDuration;
+      if (gameDuration <= 0) {
+        endGame();
+      }
+    }, 1000);
+
+    spawnInterval = setInterval(spawnEmoji, 700);
+  }
+
+  function endGame() {
+    gameActive = false;
+    clearInterval(countdownInterval);
+    clearInterval(spawnInterval);
+    emojiElements.forEach(e => e.remove());
+    emojiElements = [];
+
+    let diff = score - survie;
+    let win = diff > 0;
+    let msg = '';
+
+    if(win) {
+      msg = `🔥 Bravo! Vous avez plus de coupés que de survivants (${score} vs ${survie}) 🎉`;
+      playConfetti();
+      playApplause();
+    } else {
+      msg = `❌ Tu as plus de survivants que de coupés (${survie} vs ${score}) 😭 \nInscrivez-vous à "OXYGENE GYM" pour améliorer votre rapidité!`;
+      playSadSound();
+      playEmojiRain('😭');
+    }
+
+    messageEl.textContent = msg;
+    messageEl.style.display = 'block';
+
+    const restartBtn = document.createElement('button');
+    restartBtn.textContent = 'Recommencer';
+    restartBtn.classList.add('button-restart');
+    restartBtn.onclick = () => {
+      messageEl.style.display = 'none';
+      startOverlay.style.display = 'flex';
+    };
+    messageEl.appendChild(document.createElement('br'));
+    messageEl.appendChild(restartBtn);
+  }
+
+  // مؤثرات GSAP
+  function playConfetti() {
+    for(let i=0; i<30; i++) {
+      let confetti = document.createElement('div');
+      confetti.textContent = '🎉';
+      confetti.style.position = 'fixed';
+      confetti.style.fontSize = `${randomInt(20,40)}px`;
+      confetti.style.left = `${randomInt(0, window.innerWidth)}px`;
+      confetti.style.top = `-${randomInt(10,100)}px`;
+      confetti.style.pointerEvents = 'none';
+      document.body.appendChild(confetti);
+      gsap.to(confetti, {
+        y: window.innerHeight + 100,
+        rotation: randomInt(0,360),
+        duration: randomInt(2,4),
+        ease: "power1.out",
+        onComplete: () => confetti.remove()
+      });
+    }
+  }
+
+  function playEmojiRain(emojiChar) {
+    for(let i=0; i<30; i++) {
+      let rain = document.createElement('div');
+      rain.textContent = emojiChar;
+      rain.style.position = 'fixed';
+      rain.style.fontSize = `${randomInt(20,40)}px`;
+      rain.style.left = `${randomInt(0, window.innerWidth)}px`;
+      rain.style.top = `-${randomInt(10,100)}px`;
+      rain.style.pointerEvents = 'none';
+      document.body.appendChild(rain);
+      gsap.to(rain, {
+        y: window.innerHeight + 100,
+        rotation: randomInt(0,360),
+        duration: randomInt(2,4),
+        ease: "power1.in",
+        onComplete: () => rain.remove()
+      });
+    }
+  }
+
+  // الدوال الفارغة المفقودة، تم إنشاؤها لتجنب الأخطاء
+  function playApplause() {
+    console.log("Play Applause sound");
+  }
+
+  function playSadSound() {
+    console.log("Play Sad sound");
+  }
 
 
-	
-    <!-- The runtime script.  You can rename it, but don't forget to rename the reference here as well.
-    This file will have been minified and obfuscated if you enabled "Minify script" during export. -->
-	<script src="c2runtime.js"></script>
+  startBtn.addEventListener('click', () => {
+    emojiElements.forEach(e => e.remove());
+    emojiElements = [];
+    startGame();
+  });
 
-    <script>
-		// Start the Construct 2 project running on window load.
-		jQuery(document).ready(function ()
-		{			
-			// Create new runtime using the c2canvas
-			cr_createRuntime("c2canvas");
-		});
-		
-		// Pause and resume on page becoming visible/invisible
-		function onVisibilityChanged() {
-			if (document.hidden || document.mozHidden || document.webkitHidden || document.msHidden)
-				cr_setSuspended(true);
-			else
-				cr_setSuspended(false);
-		};
-		
-		document.addEventListener("visibilitychange", onVisibilityChanged, false);
-		document.addEventListener("mozvisibilitychange", onVisibilityChanged, false);
-		document.addEventListener("webkitvisibilitychange", onVisibilityChanged, false);
-		document.addEventListener("msvisibilitychange", onVisibilityChanged, false);
-		
-		function OnRegisterSWError(e)
-		{
-			console.warn("Failed to register service worker: ", e);
-		};
-		
-		// Runtime calls this global method when ready to start caching (i.e. after startup).
-		// This registers the service worker which caches resources for offline support.
-		window.C2_RegisterSW = function C2_RegisterSW()
-		{
-			if (!navigator.serviceWorker)
-				return;		// no SW support, ignore call
-			
-			try {
-				navigator.serviceWorker.register("sw.js", { scope: "./" })
-				.then(function (reg)
-				{
-					console.log("Registered service worker on " + reg.scope);
-				})
-				.catch(OnRegisterSWError);
-			}
-			catch (e)
-			{
-				OnRegisterSWError(e);
-			}
-		};
-    </script>
-</body> 
-</html> 
+  gameContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+</script>
+</body>
+</html>
