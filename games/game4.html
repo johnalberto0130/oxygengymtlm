@@ -20,41 +20,75 @@
     }
     .frame {
       background: #3a3550;
-      border: 3px solid #fff;
-      border-radius: 15px;
-      padding: 20px;
-      min-height: 100vh; /* الإطار يغطي ارتفاع الشاشة بالكامل */
+      border: none;
+      border-radius: 10px;
       width: 100%;
-      max-width: 600px; /* الحد الأقصى للعرض لتحسين المظهر */
+      height: 80vh;
+      margin-top: 20px;
+      padding: 20px;
+      max-width: 600px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
+      align позиции-items: center;
       box-sizing: border-box;
+    }
+    .start-screen {
+      text-align: center;
+    }
+    .start-button, .mode-button {
+      background: none;
+      color: #fff;
+      font-family: "Poppins";
+      border: 1px solid #fff;
+      padding: 0.8em 1.5em;
+      border-radius: 7px;
+      cursor: pointer;
+      outline: none;
+      transition: 0.2s all linear;
+      font-size: 1.1em;
+      margin: 10px;
+    }
+    .start-button:hover, .mode-button:hover {
+      background-color: darkcyan;
+      border: 1px solid darkcyan;
     }
     .container {
       text-align: center;
       width: 100%;
+      display: none;
     }
     .message {
-      margin: 2em 0;
-      font-size: 1.5em;
+      margin: 1.5em 0;
+      font-size: 1.3em;
       font-weight: bold;
     }
     .images {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      height: 150px;
+      height: 120px;
     }
     .computer, .player {
-      font-size: 80px; /* حجم الإيموجي */
-      width: 100px;
-      height: 100px;
+      font-size: 60px;
+      width: 80px;
+      height: 80px;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+    }
+    .check-icon {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      font-size: 16px;
+      color: transparent;
+      transition: color 0.3s;
+    }
+    .check-icon.active {
+      color: green;
     }
     .shakeComputer {
       animation: shakeComputer 0.8s linear;
@@ -63,37 +97,41 @@
       animation: shakePlayer 0.8s linear;
     }
     .points {
-      margin: 2em 0;
-      font-size: 1.2em;
+      margin: 1.5em 0;
+      font-size: 1.1em;
     }
     .computerPoints {
-      margin-left: 2em;
+      margin-left: 1.5em;
     }
     .playerPoints {
-      margin-right: 2em;
+      margin-right: 1.5em;
     }
     .options {
-      margin-top: 3em;
+      margin-top: 2em;
       display: flex;
       justify-content: space-around;
-      gap: 20px;
+      gap: 15px;
     }
     .options button {
       background: none;
       color: #fff;
       font-family: "Poppins";
       border: 1px solid #fff;
-      padding: 1em 2em;
+      padding: 0.8em 1.5em;
       border-radius: 7px;
-      width: 120px;
+      width: 100px;
       cursor: pointer;
       outline: none;
       transition: 0.2s all linear;
-      font-size: 1em;
+      font-size: 0.9em;
     }
     .options button:hover {
       background-color: darkcyan;
       border: 1px solid darkcyan;
+    }
+    .options button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     @keyframes shakeComputer {
       0% { transform: rotate(-30deg); }
@@ -113,15 +151,22 @@
 </head>
 <body>
   <div class="frame">
+    <div class="start-screen">
+      <button class="start-button">START</button>
+    </div>
+    <div class="mode-selection" style="display: none;">
+      <button class="mode-button" data-mode="system">Play Vs System</button>
+      <button class="mode-button" data-mode="friend">Play Vs Friend</button>
+    </div>
     <div class="container">
       <div class="message">CHOOSE AN OPTION</div>
       <div class="images">
-        <div class="computer">🤚</div>
-        <div class="player">✊</div>
+        <div class="computer">🤚<span class="check-icon">✔</span></div>
+        <div class="player">✊<span class="check-icon">✔</span></div>
       </div>
       <div class="points">
-        COMPUTER <span class="computerPoints">0</span> /
-        <span class="playerPoints">0</span> PLAYER
+        PLAYER 2 <span class="computerPoints">0</span> /
+        <span class="playerPoints">0</span> PLAYER 1
       </div>
       <div class="options">
         <button type="button">✊ STONE</button>
@@ -132,56 +177,132 @@
   </div>
 
   <script>
+    const startButton = document.querySelector(".start-button");
+    const startScreen = document.querySelector(".start-screen");
+    const modeSelection = document.querySelector(".mode-selection");
+    const container = document.querySelector(".container");
     const computer = document.querySelector(".computer");
     const player = document.querySelector(".player");
     const computerPoints = document.querySelector(".computerPoints");
     const playerPoints = document.querySelector(".playerPoints");
     const options = document.querySelectorAll(".options button");
+    const computerCheck = document.querySelector(".computer .check-icon");
+    const playerCheck = document.querySelector(".player .check-icon");
+    const modeButtons = document.querySelectorAll(".mode-button");
 
-    // خريطة الإيموجيات
+    let gameMode = "";
+    let player1Choice = "";
+    let player2Choice = "";
+    let currentPlayer = 1;
+
     const emojiMap = {
       STONE: "✊",
       PAPER: "🤚",
       SCISSORS: "✌️"
     };
 
-    options.forEach((option) => {
-      option.addEventListener("click", () => {
-        computer.classList.add("shakeComputer");
-        player.classList.add("shakePlayer");
+    startButton.addEventListener("click", () => {
+      startScreen.style.display = "none";
+      modeSelection.style.display = "block";
+    });
 
-        setTimeout(() => {
-          computer.classList.remove("shakeComputer");
-          player.classList.remove("shakePlayer");
-
-          // تحديث الإيموجي بناءً على اختيار اللاعب
-          const playerChoice = option.innerHTML.split(" ")[1]; // الحصول على STONE/PAPER/SCISSORS
-          player.textContent = emojiMap[playerChoice];
-
-          // اختيار الكمبيوتر
-          const choice = ["STONE", "PAPER", "SCISSORS"];
-          let arrayNo = Math.floor(Math.random() * 3);
-          let computerChoice = choice[arrayNo];
-          computer.textContent = emojiMap[computerChoice];
-
-          let cPoints = parseInt(computerPoints.innerHTML);
-          let pPoints = parseInt(playerPoints.innerHTML);
-
-          // منطق اللعبة
-          if (playerChoice === computerChoice) {
-            // تعادل
-          } else if (
-            (playerChoice === "STONE" && computerChoice === "SCISSORS") ||
-            (playerChoice === "PAPER" && computerChoice === "STONE") ||
-            (playerChoice === "SCISSORS" && computerChoice === "PAPER")
-          ) {
-            playerPoints.innerHTML = pPoints + 1;
-          } else {
-            computerPoints.innerHTML = cPoints + 1;
-          }
-        }, 800); // يتطابق مع مدة الرسوم المتحركة
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        gameMode = button.dataset.mode;
+        modeSelection.style.display = "none";
+        container.style.display = "block";
+        if (gameMode === "friend") {
+          document.querySelector(".message").textContent = "PLAYER 1: CHOOSE AN OPTION";
+        }
       });
     });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        const choice = option.innerHTML.split(" ")[1];
+
+        if (gameMode === "system") {
+          player.textContent = emojiMap[choice];
+          player.classList.add("shakePlayer");
+          computer.classList.add("shakeComputer");
+          playerCheck.classList.add("active");
+
+          setTimeout(() => {
+            player.classList.remove("shakePlayer");
+            computer.classList.remove("shakeComputer");
+            playerCheck.classList.remove("active");
+
+            const choices = ["STONE", "PAPER", "SCISSORS"];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            computer.textContent = emojiMap[computerChoice];
+            computerCheck.classList.add("active");
+
+            setTimeout(() => {
+              computerCheck.classList.remove("active");
+              updatePoints(choice, computerChoice);
+            }, 500);
+          }, 800);
+        } else if (gameMode === "friend") {
+          if (currentPlayer === 1) {
+            player1Choice = choice;
+            player.textContent = emojiMap[choice];
+            player.classList.add("shakePlayer");
+            playerCheck.classList.add("active");
+
+            setTimeout(() => {
+              player.classList.remove("shakePlayer");
+              document.querySelector(".message").textContent = "PLAYER 2: CHOOSE AN OPTION";
+              currentPlayer = 2;
+              disablePlayer1Buttons();
+            }, 800);
+          } else {
+            player2Choice = choice;
+            computer.textContent = emojiMap[choice];
+            computer.classList.add("shakeComputer");
+            computerCheck.classList.add("active");
+
+            setTimeout(() => {
+              computer.classList.remove("shakeComputer");
+              updatePoints(player1Choice, player2Choice);
+              resetFriendMode();
+            }, 800);
+          }
+        }
+      });
+    });
+
+    function updatePoints(playerChoice, opponentChoice) {
+      let cPoints = parseInt(computerPoints.innerHTML);
+      let pPoints = parseInt(playerPoints.innerHTML);
+
+      if (playerChoice === opponentChoice) {
+        // Tie
+      } else if (
+        (playerChoice === "STONE" && opponentChoice === "SCISSORS") ||
+        (playerChoice === "PAPER" && opponentChoice === "STONE") ||
+        (playerChoice === "SCISSORS" && opponentChoice === "PAPER")
+      ) {
+        playerPoints.innerHTML = pPoints + 1;
+      } else {
+        computerPoints.innerHTML = cPoints + 1;
+      }
+    }
+
+    function disablePlayer1Buttons() {
+      options.forEach((button) => {
+        button.disabled = true;
+      });
+    }
+
+    function resetFriendMode() {
+      currentPlayer = 1;
+      document.querySelector(".message").textContent = "PLAYER 1: CHOOSE AN OPTION";
+      playerCheck.classList.remove("active");
+      computerCheck.classList.remove("active");
+      options.forEach((button) => {
+        button.disabled = false;
+      });
+    }
   </script>
 </body>
 </html>
