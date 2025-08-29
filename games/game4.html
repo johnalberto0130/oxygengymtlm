@@ -13,11 +13,29 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .frame {
+      background: #3a3550;
+      border: 3px solid #fff;
+      border-radius: 15px;
+      padding: 20px;
+      min-height: 100vh; /* الإطار يغطي ارتفاع الشاشة بالكامل */
+      width: 100%;
+      max-width: 600px; /* الحد الأقصى للعرض لتحسين المظهر */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
     }
     .container {
       text-align: center;
+      width: 100%;
     }
     .message {
       margin: 2em 0;
@@ -94,20 +112,22 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="message">CHOOSE AN OPTION</div>
-    <div class="images">
-      <div class="computer">🤚</div>
-      <div class="player">✊</div>
-    </div>
-    <div class="points">
-      COMPUTER <span class="computerPoints">0</span> /
-      <span class="playerPoints">0</span> PLAYER
-    </div>
-    <div class="options">
-      <button type="button">✊ STONE</button>
-      <button type="button">🤚 PAPER</button>
-      <button type="button">✌️ SCISSORS</button>
+  <div class="frame">
+    <div class="container">
+      <div class="message">CHOOSE AN OPTION</div>
+      <div class="images">
+        <div class="computer">🤚</div>
+        <div class="player">✊</div>
+      </div>
+      <div class="points">
+        COMPUTER <span class="computerPoints">0</span> /
+        <span class="playerPoints">0</span> PLAYER
+      </div>
+      <div class="options">
+        <button type="button">✊ STONE</button>
+        <button type="button">🤚 PAPER</button>
+        <button type="button">✌️ SCISSORS</button>
+      </div>
     </div>
   </div>
 
