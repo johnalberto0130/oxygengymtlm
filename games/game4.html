@@ -1,329 +1,167 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Jeu Fruit Ninja Emoji - OXYGENE GAMES</title>
-<style>
-  body {
-    margin: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    user-select: none;
-    overflow: hidden;
-  }
-  .game-container {
-    position: relative;
-    width: 360px;
-    height: 80vh;
-    max-height: 700px;
-    background: #111;
-    border-radius: 15px;
-    box-shadow: 0 0 25px #0f0;
-    overflow: hidden;
-  }
-  .scoreboard {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    color: #0f0;
-    font-weight: bold;
-    font-size: 20px;
-    text-shadow: 0 0 8px #0f0;
-    user-select: none;
-  }
-  .scoreboard .score,
-  .scoreboard .survie {
-    margin-bottom: 4px;
-  }
-  .timer {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #0f0;
-    font-weight: bold;
-    font-size: 20px;
-    text-shadow: 0 0 8px #0f0;
-  }
-  .emoji {
-    position: absolute;
-    font-size: 50px;
-    user-select: none;
-    cursor: pointer;
-    touch-action: manipulation;
-    will-change: transform, opacity;
-    text-shadow: 0 0 5px #0f0;
-  }
-  .message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 90%;
-    transform: translate(-50%, -50%);
-    background: #0f0;
-    color: #000;
-    padding: 20px 30px;
-    border-radius: 15px;
-    font-size: 22px;
-    font-weight: bold;
-    display: none;
-    box-shadow: 0 0 25px #0f0;
-    text-align: center;
-  }
-  .button-restart, .button-start {
-    margin-top: 15px;
-    background: #0f0;
-    color: #000;
-    border: none;
-    padding: 10px 25px;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 0 15px #0f0;
-    transition: background 0.3s ease;
-  }
-  .button-restart:hover, .button-start:hover {
-    background: #0c0;
-  }
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    z-index: 10;
-  }
-</style>
+  <meta charset="UTF-8">
+  <title>Stone, Paper, Scissors with Emojis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    body {
+      background: #2d2a3d;
+      color: #fff;
+      font-family: "Poppins";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    .message {
+      margin: 2em 0;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .images {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 150px;
+    }
+    .computer, .player {
+      font-size: 80px; /* حجم الإيموجي */
+      width: 100px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .shakeComputer {
+      animation: shakeComputer 0.8s linear;
+    }
+    .shakePlayer {
+      animation: shakePlayer 0.8s linear;
+    }
+    .points {
+      margin: 2em 0;
+      font-size: 1.2em;
+    }
+    .computerPoints {
+      margin-left: 2em;
+    }
+    .playerPoints {
+      margin-right: 2em;
+    }
+    .options {
+      margin-top: 3em;
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .options button {
+      background: none;
+      color: #fff;
+      font-family: "Poppins";
+      border: 1px solid #fff;
+      padding: 1em 2em;
+      border-radius: 7px;
+      width: 120px;
+      cursor: pointer;
+      outline: none;
+      transition: 0.2s all linear;
+      font-size: 1em;
+    }
+    .options button:hover {
+      background-color: darkcyan;
+      border: 1px solid darkcyan;
+    }
+    @keyframes shakeComputer {
+      0% { transform: rotate(-30deg); }
+      25% { transform: rotate(30deg); }
+      50% { transform: rotate(-30deg); }
+      75% { transform: rotate(30deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes shakePlayer {
+      0% { transform: rotate(30deg); }
+      25% { transform: rotate(-30deg); }
+      50% { transform: rotate(30deg); }
+      75% { transform: rotate(-30deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
 </head>
 <body>
-
-<div class="game-container" tabindex="0">
-  <div class="scoreboard">
-    <div class="score">Score 🔥: <span id="score">0</span></div>
-    <div class="survie">Survie ❌: <span id="survie">0</span></div>
+  <div class="container">
+    <div class="message">CHOOSE AN OPTION</div>
+    <div class="images">
+      <div class="computer">🤚</div>
+      <div class="player">✊</div>
+    </div>
+    <div class="points">
+      COMPUTER <span class="computerPoints">0</span> /
+      <span class="playerPoints">0</span> PLAYER
+    </div>
+    <div class="options">
+      <button type="button">✊ STONE</button>
+      <button type="button">🤚 PAPER</button>
+      <button type="button">✌️ SCISSORS</button>
+    </div>
   </div>
-  <div class="timer">Temps ⏳: <span id="timer">45</span>s</div>
-  <div class="message" id="message"></div>
 
-  <div class="overlay" id="startOverlay">
-    <button class="button-start" id="startBtn">Start</button>
-  </div>
-</div>
+  <script>
+    const computer = document.querySelector(".computer");
+    const player = document.querySelector(".player");
+    const computerPoints = document.querySelector(".computerPoints");
+    const playerPoints = document.querySelector(".playerPoints");
+    const options = document.querySelectorAll(".options button");
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script>
-  const emojis = ['⚽', '🏋️', '🤾', '🤸', '🧗', '🏃', '🤼', '🧘'];
-  const gameContainer = document.querySelector('.game-container');
-  const scoreEl = document.getElementById('score');
-  const survieEl = document.getElementById('survie');
-  const timerEl = document.getElementById('timer');
-  const messageEl = document.getElementById('message');
-  const startOverlay = document.getElementById('startOverlay');
-  const startBtn = document.getElementById('startBtn');
-
-  let score = 0;
-  let survie = 0;
-  let emojiElements = [];
-  let gameDuration = 45; // seconds
-  let countdownInterval;
-  let spawnInterval;
-  let gameActive = false;
-
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  function spawnEmoji() {
-    if (!gameActive) return;
-    if (emojiElements.length >= 6) return;
-
-    const emoji = document.createElement('div');
-    emoji.classList.add('emoji');
-    emoji.textContent = emojis[randomInt(0, emojis.length -1)];
-    emoji.style.left = randomInt(20, 320) + 'px';
-    emoji.style.bottom = '-60px';
-    emoji.dataset.cut = "false"; // حالة عدم القطع مبدئيًا
-    gameContainer.appendChild(emoji);
-    emojiElements.push(emoji);
-
-    // حركة صعود الإيموجي مع حركة أفقية تذبذبية
-    gsap.to(emoji, {
-      duration: randomInt(3,5),
-      bottom: 800,
-      ease: "power1.out",
-      onComplete: () => {
-        if (gameActive) {
-          removeEmoji(emoji);
-          survie++;
-          updateScoreboard();
-        }
-      }
-    });
-    gsap.to(emoji, {
-      duration: randomInt(1,3),
-      x: "+=30",
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut"
-    });
-
-    // عند النقر: قطع وسقوط لكن لمرة واحدة فقط!
-    emoji.addEventListener('click', () => {
-      if (!gameActive) return;
-      if (emoji.dataset.cut === "true") return; // لا تكرر القطع
-      emoji.dataset.cut = "true";
-
-      score++;
-      updateScoreboard();
-      gsap.killTweensOf(emoji);
-      gsap.to(emoji, {
-        rotation: randomInt(-90, 90),
-        y: "+=100",
-        opacity: 0,
-        duration: 0.6,
-        ease: "power1.in",
-        onComplete: () => {
-          removeEmoji(emoji);
-        }
-      });
-    });
-  }
-
-  function removeEmoji(emoji) {
-    if (!emoji) return;
-    const index = emojiElements.indexOf(emoji);
-    if (index > -1) emojiElements.splice(index, 1);
-    emoji.remove();
-  }
-
-  function updateScoreboard() {
-    scoreEl.textContent = score;
-    survieEl.textContent = survie;
-  }
-
-  function startGame() {
-    score = 0;
-    survie = 0;
-    gameDuration = 45;
-    updateScoreboard();
-    timerEl.textContent = gameDuration;
-    messageEl.style.display = 'none';
-    gameActive = true;
-    startOverlay.style.display = 'none';
-
-    countdownInterval = setInterval(() => {
-      gameDuration--;
-      timerEl.textContent = gameDuration;
-      if (gameDuration <= 0) {
-        endGame();
-      }
-    }, 1000);
-
-    spawnInterval = setInterval(spawnEmoji, 700);
-  }
-
-  function endGame() {
-    gameActive = false;
-    clearInterval(countdownInterval);
-    clearInterval(spawnInterval);
-    emojiElements.forEach(e => e.remove());
-    emojiElements = [];
-
-    let diff = score - survie;
-    let win = diff > 0;
-    let msg = '';
-
-    if(win) {
-      msg = `🔥 Bravo! Vous avez plus de coupés que de survivants (${score} vs ${survie}) 🎉`;
-      playConfetti();
-      playApplause();
-    } else {
-      msg = `❌ Tu as plus de survivants que de coupés (${survie} vs ${score}) 😭 \nInscrivez-vous à "OXYGENE GYM" pour améliorer votre rapidité!`;
-      playSadSound();
-      playEmojiRain('😭');
-    }
-
-    messageEl.textContent = msg;
-    messageEl.style.display = 'block';
-
-    const restartBtn = document.createElement('button');
-    restartBtn.textContent = 'Recommencer';
-    restartBtn.classList.add('button-restart');
-    restartBtn.onclick = () => {
-      messageEl.style.display = 'none';
-      startOverlay.style.display = 'flex';
+    // خريطة الإيموجيات
+    const emojiMap = {
+      STONE: "✊",
+      PAPER: "🤚",
+      SCISSORS: "✌️"
     };
-    messageEl.appendChild(document.createElement('br'));
-    messageEl.appendChild(restartBtn);
-  }
 
-  // مؤثرات GSAP
-  function playConfetti() {
-    for(let i=0; i<30; i++) {
-      let confetti = document.createElement('div');
-      confetti.textContent = '🎉';
-      confetti.style.position = 'fixed';
-      confetti.style.fontSize = `${randomInt(20,40)}px`;
-      confetti.style.left = `${randomInt(0, window.innerWidth)}px`;
-      confetti.style.top = `-${randomInt(10,100)}px`;
-      confetti.style.pointerEvents = 'none';
-      document.body.appendChild(confetti);
-      gsap.to(confetti, {
-        y: window.innerHeight + 100,
-        rotation: randomInt(0,360),
-        duration: randomInt(2,4),
-        ease: "power1.out",
-        onComplete: () => confetti.remove()
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        computer.classList.add("shakeComputer");
+        player.classList.add("shakePlayer");
+
+        setTimeout(() => {
+          computer.classList.remove("shakeComputer");
+          player.classList.remove("shakePlayer");
+
+          // تحديث الإيموجي بناءً على اختيار اللاعب
+          const playerChoice = option.innerHTML.split(" ")[1]; // الحصول على STONE/PAPER/SCISSORS
+          player.textContent = emojiMap[playerChoice];
+
+          // اختيار الكمبيوتر
+          const choice = ["STONE", "PAPER", "SCISSORS"];
+          let arrayNo = Math.floor(Math.random() * 3);
+          let computerChoice = choice[arrayNo];
+          computer.textContent = emojiMap[computerChoice];
+
+          let cPoints = parseInt(computerPoints.innerHTML);
+          let pPoints = parseInt(playerPoints.innerHTML);
+
+          // منطق اللعبة
+          if (playerChoice === computerChoice) {
+            // تعادل
+          } else if (
+            (playerChoice === "STONE" && computerChoice === "SCISSORS") ||
+            (playerChoice === "PAPER" && computerChoice === "STONE") ||
+            (playerChoice === "SCISSORS" && computerChoice === "PAPER")
+          ) {
+            playerPoints.innerHTML = pPoints + 1;
+          } else {
+            computerPoints.innerHTML = cPoints + 1;
+          }
+        }, 800); // يتطابق مع مدة الرسوم المتحركة
       });
-    }
-  }
-
-  function playEmojiRain(emojiChar) {
-    for(let i=0; i<30; i++) {
-      let rain = document.createElement('div');
-      rain.textContent = emojiChar;
-      rain.style.position = 'fixed';
-      rain.style.fontSize = `${randomInt(20,40)}px`;
-      rain.style.left = `${randomInt(0, window.innerWidth)}px`;
-      rain.style.top = `-${randomInt(10,100)}px`;
-      rain.style.pointerEvents = 'none';
-      document.body.appendChild(rain);
-      gsap.to(rain, {
-        y: window.innerHeight + 100,
-        rotation: randomInt(0,360),
-        duration: randomInt(2,4),
-        ease: "power1.in",
-        onComplete: () => rain.remove()
-      });
-    }
-  }
-
-  // الدوال الفارغة المفقودة، تم إنشاؤها لتجنب الأخطاء
-  function playApplause() {
-    console.log("Play Applause sound");
-  }
-
-  function playSadSound() {
-    console.log("Play Sad sound");
-  }
-
-
-  startBtn.addEventListener('click', () => {
-    emojiElements.forEach(e => e.remove());
-    emojiElements = [];
-    startGame();
-  });
-
-  gameContainer.addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-</script>
+    });
+  </script>
 </body>
 </html>
