@@ -200,7 +200,7 @@
 <body>
 <div class="container">
   <div class="message">CHOOSE AN OPTION</div>
-  <div class="rounds">Round: <span id="currentRound">1</span>/5</div>
+  <div class="rounds">Round: <span id="currentRound">1</span>/10</div>
   <div class="images">
     <div class="computer">
       <h3>AI</h3>
@@ -292,7 +292,7 @@
   }
 
   function handleRoundEnd() {
-    if (currentRound >= 5) {
+    if (currentRound >= 10) {
       options.forEach(btn => btn.disabled = true);
       
       setTimeout(showResult, 500);
