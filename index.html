@@ -262,6 +262,7 @@
             padding: 20px;
             border: 1px solid #333;
             text-align: center;
+            vertical-align: middle;
         }
 
         .pricing-table thead th {
@@ -378,68 +379,64 @@
 
         .hours-table {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
-            border: 2px solid var(--main-color);
+            border-collapse: collapse;
+            background: #1a1a1a;
             border-radius: 15px;
             overflow: hidden;
-            background: #1a1a1a;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
 
         .hours-table th,
         .hours-table td {
-            padding: 15px;
+            padding: 18px;
             text-align: center;
             border: 1px solid #333;
         }
 
-        .hours-table th {
-            background: #222;
+        .hours-table thead th {
+            background: linear-gradient(135deg, #222, #333);
             color: var(--main-color);
             font-family: 'Anton', sans-serif;
             text-transform: uppercase;
-            font-size: 1.2em;
+            font-size: 1.4em;
+            letter-spacing: 1px;
+        }
+
+        .hours-table tbody tr:nth-child(even) {
+            background: #222;
+        }
+
+        .hours-table tbody tr:hover {
+            background: #2a2a2a;
         }
 
         .hours-table td {
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: 500;
         }
 
-        .hours-table .gender-row td:first-child {
+        .hours-table .gender-header {
+            background: linear-gradient(135deg, #333, #444);
             color: var(--main-color);
             font-weight: bold;
+            font-size: 1.3em;
+            text-transform: uppercase;
         }
 
-        #motivational-message {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .motivational-quote {
-            font-family: 'Poppins', sans-serif;
+        .gender-icon {
             font-size: 1.8em;
-            font-weight: bold;
-            color: var(--main-color);
-            text-shadow: 1px 1px 2px var(--shadow-dark);
-            letter-spacing: 0.5px;
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-            line-height: 1.4;
-            font-style: italic;
-            animation: pulse 2s infinite;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .male-icon {
+            color: #3498db;
+        }
+
+        .female-icon {
+            color: #e91e63;
         }
 
         footer {
@@ -531,8 +528,9 @@
             .hours-table {
                 font-size: 0.9em;
             }
-            .motivational-quote {
-                font-size: 1.2em;
+            .hours-table th,
+            .hours-table td {
+                padding: 12px 8px;
             }
         }
 
@@ -782,6 +780,41 @@
                 width: 100%;
             }
         }
+
+        /* Typewriter effect styles */
+        .typewriter-container {
+            position: relative;
+            min-height: 80px;
+        }
+
+        .typewriter-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--main-color);
+            text-shadow: 1px 1px 2px var(--shadow-dark);
+            letter-spacing: 0.5px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            background-color: var(--main-color);
+            width: 3px;
+            height: 1.2em;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -791,11 +824,11 @@
         متصفحك لا يدعم عنصر الصوت.
     </audio>
 
-    <div class="popup-container">
+    <div class="popup-container" id="popupContainer">
         <div class="popup-content">
-            <span class="popup-close-btn">&times;</span>
+            <span class="popup-close-btn" id="popupCloseBtn">&times;</span>
             <p class="popup-text">Marhbaa biikom 👋 <br> chez OXYGENE GYM 💪<br>Le Complexe Sportif N°1 dans La wilaya de Tlemcen 🏆 </p>
-            <button class="popup-fermer-btn">Fermer</button>
+            <button class="popup-fermer-btn" id="popupFermerBtn">Fermer</button>
         </div>
     </div>
 
@@ -976,10 +1009,10 @@
             <i class="fas fa-chevron-down icon"></i>
         </div>
         <div class="accordion-content">
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Oxygen n’est pas qu’une simple salle de sport, c’est un complexe unique à Tlemcen ⭐️<br>Nous vous offrons une expérience inédite et divertissante ✨, avec des équipements modernes et de dernière génération 🔥 pour vous aider à atteindre vos objectifs sportifs.
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Oxygen n’est not qu’une simple salle de sport, c’est un complexe unique à Tlemcen ⭐️<br>Nous vous offrons une expérience inédite et divertissante ✨, avec des équipements modernes et de dernière génération 🔥 pour vous aider à atteindre vos objectifs sportifs.
            <br>Notre espace ne se limite pas au fitness : découvrez une multitude d’activités telles que Kickboxing 🥊, MMA 🥇, CrossFit 💪, Danse 💃, Zumba pour femmes 👩‍🎤, et bien plus encore.<br>Pour vos enfants 👶, nous avons prévu des espaces dédiés, encadrés par des coachs qualifiés 👨‍🏫 pour garantir leur sécurité et leur bien-être.
            <br>Chez Oxygen, nous organisons également des voyages ✈️, des challenges 🏆 et des événements uniques 🎉 avec des récompenses exceptionnelles 🎁.
-            <br>Plus qu’un lieu d’entraînement, Oxygen c’est une véritable communauté sportive 🤝, offrant une ambiance familiale 👨‍👩‍👧‍👦 où toutes les générations se retrouvent : enfants, jeunes, adultes, femmes et même parents ❤️.
+            <br>Plus qu’un lieu d’entraînement, Oxygen c’est une véritable communauté sportive 🤝, offrant une ambiance familiale 👨‍👩‍👧‍👦 où toutes les générations se retrouvent : enfants, jeunes, adultes, femmes и même parents ❤️.
 Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expérience sportive unique à Tlemcen 🙌. </p>
             <div class="why-us-container">
                 <div class="why-us-item">
@@ -993,7 +1026,7 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
                     <i class="fas fa-users-line icon"></i>
                     <div>
                         <h1>Coaching Professionnel</h3>
-                        <p>Des entraîneurs certifiés qui vous suivent pas à pas pour atteindre vos objectifs.</p>
+                        <p>Des entraîneurs certifiés qui vous suivrent pas à pas pour atteindre vos objectifs.</p>
                     </div>
                 </div>
                 <div class="why-us-item">
@@ -1012,36 +1045,35 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
         <table class="hours-table">
             <thead>
                 <tr>
-                    <th>Jour</th>
+                    <th>Jours</th>
                     <th>Heures</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="gender-row">
-                    <td>Hommes</td>
-                    <td>🏋️‍♂️ </td>
+                <tr>
+                    <td class="gender-header"><i class="fas fa-male gender-icon male-icon"></i> Hommes</td>
+                    <td class="gender-header">Horaires</td>
                 </tr>
                 <tr>
                     <td>Samedi - Jeudi</td>
                     <td>06:00 - 23:00</td>
                 </tr>
-                <tr class="gender-row">
-                    <td>Femmes</td>
-                    <td>🏋️‍♀️ </td>
+                <tr>
+                    <td class="gender-header"><i class="fas fa-female gender-icon female-icon"></i> Femmes</td>
+                    <td class="gender-header">Horaires</td>
                 </tr>
                 <tr>
                     <td>Samedi - Mercredi</td>
-                    <td>14:00 - 17:45 <br>(100% Femmes)
-                    </td>
+                    <td>14:00 - 17:45 <br>(100% Femmes)</td>
                 </tr>
             </tbody>
         </table>
     </section>
 
     <section id="motivational-message">
-        <p class="motivational-quote">
-            "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas."
-        </p>
+        <div class="typewriter-container">
+            <div class="typewriter-text" id="typewriter-text"></div>
+        </div>
     </section>
 
     <footer>
@@ -1065,6 +1097,25 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
+        // إصلاح النافذة المنبثقة
+        const popupContainer = document.getElementById('popupContainer');
+        const popupCloseBtn = document.getElementById('popupCloseBtn');
+        const popupFermerBtn = document.getElementById('popupFermerBtn');
+        const audio = document.getElementById('bg-audio');
+
+        function closePopup() {
+            popupContainer.style.display = 'none';
+            try {
+                audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
+            } catch (e) {
+                console.log("Audio element not found or error playing audio");
+            }
+        }
+
+        popupCloseBtn.addEventListener('click', closePopup);
+        popupFermerBtn.addEventListener('click', closePopup);
+
+        // بقية الكود كما هو
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
@@ -1086,33 +1137,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
                 opacity: 0,
                 ease: "power2.out"
             });
-        });
-
-        const popupContainer = document.querySelector('.popup-container');
-        const popupCloseBtn = document.querySelector('.popup-close-btn');
-        const popupFermerBtn = document.querySelector('.popup-fermer-btn');
-        const audio = document.getElementById('bg-audio');
-
-        function closePopup() {
-            if (popupContainer) {
-                popupContainer.style.display = 'none';
-            }
-            if (audio) {
-                audio.play().catch(e => console.log("Audio autoplay was prevented. User interaction required."));
-            }
-        }
-
-        if (popupCloseBtn) {
-            popupCloseBtn.addEventListener('click', closePopup);
-        }
-        if (popupFermerBtn) {
-            popupFermerBtn.addEventListener('click', closePopup);
-        }
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            if (popupContainer) {
-                popupContainer.style.display = 'flex';
-            }
         });
 
         let currentTrainer = 0;
@@ -1166,6 +1190,7 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
             accordionContent.classList.toggle('open');
         }
 
+        // إضافة وظيفة لقسم المستندات
         const documentsToggle = document.querySelector('.documents-toggle');
         const documentsList = document.querySelector('.documents-list');
         
@@ -1210,6 +1235,37 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
         sidebarCloseBtn.addEventListener('click', () => {
             tl.reverse();
         });
+
+        // Typewriter effect implementation
+        const typewriterText = document.getElementById('typewriter-text');
+        const message = "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas.";
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeWriter() {
+            if (!isDeleting && charIndex < message.length) {
+                // Typing phase
+                typewriterText.innerHTML = message.substring(0, charIndex + 1) + '<span class="typewriter-cursor"></span>';
+                charIndex++;
+                setTimeout(typeWriter, 50); // Typing speed
+            } else if (!isDeleting && charIndex === message.length) {
+                // Pause at the end of typing
+                isDeleting = true;
+                setTimeout(typeWriter, 10000); // Wait for 10 seconds before deleting
+            } else if (isDeleting && charIndex > 0) {
+                // Deleting phase
+                typewriterText.innerHTML = message.substring(0, charIndex - 1) + '<span class="typewriter-cursor"></span>';
+                charIndex--;
+                setTimeout(typeWriter, 30); // Deleting speed
+            } else {
+                // Restart the cycle
+                isDeleting = false;
+                setTimeout(typeWriter, 500); // Short pause before restarting
+            }
+        }
+
+        // Start the typewriter effect when the page loads
+        window.addEventListener('load', typeWriter);
     </script>
 </body>
 </html>
