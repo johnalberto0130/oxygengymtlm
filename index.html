@@ -673,7 +673,6 @@
             }
         }
 
-        /* --- New Sidebar Styles --- */
         .sidebar {
             position: fixed;
             top: 0;
@@ -773,15 +772,12 @@
             transition: all 0.3s ease;
         }
 
-        /* End of new styles */
-
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
             }
         }
 
-        /* Typewriter effect styles */
         .typewriter-container {
             position: relative;
             min-height: 80px;
@@ -821,7 +817,6 @@
 
     <audio id="bg-audio">
         <source src="https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3" type="audio/mpeg">
-        متصفحك لا يدعم عنصر الصوت.
     </audio>
 
     <div class="popup-container" id="popupContainer">
@@ -832,7 +827,6 @@
         </div>
     </div>
 
-    <!-- New Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -1009,11 +1003,11 @@
             <i class="fas fa-chevron-down icon"></i>
         </div>
         <div class="accordion-content">
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Oxygen n’est not qu’une simple salle de sport, c’est un complexe unique à Tlemcen ⭐️<br>Nous vous offrons une expérience inédite et divertissante ✨, avec des équipements modernes et de dernière génération 🔥 pour vous aider à atteindre vos objectifs sportifs.
-           <br>Notre espace ne se limite pas au fitness : découvrez une multitude d’activités telles que Kickboxing 🥊, MMA 🥇, CrossFit 💪, Danse 💃, Zumba pour femmes 👩‍🎤, et bien plus encore.<br>Pour vos enfants 👶, nous avons prévu des espaces dédiés, encadrés par des coachs qualifiés 👨‍🏫 pour garantir leur sécurité et leur bien-être.
-           <br>Chez Oxygen, nous organisons également des voyages ✈️, des challenges 🏆 et des événements uniques 🎉 avec des récompenses exceptionnelles 🎁.
-            <br>Plus qu’un lieu d’entraînement, Oxygen c’est une véritable communauté sportive 🤝, offrant une ambiance familiale 👨‍👩‍👧‍👦 où toutes les générations se retrouvent : enfants, jeunes, adultes, femmes и même parents ❤️.
-Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expérience sportive unique à Tlemcen 🙌. </p>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em;"> Oxygen n’est not qu’une simple salle de sport, c’est un complexe unique à Tlemcen ⭐️<br>Nous vous offrons une expérience inédite et divertissante avec des équipements modernes et de dernière génération 🔥 <br>  pour vous aider à atteindre vos objectifs sportifs.
+           <br>Notre espace ne se limite pas au fitness : découvrez une multitude d’activités telles que Kickboxing 🥊, MMA  🥇, <br> CrossFit 💪, Danse 💃,<br> Zumba pour femmes 👩‍🎤,<br> et bien plus encore Pour vos enfants 👶, nous avons prévu des espaces dédiés, encadrés par des coachs qualifiés pour garantir leur sécurité et leur bien-être.
+           <br>Chez Oxygen, nous organisons également des voyages ✈️.<br> des challenges 🏆 <br> et des événements uniques 🎉 <br> avec des récompenses exceptionnelles 🎁. <br>
+            <br>Plus qu’un lieu d’entraînement, Oxygen c’est une véritable communauté sportive 🤝, <br> offrant une ambiance familiale 👨‍👩‍👧‍👦 où toutes les générations se retrouvent : <br> enfants, jeunes, adultes, <br> femmes et même parents❤️. <br>
+Venez rencontrer des personnes motivées et passionnées 🔥 <br> et vivez une expérience sportive unique  <br>à Tlemcen 🙌. </p>
             <div class="why-us-container">
                 <div class="why-us-item">
                     <i class="fas fa-dumbbell icon"></i>
@@ -1097,7 +1091,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
-        // إصلاح النافذة المنبثقة
         const popupContainer = document.getElementById('popupContainer');
         const popupCloseBtn = document.getElementById('popupCloseBtn');
         const popupFermerBtn = document.getElementById('popupFermerBtn');
@@ -1115,7 +1108,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
         popupCloseBtn.addEventListener('click', closePopup);
         popupFermerBtn.addEventListener('click', closePopup);
 
-        // بقية الكود كما هو
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.from(".hero-content .logo-img", { duration: 1.5, y: -50, opacity: 0, ease: "power4.out" });
@@ -1190,7 +1182,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
             accordionContent.classList.toggle('open');
         }
 
-        // إضافة وظيفة لقسم المستندات
         const documentsToggle = document.querySelector('.documents-toggle');
         const documentsList = document.querySelector('.documents-list');
         
@@ -1209,7 +1200,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
             });
         }
 
-        // --- New Sidebar JS ---
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
@@ -1236,7 +1226,6 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
             tl.reverse();
         });
 
-        // Typewriter effect implementation
         const typewriterText = document.getElementById('typewriter-text');
         const message = "N'oubliez pas que votre santé avant tout, et OXYGENE GYM est l'endroit idéal pour vous. Nous vous attendons, ne tardez pas.";
         let charIndex = 0;
@@ -1244,27 +1233,22 @@ Venez rencontrer des personnes motivées et passionnées 🔥 et vivez une expé
 
         function typeWriter() {
             if (!isDeleting && charIndex < message.length) {
-                // Typing phase
                 typewriterText.innerHTML = message.substring(0, charIndex + 1) + '<span class="typewriter-cursor"></span>';
                 charIndex++;
-                setTimeout(typeWriter, 50); // Typing speed
+                setTimeout(typeWriter, 50);
             } else if (!isDeleting && charIndex === message.length) {
-                // Pause at the end of typing
                 isDeleting = true;
-                setTimeout(typeWriter, 10000); // Wait for 10 seconds before deleting
+                setTimeout(typeWriter, 10000);
             } else if (isDeleting && charIndex > 0) {
-                // Deleting phase
                 typewriterText.innerHTML = message.substring(0, charIndex - 1) + '<span class="typewriter-cursor"></span>';
                 charIndex--;
-                setTimeout(typeWriter, 30); // Deleting speed
+                setTimeout(typeWriter, 30);
             } else {
-                // Restart the cycle
                 isDeleting = false;
-                setTimeout(typeWriter, 500); // Short pause before restarting
+                setTimeout(typeWriter, 500);
             }
         }
 
-        // Start the typewriter effect when the page loads
         window.addEventListener('load', typeWriter);
     </script>
 </body>
