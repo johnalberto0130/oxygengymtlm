@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        /* CSS variables and global styles for consistency */
         :root {
             --main-color: #00ff88;
             --dark-bg: #111;
@@ -29,7 +28,7 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 80px; /* Space for the fixed menu toggle */
+            padding-top: 80px;
         }
 
         section {
@@ -56,7 +55,6 @@
             margin-bottom: 40px;
         }
 
-        /* --- Sidebar Styles --- */
         .sidebar {
             position: fixed;
             top: 0;
@@ -156,7 +154,6 @@
             transition: all 0.3s ease;
         }
 
-        /* --- Challenges Specific Styles --- */
         .countdown-container {
             display: flex;
             justify-content: center;
@@ -187,7 +184,7 @@
         .rewards-container {
             margin-bottom: 50px;
         }
-        
+
         .rewards-text {
             font-size: 1.5em;
             font-weight: 600;
@@ -195,13 +192,12 @@
             margin-bottom: 20px;
         }
 
-        /* Updated style for the rewards image */
         .rewards-image {
             max-width: 100%;
             height: auto;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            object-fit: contain; /* Ensure the image fits within its container */
+            object-fit: contain;
         }
 
         .accordion {
@@ -210,6 +206,10 @@
             background-color: #222;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .accordion + .accordion {
+            margin-top: 20px;
         }
 
         .accordion-header {
@@ -240,16 +240,16 @@
             text-align: left;
             padding: 0 20px;
         }
-        
+
         .accordion-content.open {
-            max-height: 500px; /* A large value to ensure all content is shown */
+            max-height: 500px;
             padding: 20px;
         }
-        
+
         .accordion-content ul {
             list-style: none;
         }
-        
+
         .accordion-content li {
             margin-bottom: 10px;
         }
@@ -262,8 +262,9 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             position: relative;
+            display: none;
         }
-        
+
         .form-title {
             font-family: 'Anton', sans-serif;
             font-size: 2em;
@@ -289,7 +290,7 @@
             margin-bottom: 8px;
             color: #ccc;
         }
-        
+
         .form-group input {
             width: 100%;
             padding: 12px;
@@ -299,7 +300,7 @@
             border-radius: 8px;
             transition: border-color 0.3s;
         }
-        
+
         .form-group input:focus {
             outline: none;
             border-color: var(--main-color);
@@ -337,15 +338,72 @@
             transition: left 1s ease-in-out;
             z-index: -1;
         }
-        
+
         .form-submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 5px 5px 20px rgba(255, 140, 0, 0.8), -5px -5px 20px rgba(255, 140, 0, 0.8);
         }
+
+        .success-message {
+            display: none;
+            background-color: rgba(0, 255, 136, 0.2);
+            color: var(--main-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .error-message {
+            display: none;
+            background-color: rgba(255, 50, 50, 0.2);
+            color: #ff4d4d;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .loading {
+            position: relative;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
     </style>
 </head>
 <body>
-
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -392,7 +450,7 @@
                 </p>
                 <img src="https://i.imgur.com/zFlIOrO.jpeg" alt="Image des récompenses" class="rewards-image">
             </div>
-            
+
             <div class="accordion">
                 <div class="accordion-header" id="conditions-header">
                     Conditions de participation 🔥
@@ -400,9 +458,23 @@
                 </div>
                 <div class="accordion-content" id="conditions-content">
                     <ul>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; coming soon</li>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; coming soon</li>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; coming soon</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; 1500 DZD.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; Tenue Sportive.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; Carte identité.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-header" id="gifts-header">
+                    Cadeaux des gagnants 🎁
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content" id="gifts-content">
+                    <ul>
+                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 1 St 🥇: 20000.00 Dzd.</li>
+                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 2 St 🥈: 10000.00 Dzd.</li>
+                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 3 St 🥉5000.000 Dzd.</li>
                     </ul>
                 </div>
             </div>
@@ -412,23 +484,27 @@
                     <i class="fas fa-bullseye" style="color: var(--orange-light);"></i>
                     Formulaire de participation
                 </div>
-                <form action="https://formsubmit.co/johnalberto0130@gmail.com" method="POST">
+                <form id="challenge-form">
                     <div class="form-group">
                         <label for="full_name">Nom et Prénom <span style="color: var(--orange-light);">*</span></label>
-                        <input type="text" id="full_name" name="Nom et Prenom" required placeholder="Votre nom complet">
+                        <input type="text" id="full_name" name="full_name" required placeholder="Votre nom complet">
                     </div>
                     <div class="form-group">
                         <label for="phone_number">Numéro de téléphone <span style="color: var(--orange-light);">*</span></label>
-                        <input type="tel" id="phone_number" name="Numero de telephone" required placeholder="Votre numéro de téléphone">
+                        <input type="text" id="phone_number" name="phone_number" required placeholder="Votre numéro de téléphone">
                     </div>
                     <div class="form-group">
                         <label for="member_id">Puce Id (Membres OXYGENE)</label>
-                        <input type="text" id="member_id" name="Puce Id" placeholder="Non requis">
+                        <input type="text" id="member_id" name="member_id" placeholder="Non requis">
                     </div>
-                    <input type="hidden" name="_next" value="https://johnalberto0130.github.io/oxygengymtlm/thnks.html">
-                    <input type="hidden" name="_submit" value="Download Form Submissions">
-                    <button type="submit" class="form-submit-btn">Accepter et s’inscrire</button>
+                    <button type="submit" class="form-submit-btn" id="submit-btn">Accepter et s’inscrire</button>
                 </form>
+                <div id="success-message" class="success-message">
+                    Inscription réussie!
+                </div>
+                <div id="error-message" class="error-message">
+                    Une erreur s'est produite. Veuillez réessayer.
+                </div>
             </div>
         </section>
     </main>
@@ -438,13 +514,15 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Sidebar logic
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
         const sidebarMenuItems = document.querySelectorAll('.sidebar-menu li');
+        const formContainer = document.querySelector('.form-container');
 
-        const tl = gsap.timeline({ paused: true });
+        const tl = gsap.timeline({
+            paused: true
+        });
         tl.to(sidebar, {
             x: '0%',
             duration: 0.6,
@@ -465,7 +543,6 @@
             tl.reverse();
         });
 
-        // GSAP animations for the page sections
         gsap.from(".section-title, .subtitle", {
             duration: 1,
             y: 30,
@@ -511,6 +588,7 @@
             x: -50,
             opacity: 0,
             ease: "power2.out",
+            stagger: 0.2,
             scrollTrigger: {
                 trigger: ".accordion",
                 start: "top 85%",
@@ -529,16 +607,14 @@
                 toggleActions: "play none none none"
             }
         });
-        
-        // GSAP for the form icon
+
         gsap.to(".form-title i", {
             rotation: 360,
             duration: 5,
             ease: "linear",
             repeat: -1
         });
-        
-        // GSAP for the submit button glow effect on hover
+
         const submitBtn = document.querySelector(".form-submit-btn");
         submitBtn.addEventListener('mouseenter', () => {
             gsap.to(submitBtn, {
@@ -548,7 +624,7 @@
                 ease: "power1.out"
             });
         });
-        
+
         submitBtn.addEventListener('mouseleave', () => {
             gsap.to(submitBtn, {
                 boxShadow: '0 0 15px rgba(255, 140, 0, 0.5)',
@@ -558,11 +634,7 @@
             });
         });
 
-
-        // Countdown timer logic with a fixed end date
-        // Use a fixed end date that all users will see.
-        // Format: YYYY, MM, DD, HH, MM, SS (Month is 0-indexed, so 5 is June)
-        const countdownDate = new Date(2025, 11, 25, 12, 0, 0).getTime(); // Example: December 25, 2025 at 12:00:00
+        const countdownDate = new Date(2025, 09, 22, 1, 0, 0).getTime();
 
         const daysEl = document.getElementById("days");
         const hoursEl = document.getElementById("hours");
@@ -573,8 +645,7 @@
             const now = new Date().getTime();
             const distance = countdownDate - now;
 
-            if (distance < 0) {
-                // If the countdown is finished
+            if (distance <= 0) {
                 clearInterval(countdownInterval);
                 daysEl.textContent = "00";
                 hoursEl.textContent = "00";
@@ -594,23 +665,119 @@
             secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
 
-        const countdownInterval = setInterval(updateCountdown, 1000); // Update every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Accordion functionality
-        const accordionHeader = document.getElementById("conditions-header");
-        const accordionContent = document.getElementById("conditions-content");
-        
-        accordionHeader.addEventListener("click", () => {
-            const isOpen = accordionHeader.classList.toggle("open");
-            
-            gsap.to(accordionContent, {
-                maxHeight: isOpen ? "500px" : "0", // A large max-height value
-                padding: isOpen ? "20px" : "0 20px",
-                duration: 0.3,
-                ease: "power2.inOut"
+        const conditionsHeader = document.getElementById("conditions-header");
+        const conditionsContent = document.getElementById("conditions-content");
+        const giftsHeader = document.getElementById("gifts-header");
+        const giftsContent = document.getElementById("gifts-content");
+
+        function setupAccordion(header, content) {
+            header.addEventListener("click", () => {
+                const isOpen = header.classList.toggle("open");
+                gsap.to(content, {
+                    maxHeight: isOpen ? "500px" : "0",
+                    padding: isOpen ? "20px" : "0 20px",
+                    duration: 0.3,
+                    ease: "power2.inOut"
+                });
             });
+        }
+        
+        setupAccordion(conditionsHeader, conditionsContent);
+        setupAccordion(giftsHeader, giftsContent);
+
+        const form = document.getElementById('challenge-form');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        const submitButton = document.getElementById('submit-btn');
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwCzEZsdiBoeBh_wsuTkYKgZretzYdmwYkG2zSyoUGhB6dg6vH5FDn61-ZOma-eX3NR/exec';
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const originalText = submitButton.textContent;
+
+            submitButton.classList.add('loading');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Envoi en cours...';
+
+            errorMessage.style.display = 'none';
+
+            const data = {
+                full_name: document.getElementById('full_name').value,
+                phone_number: document.getElementById('phone_number').value,
+                member_id: document.getElementById('member_id').value || 'Non requis',
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const responseText = await response.text();
+
+                if (response.ok || responseText.includes('success')) {
+                    successMessage.style.display = 'block';
+
+                    form.reset();
+
+                    setTimeout(() => {
+                        window.location.href = 'https://www.facebook.com';
+                    }, 3000);
+                } else {
+                    throw new Error('Server returned an error: ' + responseText);
+                }
+
+            } catch (error) {
+                console.error('Error!', error.message);
+                errorMessage.style.display = 'block';
+
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            } finally {
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            }
         });
+
+        function toggleRegistrationForm(show) {
+            if (show) {
+                formContainer.style.display = 'block';
+                gsap.fromTo(formContainer, {
+                    opacity: 0,
+                    y: 20
+                }, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5
+                });
+            } else {
+                gsap.to(formContainer, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.5,
+                    onComplete: () => {
+                        formContainer.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        // This is the variable that controls the form's visibility
+        const showRegistrationForm = true;
+        
+        // Call the function to set the form's initial visibility based on the variable
+        toggleRegistrationForm(showRegistrationForm);
     </script>
 </body>
 </html>
