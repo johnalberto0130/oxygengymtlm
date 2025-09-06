@@ -56,6 +56,12 @@
             margin-bottom: 40px;
         }
 
+        .subtitle span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
         .sidebar {
             position: fixed;
             top: 0;
@@ -508,7 +514,7 @@
         <section id="challenges-section">
             <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" style="max-width: 200px; margin-bottom: 20px;">
             <h2 class="section-title">OXYGENE CHALLENGES 🏆</h2>
-            <p class="subtitle">vous êtes prêt pour le prochain défi؟</p>
+            <p class="subtitle" id="animated-subtitle">vous êtes prêt pour le prochain défi ?</p>
 
             <div class="countdown-container">
                 <div class="countdown-item">
@@ -531,7 +537,7 @@
 
             <div class="rewards-container">
                 <p class="rewards-text">
-                    Des gros cadeaux vous attendent.<br>Soyez prêts, héros.
+                     Inscriptions bientôt ouvertes.<br>Soyez prêts... ✨
                 </p>
                 <img src="https://i.imgur.com/zFlIOrO.jpeg" alt="Image des récompenses" class="rewards-image">
             </div>
@@ -673,6 +679,31 @@
             scrollTrigger: {
                 trigger: ".section-title",
                 start: "top 80%",
+                toggleActions: "play none none none"
+            }
+        });
+
+        // Animation for subtitle text (letter-by-letter)
+        const subtitle = document.getElementById('animated-subtitle');
+        const text = subtitle.textContent;
+        subtitle.innerHTML = text.split('').map(char => `<span>${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+
+        gsap.set(subtitle.querySelectorAll('span'), {
+            opacity: 0,
+            y: 20,
+            scale: 0.8
+        });
+
+        gsap.to(subtitle.querySelectorAll('span'), {
+            duration: 0.5,
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.05,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+                trigger: subtitle,
+                start: "top 85%",
                 toggleActions: "play none none none"
             }
         });
