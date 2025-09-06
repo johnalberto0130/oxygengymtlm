@@ -43,6 +43,7 @@
         .section-title {
             font-family: 'Anton', sans-serif;
             font-size: 3em;
+            font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 20px;
             color: var(--orange-light);
@@ -99,14 +100,13 @@
         }
 
         .sidebar-menu li {
-            opacity: 1;
-            transform: translateY(20px);
             margin-bottom: 30px;
         }
 
         .sidebar-menu a {
             font-family: 'Anton', sans-serif;
             font-size: 2em;
+            font-weight: 700;
             color: var(--text-color);
             text-decoration: none;
             text-transform: uppercase;
@@ -248,10 +248,94 @@
 
         .accordion-content ul {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
         .accordion-content li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .condition-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.1), transparent);
+            border-radius: 8px;
+            border-left: 4px solid var(--main-color);
+            transition: all 0.3s ease;
+        }
+
+        .condition-item:hover {
+            background: linear-gradient(90deg, rgba(0, 255, 136, 0.2), transparent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .condition-icon {
+            font-size: 1.5em;
+            color: var(--main-color);
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .condition-text {
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .medal-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .medal {
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .gold-medal {
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .silver-medal {
+            color: #C0C0C0;
+            text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+        }
+
+        .bronze-medal {
+            color: #CD7F32;
+            text-shadow: 0 0 5px rgba(205, 127, 50, 0.5);
+        }
+
+        .prize-amount {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2em;
+            display: inline-block;
+            background: linear-gradient(90deg, #f8f8f8, #e0e0e0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .currency {
+            font-size: 0.7em;
+            margin-left: 4px;
+            color: var(--main-color);
+            vertical-align: super;
         }
 
         .form-container {
@@ -458,9 +542,30 @@
                 </div>
                 <div class="accordion-content" id="conditions-content">
                     <ul>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; 1500 DZD.</li>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; Tenue Sportive.</li>
-                        <li><i class="fas fa-check-circle" style="color: var(--main-color);"></i> &nbsp; Carte identité.</li>
+                        <li>
+                            <div class="condition-item">
+                                <div class="condition-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="condition-text">1500 DZD</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="condition-item">
+                                <div class="condition-icon">
+                                    <i class="fas fa-tshirt"></i>
+                                </div>
+                                <div class="condition-text">Tenue Sportive</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="condition-item">
+                                <div class="condition-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div class="condition-text">Carte identité</div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -472,9 +577,24 @@
                 </div>
                 <div class="accordion-content" id="gifts-content">
                     <ul>
-                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 1 St 🥇: 20000.00 Dzd.</li>
-                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 2 St 🥈: 10000.00 Dzd.</li>
-                        <li><i class="fas fa-gift" style="color: var(--main-color);"></i> &nbsp; 3 St 🥉5000.000 Dzd.</li>
+                        <li>
+                            <div class="medal-container">
+                                <span class="medal gold-medal">🥇</span>
+                            </div>
+                            1-St: <span class="prize-amount">15,000.<small>00</small><span class="currency">DZD</span></span>
+                        </li>
+                        <li>
+                            <div class="medal-container">
+                                <span class="medal silver-medal">🥈</span>
+                            </div>
+                            2-St: <span class="prize-amount">10,000.<small>00</small><span class="currency">DZD</span></span>
+                        </li>
+                        <li>
+                            <div class="medal-container">
+                                <span class="medal bronze-medal">🥉</span>
+                            </div>
+                            3-St: <span class="prize-amount">5,000.<small>000</small><span class="currency">DZD</span></span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -530,7 +650,7 @@
         });
         tl.from(sidebarMenuItems, {
             y: 20,
-            opacity: 1,
+            opacity: 0,
             stagger: 0.1,
             ease: 'power2.out'
         }, "-=0.3");
@@ -676,17 +796,111 @@
         function setupAccordion(header, content) {
             header.addEventListener("click", () => {
                 const isOpen = header.classList.toggle("open");
-                gsap.to(content, {
-                    maxHeight: isOpen ? "500px" : "0",
-                    padding: isOpen ? "20px" : "0 20px",
-                    duration: 0.3,
-                    ease: "power2.inOut"
-                });
+                if (isOpen) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.classList.add("open");
+                    
+                    if (content.id === "conditions-content") {
+                        animateConditions();
+                    } else if (content.id === "gifts-content") {
+                        animateMedals();
+                        animatePrizeAmounts();
+                    }
+                } else {
+                    content.style.maxHeight = "0";
+                    content.classList.remove("open");
+                }
             });
         }
         
         setupAccordion(conditionsHeader, conditionsContent);
         setupAccordion(giftsHeader, giftsContent);
+
+        // Animation for conditions - spectacular effect
+        function animateConditions() {
+            const conditionItems = document.querySelectorAll('#conditions-content .condition-item');
+            
+            // Reset initial state
+            gsap.set(conditionItems, {
+                opacity: 0,
+                y: 50,
+                rotationX: -90,
+                transformOrigin: "50% 50% -50px"
+            });
+            
+            // Create spectacular animation sequence
+            conditionItems.forEach((item, index) => {
+                const tl = gsap.timeline();
+                
+                tl.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    rotationX: 0,
+                    duration: 0.8,
+                    ease: "back.out(2)",
+                    delay: index * 0.2
+                })
+                .to(item, {
+                    boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)",
+                    duration: 0.3,
+                    repeat: 1,
+                    yoyo: true,
+                    ease: "power1.inOut"
+                }, "-=0.4");
+            });
+            
+            // Add floating effect to icons
+            const conditionIcons = document.querySelectorAll('.condition-icon');
+            conditionIcons.forEach(icon => {
+                gsap.to(icon, {
+                    y: -5,
+                    duration: 1,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            });
+        }
+
+        // Animation for medals
+        function animateMedals() {
+            const medals = document.querySelectorAll('.medal');
+            
+            gsap.fromTo(medals, 
+                {
+                    scale: 0,
+                    rotation: -180,
+                    opacity: 0
+                },
+                {
+                    scale: 1,
+                    rotation: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "elastic.out(1, 0.5)"
+                }
+            );
+        }
+
+        // Animation for prize amounts - pop effect only on open
+        function animatePrizeAmounts() {
+            const prizeAmounts = document.querySelectorAll('.prize-amount');
+            
+            gsap.fromTo(prizeAmounts, 
+                {
+                    scale: 0,
+                    opacity: 0
+                },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.15,
+                    ease: "back.out(2.5)"
+                }
+            );
+        }
 
         const form = document.getElementById('challenge-form');
         const successMessage = document.getElementById('success-message');
