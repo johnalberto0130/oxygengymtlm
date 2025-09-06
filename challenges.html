@@ -491,6 +491,31 @@
             }
         }
 
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #000;
+            color: #666;
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: #f0f0f0;
+            font-size: 2em;
+            margin: 0 15px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #00ff88;
+            transform: scale(1.2);
+        }
+
     </style>
 </head>
 <body>
@@ -514,7 +539,7 @@
         <section id="challenges-section">
             <img src="https://i.ibb.co/4gJNrzkD/09016f5a-d244-45d0-9642-63dbb8185dde-removalai-preview.png" alt="OXYGENE GYM Logo" style="max-width: 200px; margin-bottom: 20px;">
             <h2 class="section-title">OXYGENE CHALLENGES 🏆</h2>
-            <p class="subtitle" id="animated-subtitle">vous êtes prêt pour le prochain défi ?</p>
+            <p class="subtitle" id="animated-subtitle">vous êtes prêt pour le prochain défi ? </p>
 
             <div class="countdown-container">
                 <div class="countdown-item">
@@ -537,7 +562,7 @@
 
             <div class="rewards-container">
                 <p class="rewards-text">
-                     Inscriptions bientôt ouvertes.<br>Soyez prêts... ✨
+                   Inscriptions bientôt ouvertes. <br>Soyez prêts... ✨
                 </p>
                 <img src="https://i.imgur.com/zFlIOrO.jpeg" alt="Image des récompenses" class="rewards-image">
             </div>
@@ -554,7 +579,7 @@
                                 <div class="condition-icon">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
-                                <div class="condition-text">2000 DZD</div>
+                                <div class="condition-text">1500 DZD</div>
                             </div>
                         </li>
                         <li>
@@ -588,7 +613,7 @@
                             <div class="medal-container">
                                 <span class="medal gold-medal">🥇</span>
                             </div>
-                            1-St: <span class="prize-amount">20,000.<small>00</small><span class="currency">DZD</span></span>
+                            1-St: <span class="prize-amount">15,000.<small>00</small><span class="currency">DZD</span></span>
                         </li>
                         <li>
                             <div class="medal-container">
@@ -635,6 +660,24 @@
             </div>
         </section>
     </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://share.google/Lu35elG8bYtsBx2s4" target="_blank" title="Trouvez-نا sur Google Maps">
+                <i class="fas fa-map-marker-alt"></i>
+            </a>
+            <a href="https://vm.tiktok.com/ZSSChUmV7/" target="_blank" title="Suivez-نا sur TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://www.instagram.com/oxygene_gym_tlemcen/" target="_blank" title="Suivez-nous sur Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <p>© 2022-2025 OXYGENE GYM. Tous droits réservés.</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -933,6 +976,18 @@
                 }
             );
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation des icônes avec GSAP
+            gsap.from('.social-icons a', {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'back.out(1.7)',
+                delay: 0.3
+            });
+        });
 
         const form = document.getElementById('challenge-form');
         const successMessage = document.getElementById('success-message');
