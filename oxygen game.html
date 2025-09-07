@@ -36,11 +36,10 @@
             color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            direction: ltr; /* Direction de l'écriture de gauche à droite */
-            text-align: left; /* Alignement du texte à gauche */
+            direction: ltr;
+            text-align: left;
         }
         
-        /* Styles de la nouvelle barre latérale */
         .sidebar {
             position: fixed;
             top: 0;
@@ -49,12 +48,12 @@
             height: 100vh;
             background-color: rgba(0, 0, 0, 0.95);
             padding: 50px 30px;
-            transform: translateX(-100%); /* Position initiale à l'extérieur de l'écran à gauche */
+            transform: translateX(-100%);
             z-index: 999;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Alignement à gauche */
+            align-items: flex-start;
             transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
         }
         .sidebar.open {
@@ -63,7 +62,7 @@
         .sidebar-close-btn {
             position: absolute;
             top: 20px;
-            right: 20px; /* Positionnement à droite pour le bouton de fermeture */
+            right: 20px;
             font-size: 2.5em;
             color: var(--main-color);
             cursor: pointer;
@@ -77,7 +76,7 @@
             padding: 0;
             margin: 0;
             width: 100%;
-            text-align: left; /* Alignement à gauche */
+            text-align: left;
         }
         .sidebar-menu li {
             opacity: 1;
@@ -103,7 +102,7 @@
         .menu-toggle {
             position: fixed;
             top: 20px;
-            left: 20px; /* Positionnement à gauche */
+            left: 20px;
             width: 50px;
             height: 50px;
             display: flex;
@@ -143,7 +142,7 @@
 
         .main-header .container {
             display: flex;
-            justify-content: flex-end; /* Alignement du contenu à droite */
+            justify-content: flex-end;
             align-items: center;
             max-width: 1200px;
             margin: auto;
@@ -189,9 +188,8 @@
             }
         }
         
-        /* CSS spécifique à la page des jeux */
         .games-section {
-            padding: 100px 20px 80px; /* Espace supérieur pour éviter le chevauchement avec l'en-tête */
+            padding: 100px 20px 80px;
             max-width: 1200px;
             margin: auto;
             text-align: center;
@@ -235,7 +233,6 @@
             background: linear-gradient(45deg, rgba(0, 255, 136, 0.1), rgba(255, 140, 0, 0.1));
             opacity: 0;
             transition: opacity 0.3s ease;
-            /* التعديل المطلوب: إضافة pointer-events: none; لمنع العنصر الوهمي من حجب النقرات */
             pointer-events: none;
         }
 
@@ -268,7 +265,7 @@
         .game-card iframe {
             border: none;
             width: 100%;
-            height: 80vh; /* يمكنك تعديل هذا الارتفاع حسب الحاجة */
+            height: 80vh;
             background-color: #000;
             border-radius: 10px;
             margin-top: 20px;
@@ -300,7 +297,6 @@
             transform: scale(1.2);
         }
         
-        /* Ajustements mobiles pour la grille de jeux */
         @media (max-width: 768px) {
             .games-grid {
                 grid-template-columns: 1fr;
@@ -316,7 +312,6 @@
 </head>
 <body>
 
-    <!-- Barre latérale -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
@@ -327,18 +322,14 @@
         </ul>
     </div>
     
-    <!-- Bouton pour ouvrir le menu -->
     <div class="menu-toggle" id="menu-toggle">
         <span></span>
         <span></span>
         <span></span>
     </div>
 
-    <!-- En-tête -->
     <header class="main-header">
         <div class="container">
-            <!-- Le logo a été supprimé comme demandé -->
-            <!-- Le bouton de bascule de la navigation est maintenant géré par le bouton de bascule de la barre latérale -->
         </div>
     </header>
 
@@ -350,11 +341,6 @@
             </p>
 
             <div class="games-grid">
-                <!--
-                بطاقة اللعبة الأولى:
-                هنا سيتم عرض لعبتك الأولى. تأكد من أن ملفها موجود في مجلد 'games'
-                باسم 'game1.html'.
-                -->
                 <div class="game-card">
                     <h3>Game 1: X/O GAME</h3>
                     <p>
@@ -363,11 +349,6 @@
                     <iframe src="games/game1.html" title="Game 1"></iframe>
                 </div>
 
-                <!--
-                بطاقة اللعبة الثانية:
-                هنا سيتم عرض لعبتك الثانية. تأكد من أن ملفها موجود في مجلد 'games'
-                باسم 'game2.html'.
-                -->
                 <div class="game-card">
                     <h3>Game 2: Picture Matching Game</h3>
                     <p>
@@ -376,11 +357,6 @@
                     <iframe src="games/game2.html" title="Game 2"></iframe>
                 </div>
 
-                <!--
-                بطاقة اللعبة الثالثة:
-                هنا سيتم عرض لعبتك الثالثة. تأكد من أن ملفها موجود في مجلد 'games'
-                باسم 'game3.html'.
-                -->
                 <div class="game-card">
                     <h3>Game 3: Emoji Ninja Game</h3>
                     <p>
@@ -389,11 +365,6 @@
                     <iframe src="games/game3.html" title="Game 3"></iframe>
                 </div>
 
-                <!--
-                بطاقة اللعبة الرابعة:
-                هنا سيتم عرض لعبتك الرابعة. تأكد من أن ملفها موجود في مجلد 'games'
-                باسم 'game4.html'.
-                -->
                 <div class="game-card">
                     <h3>Game 4: Pierre-papier-ciseaux</h3>
                     <p>
@@ -406,7 +377,6 @@
         </section>
     </main>
 
-    <!-- Pied de page -->
     <footer>
         <div class="social-icons">
             <a href="https://www.facebook.com/p/Oxyg%C3%A8ne-GYM-Tlemcen-100063653716780/" target="_blank" title="Suivez-nous sur Facebook">
@@ -426,7 +396,6 @@
     </footer>
 
     <script>
-        // --- JS de la barre latérale ---
         const menuToggle = document.getElementById('menu-toggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarCloseBtn = document.getElementById('sidebar-close');
@@ -453,7 +422,6 @@
             tl.reverse();
         });
 
-        // GSAP animation for footer social icons
         document.addEventListener('DOMContentLoaded', function() {
             gsap.from('.social-icons a', {
                 opacity: 0,
