@@ -1,4 +1,4 @@
-// Initialisation مكتبة الرسوم المتحركة GSAP
+// Initialisation GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 // Hero section animation
@@ -65,11 +65,9 @@ const popupContainer = document.querySelector('.popup-container');
 const popupCloseBtn = document.querySelector('.popup-close-btn');
 const popupFermerBtn = document.querySelector('.popup-fermer-btn');
 
-// متغير لـ مقطع الصوت
 let backgroundAudio;
 
 const showPopup = () => {
-    // إظهار الرسالة بعد 1.5 ثانية
     setTimeout(() => {
         gsap.fromTo(popupContainer, 
             { opacity: 0, scale: 0.8, display: 'flex' },
@@ -78,12 +76,8 @@ const showPopup = () => {
     }, 1500);
 };
 
-// وظيفة لإغلاق الرسالة المنبثقة وتشغيل الصوت
 const closePopup = () => {
-    // تشغيل الموسيقى بعد إغلاق النافذة المنبثقة
-    // تم تعديل هذا السطر لتشغيل الصوت مرة واحدة فقط
     playBackgroundMusicOnce('https://od.lk/s/NjlfMzk2MDk0MjZf/yeah-buddy-lightweight.mp3'); 
-    // استخدام GSAP لإغلاق النافذة المنبثقة
     gsap.to(popupContainer, {
         opacity: 0,
         scale: 0.8,
@@ -95,15 +89,13 @@ const closePopup = () => {
     });
 };
 
-// وظيفة لإنشاء وتشغيل مقطع صوتي مرة واحدة في الخلفية
 const playBackgroundMusicOnce = (audioUrl) => {
     if (!backgroundAudio) {
         backgroundAudio = new Audio(audioUrl);
-        backgroundAudio.volume = 0.5; // تعديل مستوى الصوت (0.0 إلى 1.0)
+        backgroundAudio.volume = 0.5;
     }
     backgroundAudio.play();
 };
-
 
 if (popupCloseBtn) {
     popupCloseBtn.addEventListener('click', closePopup);
@@ -121,16 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         documentsToggle.addEventListener('click', () => {
             documentsToggle.classList.toggle('active');
             if (documentsToggle.classList.contains('active')) {
-                // استخدام GSAP لفتح القائمة بسلاسة
                 gsap.to(documentsList, { height: 'auto', opacity: 1, duration: 0.5, ease: 'power2.inOut' });
             } else {
-                // استخدام GSAP لإغلاق القائمة بسلاسة
                 gsap.to(documentsList, { height: 0, opacity: 0, duration: 0.5, ease: 'power2.inOut' });
             }
         });
     }
 
-    // إظهار رسالة الترحيب المنبثقة عند تحميل الصفحة
     showPopup();
 });
 
