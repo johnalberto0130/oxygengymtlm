@@ -79,7 +79,6 @@
   button:hover {
     background: #0c0;
   }
-  /* Popup */
   .popup {
     position: fixed;
     top: 50%;
@@ -120,7 +119,6 @@
 <script>
 (() => {
   const emojis = ['⚽','🏋️','🤾','🤸','🧗','🏃','🤼','🧘'];
-  // 16 cards (8 pairs)
   const cardsArray = [...emojis, ...emojis];
   const grid = document.getElementById('gameGrid');
   const errorCountEl = document.getElementById('errorCount');
@@ -194,7 +192,6 @@
 
   function checkMatch() {
     if(firstCard.dataset.emoji === secondCard.dataset.emoji) {
-      // Matched
       firstCard.classList.add('matched');
       secondCard.classList.add('matched');
       matches++;
@@ -203,7 +200,6 @@
         endGame();
       }
     } else {
-      // Not matched
       lockBoard = true;
       errors++;
       errorCountEl.textContent = errors;
@@ -226,7 +222,7 @@
 
   function endGame() {
     lockBoard = true;
-    const maxErrors = 6; // تعريف عدد الأخطاء القليل
+    const maxErrors = 6;
     if(errors <= maxErrors) {
       showPopup("Wow, vous avez une mémoire très forte. C’est cool 👏");
       celebrate();
@@ -275,7 +271,6 @@
 
   restartBtn.addEventListener('click', resetGame);
 
-  // بدء اللعبة أول مرة
   createBoard();
 })();
 </script>
