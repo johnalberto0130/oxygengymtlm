@@ -131,7 +131,7 @@
   let score = 0;
   let survie = 0;
   let emojiElements = [];
-  let gameDuration = 45; // seconds
+  let gameDuration = 45;
   let countdownInterval;
   let spawnInterval;
   let gameActive = false;
@@ -149,11 +149,10 @@
     emoji.textContent = emojis[randomInt(0, emojis.length -1)];
     emoji.style.left = randomInt(20, 320) + 'px';
     emoji.style.bottom = '-60px';
-    emoji.dataset.cut = "false"; // حالة عدم القطع مبدئيًا
+    emoji.dataset.cut = "false";
     gameContainer.appendChild(emoji);
     emojiElements.push(emoji);
 
-    // حركة صعود الإيموجي مع حركة أفقية تذبذبية
     gsap.to(emoji, {
       duration: randomInt(3,5),
       bottom: 800,
@@ -174,10 +173,9 @@
       ease: "sine.inOut"
     });
 
-    // عند النقر: قطع وسقوط لكن لمرة واحدة فقط!
     emoji.addEventListener('click', () => {
       if (!gameActive) return;
-      if (emoji.dataset.cut === "true") return; // لا تكرر القطع
+      if (emoji.dataset.cut === "true") return;
       emoji.dataset.cut = "true";
 
       score++;
@@ -264,7 +262,6 @@
     messageEl.appendChild(restartBtn);
   }
 
-  // مؤثرات GSAP
   function playConfetti() {
     for(let i=0; i<30; i++) {
       let confetti = document.createElement('div');
@@ -305,7 +302,6 @@
     }
   }
 
-  // الدوال الفارغة المفقودة، تم إنشاؤها لتجنب الأخطاء
   function playApplause() {
     console.log("Play Applause sound");
   }
