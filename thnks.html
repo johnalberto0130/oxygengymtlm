@@ -1,188 +1,273 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merci pour votre inscription !</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Félicitations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --main-color: #00ff88;
-            --dark-bg: #111;
-            --text-color: #f0f0f0;
-            --shadow-light: rgba(0, 255, 136, 0.5);
-            --shadow-dark: rgba(0, 0, 0, 0.8);
-            --orange-light: #FF8C00;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --bg-color: #0c0c14;
+            --card-bg: rgba(18, 18, 26, 0.7);
+            --text-light: #e0e0e0;
+            --text-dim: #b0b0b0;
+            --accent-color: #00e0e0;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
+            background-color: var(--bg-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-align: center;
-            overflow: hidden; /* Hide overflow to prevent scrollbars from animation */
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            overflow: hidden;
+            position: relative;
         }
 
-        .thank-you-container {
-            max-width: 600px;
-            padding: 50px;
-            background-color: #222;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 2px solid var(--orange-light);
+        .background-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e1e2d, #1a1a2e, #16162a, #1a1a38);
+            background-size: 400% 400%;
+            animation: gradient-anim 12s ease infinite;
+        }
+
+        @keyframes gradient-anim {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            padding: 60px 40px;
+            text-align: center;
             position: relative;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: card-entry 1s ease-out;
+        }
+
+        @keyframes card-entry {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .border-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            animation: border-anim 4s infinite linear;
+            box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
             z-index: 1;
         }
-        
-        .thank-you-container h1 {
-            font-family: 'Anton', sans-serif;
-            font-size: 2.5em;
-            color: var(--orange-light);
-            margin-bottom: 5px;
-            text-transform: uppercase;
+
+        @keyframes border-anim {
+            0% {
+                border-color: var(--accent-color) transparent transparent transparent;
+                transform: rotate(0deg);
+            }
+            25% {
+                border-color: transparent var(--accent-color) transparent transparent;
+                transform: rotate(90deg);
+            }
+            50% {
+                border-color: transparent transparent var(--accent-color) transparent;
+                transform: rotate(180deg);
+            }
+            75% {
+                border-color: transparent transparent transparent var(--accent-color);
+                transform: rotate(270deg);
+            }
+            100% {
+                border-color: var(--accent-color) transparent transparent transparent;
+                transform: rotate(360deg);
+            }
         }
 
-        .thank-you-container h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9em;
+        h1 {
+            font-size: 3.5rem;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 25px;
-        }
-        
-        .thank-you-container p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            color: #ccc;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 12px 30px;
-            font-size: 1em;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: var(--dark-bg);
-            background-color: var(--main-color);
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin-bottom: 20px;
             position: relative;
             z-index: 2;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+
+        .congratulations-text {
+            color: var(--text-light);
+            text-shadow: 0 0 10px var(--text-light), 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: text-glow 3s infinite alternate;
+        }
+
+        @keyframes text-glow {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            min-height: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bold-text {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .typing-text {
+            display: inline-block;
+            white-space: pre-wrap;
+            overflow: hidden;
+            font-weight: 300;
         }
         
-        /* Animation elements */
-        .flame {
-            position: absolute;
-            background-color: #FF8C00;
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0);
-            z-index: 0;
+        .challenge-date {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-top: 25px;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            background: linear-gradient(90deg, #ff0077, #ffc800, #00ffc8, #0077ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: neon-zig-zag 1.5s infinite ease-in-out;
+            padding: 5px 15px;
+        }
+
+        @keyframes neon-zig-zag {
+            0%, 100% { transform: skewX(0); filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)); }
+            25% { transform: skewX(-5deg); filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+            75% { transform: skewX(5deg); filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 40px;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            text-transform: uppercase;
+        }
+
+        .cta-button .material-icons {
+            margin-left: 10px;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .cta-button:hover .material-icons {
+            transform: translateX(5px);
         }
 
     </style>
 </head>
 <body>
 
-    <div class="thank-you-container">
-        <h1 class="heading">✨Félicitations ✨</h1>
-        <h2>vous avez inscrit avec succès ✅</h2>
-        <p class="message">
-            Merci, votre inscription au challenge a été confirmée. ✅
+    <div class="background-animated"></div>
+
+    <div class="container">
+        <div class="border-glow"></div>
+        <h1><span class="congratulations-text">Félicitations </span>⭐️</h1>
+        <p class="bold-text">Vous êtes inscrit avec succès au challenge ✅</p>
+        <p>
+            <span class="typing-text" id="typing-text"></span>
         </p>
-        <a href="https://johnalberto0130.github.io/oxygengymtlm" class="cta-button">
+        <div class="challenge-date" id="challenge-date">22/12/2025</div>
+        <a href="https://johnalberto0130.github.io/oxygengymtlm/" class="cta-button">
             Cliquez ici pour revenir à la page d’accueil
+            <i class="material-icons">arrow_forward</i>
         </a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        // Animation using GSAP
         document.addEventListener("DOMContentLoaded", function() {
-            // Animate the container
-            gsap.from(".thank-you-container", {
-                duration: 1.5,
-                y: 50,
-                opacity: 0,
-                scale: 0.95,
-                ease: "power3.out"
-            });
+            const typingTextEl = document.getElementById('typing-text');
+            const challengeDateEl = document.getElementById('challenge-date');
+
+            const textToType = "Soyez prêts. Nous vous attendons le jour du challenge 🚀";
+            let i = 0;
+            const typingSpeed = 50;
+
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typingTextEl.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, typingSpeed);
+                }
+            }
             
-            // Animate the text and button with a slight delay
-            gsap.from("h1, h2, .message, .cta-button", {
-                duration: 1,
-                y: 20,
-                opacity: 0,
-                stagger: 0.3,
-                ease: "power2.out",
-                delay: 0.5
-            });
+            gsap.fromTo(".container", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1.5, ease: "power4.out" });
+            gsap.fromTo("h1", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1, delay: 0.5, ease: "back.out(1.7)" });
+            gsap.fromTo(".bold-text", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 1 });
 
-            // "Flame" effect on the button
-            const ctaButton = document.querySelector(".cta-button");
-            ctaButton.addEventListener("mouseenter", () => {
-                gsap.to(ctaButton, {
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: "power1.out"
-                });
-            });
+            // Animate the typing text, date, and button after a delay
+            setTimeout(typeWriter, 2000);
+            
+            gsap.fromTo(challengeDateEl, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 1.5, delay: 4, ease: "elastic.out(1, 0.5)" });
+            gsap.fromTo(".cta-button", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 4.5, ease: "power2.out" });
 
-            ctaButton.addEventListener("mouseleave", () => {
-                gsap.to(ctaButton, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power1.out"
-                });
-            });
+            // GSAP background color change animation
+            const colors = ["#1e1e2d", "#1a1a2e", "#16162a", "#1a1a38"];
+            let currentColorIndex = 0;
 
-            // Random flame-like animation on click (for fun)
-            ctaButton.addEventListener("click", (event) => {
-                const rect = ctaButton.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-
-                const flame = document.createElement("div");
-                flame.className = "flame";
-                document.body.appendChild(flame);
-
-                const size = 50 + Math.random() * 50;
-                gsap.set(flame, {
-                    x: rect.left + x - size / 2,
-                    y: rect.top + y - size / 2,
-                    width: size,
-                    height: size,
-                });
-
-                gsap.to(flame, {
-                    duration: 0.8,
-                    scale: 2,
-                    opacity: 0,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        flame.remove();
-                    }
-                });
+            gsap.to(".background-animated", {
+                background: "linear-gradient(135deg, " + colors.join(", ") + ")",
+                duration: 3,
+                ease: "none",
+                repeat: -1,
+                yoyo: true,
+                onRepeat: function() {
+                    currentColorIndex = (currentColorIndex + 1) % colors.length;
+                    gsap.to(".background-animated", {
+                        background: "linear-gradient(135deg, " + colors.slice(currentColorIndex).concat(colors.slice(0, currentColorIndex)).join(", ") + ")",
+                        duration: 3,
+                        ease: "none"
+                    });
+                }
             });
         });
     </script>
