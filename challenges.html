@@ -128,6 +128,18 @@
             border-bottom: 2px solid var(--main-color);
         }
 
+        .sidebar-menu .sidebar-icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+            color: var(--main-color);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-menu a:hover .sidebar-icon {
+            transform: scale(1.2);
+            color: var(--orange-light);
+        }
+
         .menu-toggle {
             position: fixed;
             top: 20px;
@@ -515,17 +527,32 @@
             color: #00ff88;
             transform: scale(1.2);
         }
-
     </style>
 </head>
 <body>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-            <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
+            <li>
+                <a href="index.html">
+                    <i class="fas fa-home sidebar-icon"></i> Accueil
+                </a>
+            </li>
+            <li>
+                <a href="gallery.html">
+                    <i class="fas fa-images sidebar-icon"></i> Gallery
+                </a>
+            </li>
+            <li>
+                <a href="challenges.html">
+                    <i class="fas fa-trophy sidebar-icon"></i> Challenges
+                </a>
+            </li>
+            <li>
+                <a href="oxygen game.html">
+                    <i class="fas fa-gamepad sidebar-icon"></i> OXYGEN GAMES
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -579,7 +606,7 @@
                                 <div class="condition-icon">
                                     <i class="fas fa-money-bill-wave"></i>
                                 </div>
-                                <div class="condition-text">1500 DZD</div>
+                                <div class="condition-text">2000 DZD</div>
                             </div>
                         </li>
                         <li>
@@ -613,7 +640,7 @@
                             <div class="medal-container">
                                 <span class="medal gold-medal">🥇</span>
                             </div>
-                            1-St: <span class="prize-amount">15,000.<small>00</small><span class="currency">DZD</span></span>
+                            1-St: <span class="prize-amount">20,000.<small>00</small><span class="currency">DZD</span></span>
                         </li>
                         <li>
                             <div class="medal-container">
@@ -704,6 +731,13 @@
             stagger: 0.1,
             ease: 'power2.out'
         }, "-=0.3");
+        tl.from('.sidebar-icon', {
+            x: -20,
+            opacity: 0,
+            stagger: 0.1,
+            ease: 'elastic.out(1, 0.5)',
+            duration: 0.8
+        }, "-=0.5");
 
         menuToggle.addEventListener('click', () => {
             tl.play();
@@ -1031,7 +1065,7 @@
                     form.reset();
 
                     setTimeout(() => {
-                        window.location.href = 'thnks.html';
+                        window.location.href = 'thanks.html';
                     }, 3000);
                 } else {
                     throw new Error('Server returned an error: ' + responseText);
