@@ -729,15 +729,27 @@
             text-decoration: none;
             text-transform: uppercase;
             transition: color 0.3s, letter-spacing 0.3s;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             border-bottom: 2px solid transparent;
             padding-bottom: 5px;
+        }
+
+        .sidebar-menu a i {
+            font-size: 1.2em;
+            color: var(--main-color);
+            transition: transform 0.3s ease;
         }
 
         .sidebar-menu a:hover {
             color: var(--main-color);
             letter-spacing: 2px;
             border-bottom: 2px solid var(--main-color);
+        }
+
+        .sidebar-menu a:hover i {
+            transform: scale(1.2);
         }
 
         .menu-toggle {
@@ -830,10 +842,10 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-            <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+            <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            <li><a href="challenges.html"><i class="fas fa-trophy"></i> Challenges</a></li>
+            <li><a href="oxygen game.html"><i class="fas fa-gamepad"></i> OXYGEN GAMES</a></li>
         </ul>
     </div>
     
@@ -1213,9 +1225,17 @@ Venez rencontrer des personnes motivées et passionnées 🔥 <br> et vivez une 
         });
         tl.from(sidebarMenuItems, {
             y: 20,
-            opacity: 1,
+            opacity: 0,
             stagger: 0.1,
-            ease: 'power2.out'
+            ease: 'power2.out',
+            onStart: () => {
+                sidebarMenuItems.forEach(item => {
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        gsap.from(icon, { scale: 0, duration: 0.3, ease: 'bounce.out' });
+                    }
+                });
+            }
         }, "-=0.3");
 
         menuToggle.addEventListener('click', () => {
