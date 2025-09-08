@@ -148,6 +148,18 @@
             border-bottom: 2px solid var(--main-color);
         }
 
+        .sidebar-menu .sidebar-icon {
+            margin-right: 15px;
+            font-size: 1.5em;
+            color: var(--main-color);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-menu a:hover .sidebar-icon {
+            transform: scale(1.2);
+            color: var(--orange-light);
+        }
+
         .menu-toggle {
             position: fixed;
             top: 20px;
@@ -374,10 +386,26 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-close-btn" id="sidebar-close">&times;</div>
         <ul class="sidebar-menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-            <li><a href="oxygen game.html">OXYGEN GAMES</a></li>
+            <li>
+                <a href="index.html">
+                    <i class="fas fa-home sidebar-icon"></i> Accueil
+                </a>
+            </li>
+            <li>
+                <a href="gallery.html">
+                    <i class="fas fa-images sidebar-icon"></i> Gallery
+                </a>
+            </li>
+            <li>
+                <a href="challenges.html">
+                    <i class="fas fa-trophy sidebar-icon"></i> Challenges
+                </a>
+            </li>
+            <li>
+                <a href="oxygen game.html">
+                    <i class="fas fa-gamepad sidebar-icon"></i> OXYGEN GAMES
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -562,6 +590,13 @@
             stagger: 0.1,
             ease: 'power2.out'
         }, "-=0.3");
+        tl.from('.sidebar-icon', {
+            x: -20,
+            opacity: 0,
+            stagger: 0.1,
+            ease: 'elastic.out(1, 0.5)',
+            duration: 0.8
+        }, "-=0.5");
 
         menuToggle.addEventListener('click', () => {
             tl.play();
